@@ -1,0 +1,150 @@
+<div ng-if="pageuiOption.viewByUser">
+	<div class="widget" data-ng-show="propertyAccess.propertyAccessGroupByUser.length==0">
+		<div class="widget-body">
+			<div class="row">
+				<div class="col-xs-12">
+					<p>You have not delegated any properties yet. Please click on <a ui-sref=".adduser">"Add Delegate"</a> to setup a delegate profile.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="widget" data-ng-show="propertyAccess.propertyAccessGroupByUser.length>0">
+		<div class="widget-header">
+			<h4 class="widget-caption toast-title">Delegated User(s)</h4>
+		</div>
+
+		<div class="widget-body backGroundWhite">
+
+			<div class="row margin-bottom-5  no-margin-right">
+				<div class="col-sm-4">
+					<span class="input-icon"> <input type="text" class="form-control" id="fontawsome-search"
+						placeholder="Type to search delegates" ng-model="filterObjUser.text"> <i
+						class="glyphicon glyphicon-search circular blue"></i>
+					</span>
+				</div>
+			</div>
+			<div class="widget"
+				data-ng-repeat="user in propertyAccess.propertyAccessGroupByUser | filter:{username:filterObjUser.text}">
+				<div class="widget-header ">
+					<i class="widget-icon fa fa-user"></i>
+					<h6 class="widget-caption">{{user.username}}</h6>
+					<div class="widget-buttons">
+						<a href="" widget-collapse=""><i class="fa fa-minus"></i></a>
+					</div>
+				</div>
+				<div class="widget-body">
+					<div class="row no-margin-left no-margin-right margin-top-10 margin-bottom-10">
+						<div class="col-sm-6">
+							Access to: <strong>{{user.properties.length}} Properties</strong>
+						</div>
+						<div class="pull-right ">
+							<button class="btn btn-primary " ng-click="fnManageDelegateUser(user)">Assign Property</button>
+							<button id="revoke" class="btn btn-primary" popover-append-to-body="true"
+								uib-popover-template="'app/views/partials/delegate/revoke.html'" popover-placement="top"
+								data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="focus"
+								ng-disabled="countChecked(user.properties) == 0" ng-click="setPopover($event)">Remove</button>
+							<button class="btn btn-primary" popover-append-to-body="true"
+								uib-popover-template="'app/views/partials/delegate/revokeall.html'" popover-placement="top"
+								data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="click" ng-click="setPopover($event)">Remove
+								All</button>
+						</div>
+					</div>
+					<div class="table-scrollable">
+						<table class="table table-hover table-striped table-bordered table-condensed">
+							<thead class="flip-content">
+								<th class="text-center">#</th>
+								<th class="text-center">Select</th>
+								<th>Property Name</th>
+								<th>Address</th>
+								<th>Role&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+									title="Previledge to manage this property." style="cursor: pointer;" tooltip></i></th>
+								<th class="text-center">Status</th>
+								<th>Delegated User(s)</th>
+							</thead>
+
+							<tbody>
+								<tr data-ng-repeat="userProperty in user.properties track by $index">
+
+									<td class="text-right">{{$index+1}}</td>
+									<td class="text-center"><div class="checkbox">
+											<label> <input type="checkbox" checked="checked" ng-model="userProperty.selected"> <span
+												class="text">&nbsp;</span>
+											</label>
+										</div></td>
+									<td>
+										<div class="row">
+											<div class="col-xs-4">
+												<div class="avatar-area">
+													<img ng-if="userProperty.hasImage" ng-src="{{ApplConfig.apiServerEndpoint}}/Property/{{userProperty.propertyId}}/image"
+														onerror="this.src='img/home-light.jpg'" style="width: 45px; height: 45px;"><img style="width: 45px; height: 45px;"
+															ng-if="!userProperty.hasImage" src='img/home-light.jpg' class="img-rounded img-responsive">
+												</div>
+											</div>
+											<div class="col-xs-8" ng-click="setDelegateFilter(userProperty.propertyId)">
+												<a class="blue"
+													ui-sref="app.secure.propertiescustomer({userId:contextParams.userId,customerId:contextParams.customerId})">{{userProperty.propertyName}}
+												</a>
+											</div>
+										</div>
+									</td>
+									<td>
+										{{userProperty.address.streetNumber}}&nbsp;{{userProperty.address.streetName}}<br /> <span class="text-muted">{{userProperty.address.city}}
+											({{userProperty.address.province}}), {{userProperty.address.postalCode}}</span>
+									</td>
+
+									<td>
+										<div data-ng-repeat="userProfile in userProperty.userAccessDetails track by $index">
+											<a data-ng-show="userProfile.userName == user.username && propertyDelegateRoleEditable" href="javascript:void(0);"
+												editable-select="userProfile.accessProfile"
+												e-ng-options="role.value as  role.text for role in OrganizationResource.lovRoles"
+												onaftersave="actionUpdaterPropertyAccessProfileByUser(userProfile, userProperty)">{{userProfile.accessProfile}}<i
+												class="fa fa-edit padding-left-10"></i>&nbsp;<i data-ng-show="userProfile.accessProfile == 'EnergyDelegate'"
+												class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+												title="Energy delegate can only view consumption." style="cursor: pointer;" tooltip></i><i
+												data-ng-show="userProfile.accessProfile == 'AccountDelegate'" class="fa fa-question-circle"
+												data-toggle="tooltip" data-placement="top"
+												title="Account delegate can view both consumption & billing information."
+												style="cursor: pointer;" tooltip></i></a>
+												
+												<span data-ng-show="userProfile.userName == user.username && !propertyDelegateRoleEditable">
+													{{userProfile.accessProfile}}
+													<i data-ng-show="userProfile.accessProfile == 'EnergyDelegate'" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+														title="Energy delegate can only view consumption." style="cursor: pointer;" tooltip></i>
+													<i data-ng-show="userProfile.accessProfile == 'AccountDelegate'" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+														title="Account delegate can view both consumption & billing information." style="cursor: pointer;" tooltip></i>
+												</span>
+										</div>
+									</td>
+
+									<td class="text-center">
+										<div data-ng-repeat="userProfile in userProperty.userAccessDetails track by $index">
+											<span data-ng-show="userProfile.userName == user.username && userProfile.status == 'Active'"
+												data-toggle="tooltip" data-placement="top"
+												title="Active till {{userProfile.expiryDate |date:'MMM dd, yyyy'}}" tooltip>{{userProfile.status}}</span> 
+											<span data-ng-show="userProfile.userName == user.username && userProfile.status != 'Active'" data-toggle="tooltip"
+												data-placement="top" title="Activation pending with delegator." tooltip>{{userProfile.status}}&nbsp;
+												<a href="" ng-click="fnReSendActivationEmail(user, userProperty.propertyId)"><strong>Resend Email</strong></a>
+											</span>
+										</div>
+									</td>
+
+
+									<td>
+										<div data-ng-show="(userProperty.userAccessDetails.length) > 1">
+											<a href="javascript:void(0);" class="blue" popover-append-to-body="true"
+												uib-popover-template="'app/views/partials/delegate/popover.html'" popover-placement="left"
+												data-titleclass="bordered-blue" popover-title="Delegate Details" popover-trigger="'mouseenter'">{{userProperty.userAccessDetails.length-1}}
+												more</a> user(s)
+										</div>
+										<div data-ng-show="(userProperty.userAccessDetails.length) == 1" class="text-muted">No other delegate</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

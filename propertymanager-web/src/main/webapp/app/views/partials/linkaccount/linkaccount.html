@@ -1,0 +1,27 @@
+<div>
+	<div>
+		<h4 class="text-info">
+			Link Account/Customer:<input type="text" name="customerId" data-ng-model="user.customerId" maxlength="20" required
+				placeholder="Customer ID" />
+		</h4>
+		<div class="horizontal-space"></div>
+		<div class="horizontal-space"></div>
+		<div class="col-xs-12">
+			<div class="col-xs-3 checkbox" ng-repeat="app in hostedApps">
+				<label> <input type="checkbox" class="colored-primary" required ng-model="app.selected" value="{{app.code}}"><span
+					class="text darkgray">{{app.label}}</span>
+				</label>
+			</div>
+			<button type="button" class="btn btn-sky" ng-click="linkAccount()" id="linkaccount">Link</button>
+			<div class="horizontal-space"></div>
+		</div>
+		<div class="col-xs-12">
+			<div ng-show="global.transaction.status">{{global.transaction.message }}</div>
+		</div>
+	</div>
+	<div class="modal-body" data-ng-hide="user">
+		<div ng-show="global.transaction.status">{{global.transaction.message }}</div>
+	</div>
+	<br/><br/><br/>
+	<p>This page in beta:: after link , logout and login again in order to work as Property Owner...! </p>
+</div>

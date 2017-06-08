@@ -1,0 +1,67 @@
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" data-ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">Change Email</h4>
+	</div>
+	<div class="modal-body">
+		<form name="uiform" class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="userName" class="col-sm-3 control-label no-padding-right">Login Email:&nbsp;</label>
+				<div class="col-sm-9 padding-5">{{user.username}}</div>
+			</div>
+			<div class="form-group">
+				<label for="email" class="col-sm-3 control-label no-padding-right">New Email:&nbsp;</label>
+				<div class="col-sm-9">
+
+					<div class="row no-margin-right">
+						<input type="text" class="form-control" placeholder="yourname@mail.com" id="email" name="email"
+							data-ng-model="userform.username" required="required"
+							pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$">
+						<div data-ng-messages="uiform.email.$error" role="alert" class="text-danger"
+							data-ng-show="uiform.email.$touched">
+							<div data-ng-message="required">Please enter a value for this field.</div>
+							<div data-ng-message="pattern">Please enter a valid email</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="emailConfirm" class="col-sm-3 control-label no-padding-right">Confirm Email:&nbsp;</label>
+				<div class="col-sm-9">
+
+					<div class="row no-margin-right">
+						<input type="text" class="form-control" placeholder="yourname@mail.com" id="email" name="emailConfirm"
+							data-ng-model="userform.usernameConfirm" required="required" ng-paste="$event.preventDefault()"
+							pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$">
+						<div data-ng-messages="uiform.emailConfirm.$error" role="alert" class="text-danger"
+							data-ng-show="uiform.emailConfirm.$touched">
+							<div data-ng-message="required">Please enter a value for this field.</div>
+							<div data-ng-message="pattern">Please enter a valid email.</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-sm-offset-3 col-sm-9">
+					<p role="alert" class="text-danger" data-ng-show="uiform.$touched || uiform.$invalid && uiform.$dirty ">Please
+						enter all required filed.</p>
+				</div>
+			</div>
+
+			<div class="row-message">
+				<br />
+				<p>Changes to your Login Email Address will only be finalized once you click on the authentication link in the
+					email that will be sent to the new email address you provide. An email will also be sent to your current Login
+					Email Address to remind or notify you of this change.</p>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-lg" data-ng-click="close()">Cancel</button>
+		<button type="submit" class="btn btn-success btn-lg" name="add" ng-disabled="uiform.$invalid"
+			data-ng-click="actionUpdateEmail()">Change</button>
+	</div>
+</div>

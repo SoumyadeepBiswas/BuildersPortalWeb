@@ -1,0 +1,22 @@
+
+
+
+
+
+<div class="navbar {{settings.fixed.navbar ? 'navbar-fixed-top' : ''}}"
+	data-ng-include=" 'uxp/layout/partials/navbar.html' "></div>
+<div class="main-container container-fluid" data-blocking-loading ng-model="global.transaction">
+	<div class="page-container">
+		<div class="page-sidebar {{settings.fixed.sidebar ? 'sidebar-fixed' : ''}}" id="sidebar"
+			data-ng-include=" 'uxp/layout/partials/sidebar.html' "></div>
+		<div class="page-content">
+			<div class="page-header position-relative {{settings.fixed.header ? 'page-header-fixed' : ''}}"
+				data-ng-include=" 'uxp/layout/partials/header.html' "></div>
+			<div class="page-body" id="page-body-id" style="margin-top: -3%" ui-view autoscroll="false">
+                <!-- Your Content Goes Here -->
+            </div>
+		</div>
+	</div>
+</div>
+<div data-ng-include=" 'uxp/layout/partials/footer.html' " style="background-color: #000 !important; width: 100%; overflow: hidden; position: relative; z-index: 2"></div>
+<toaster-container toaster-options="{'position-class': 'toast-center', 'close-button':true,'time-out': 3000}"></toaster-container>

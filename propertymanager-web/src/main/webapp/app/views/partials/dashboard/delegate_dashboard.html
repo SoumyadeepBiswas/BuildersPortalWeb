@@ -1,0 +1,138 @@
+<style>
+.databox .highcharts-title {
+	font-size: 24px !important;
+}
+</style>
+<section class="row">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-header">
+				<span class="widget-caption">Profile</span>
+			</div>
+			<div class="widget-body ">
+				<div class="row">
+					<div class=" col-sm-6">
+						<div class="col-xs-12">
+							<span class="font-140">{{workingCustomer|legalName}}</span>
+						</div>
+						<div class=" col-xs-12 ">
+							<strong>Customer Number:<br></strong>{{workingCustomer.customerId}}
+						</div>
+						<div class="col-sm-6">
+							<p>
+								<strong>Residential Phone:<br></strong> {{workingCustomer.phoneNumbers|phoneNumber:'RESIDENTIAL'}}
+							</p>
+
+							<p>
+								<strong>Mailing Address:<br></strong>{{workingCustomer.mailingAddress.streetNumber}}&nbsp;{{workingCustomer.mailingAddress.streetName}}<br />
+								{{workingCustomer.mailingAddress.city}},&nbsp;{{workingCustomer.mailingAddress.province}},&nbsp;{{workingCustomer.mailingAddress.postalCode}}
+							</p>
+						</div>
+						<div class=" col-sm-6 ">
+							<strong>Business Phone:<br></strong> {{workingCustomer.phoneNumbers|phoneNumber:'BUSINESS/WOR'}}
+						</div>
+					</div>
+					<div class="col-sm-6" data-ng-controller="ProfileCtrl">
+						<form class="form-horizontal1" role="form">
+							<div class="form-group">
+
+								<label for="notificationEmail">Notification Email:</label>
+								<div class="checkbox">
+									<label><input type="checkbox" class="no-padding-bottom" ng-model="notificationEmailCheck"><span class="text"> Same as my
+											login email </span></label>
+								</div>
+								<input id="notificationEmail" type="text" class="form-control" placeholder="yourname@mail.com" ng-model="notificationEmailData" ng-change="updatedValue(notificationEmailData)">
+							</div>
+							<div class="form-group">
+								<label> <input type="checkbox" ng-change="updatedChkMoveValue(checkboxMoves);actionMovesCheck()" ng-model="checkboxMoves"> <span
+									class="text">Notify me about moves</span> <i class="fa fa-question-circle" data-toggle="tooltip"
+									data-placement="top" title="Notify me about moves" style="cursor: pointer;" tooltip></i></label>
+							</div>
+							<div class="form-group">
+								<label> <input type="checkbox" ng-change="updatedChkDisconnectedValue(checkboxDisconnected);actionDisconnectedCheck()" ng-model="checkboxDisconnected"> <span
+									class="text">Notify me about disconnections</span> <i class="fa fa-question-circle" data-toggle="tooltip"
+									data-placement="top" title="Notify me about disconnections" style="cursor: pointer;" tooltip></i></label>
+							</div>
+						</form>
+
+						<div class="alert alert-success fade in" id="message" style="margin-top: -20px" ng-show="show ==true">
+							<button class="close" data-dismiss="alert">x</button>
+							<i class="fa-fw fa fa-check"></i> <strong>Success</strong> Your changes has been updated.
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+<section class="row">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-body ">
+				<div class="databox databox-xxlg  databox-vertical transparent">
+					<div class="databox-bottom no-padding">
+						<div class="databox-row row-12">
+							<div class="databox-cell cell-4 no-padding text-align-center">
+								<div class="databox-top">
+									<div class="databox-text">
+										<h3>
+											<a ui-sref="app.properties({userId:contextParams.userId,customerId:contextParams.customerId})">Properties</a>
+										</h3>
+									</div>
+								</div>
+								<div class="databox-bottom bordered-right-1 bordered-platinum">
+
+									<div data-ng-show="propertySummary==null" class="text-info">
+										<h3>No Property associated with your Profile</h3>
+									</div>
+									<div id="donut-chart-property" class="chart chart-md" data-ng-show="propertySummary"></div>
+								</div>
+							</div>
+							<div class="databox-cell cell-4 no-padding text-align-center  ">
+								<div class="databox-top">
+									<div class="databox-row row-2">
+										<div class="databox-text">
+											<h3>
+												<a ui-sref="app.properties({userId:contextParams.userId,customerId:contextParams.customerId})">Disconnected
+													Services</a>
+											</h3>
+										</div>
+									</div>
+								</div>
+								<div class="databox-bottom bordered-right-1 bordered-platinum">
+									<div data-ng-show="serviceDisconectSummary==null" class="text-info">
+										 <div id="donut-chart-disconnected" class="chart chart-xs chart-md" data-ng-show="true"></div>
+									</div>
+									<div id="donut-chart-disconnected" class="chart chart-xs chart-md" data-ng-show="serviceDisconectSummary"></div>
+								</div>
+							</div>
+							<div class="databox-cell cell-4 no-padding text-align-center">
+								<div class="databox-top">
+									<div class="databox-row row-12">
+										<div class="databox-text">
+											<h3>
+												<a ui-sref="app.properties({userId:contextParams.userId,customerId:contextParams.customerId})">Pending
+													Moves</a>
+											</h3>
+										</div>
+									</div>
+								</div>
+								<div class="databox-bottom">
+									<div data-ng-show="pendingMoveSummary==null" class="text-info">
+										 <div id="donut-chart-moves" class="chart chart-xs chart-md" data-ng-show="true"></div>
+									</div>
+									<div id="donut-chart-moves" class="chart chart-xs chart-md" data-ng-show="pendingMoveSummary"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+

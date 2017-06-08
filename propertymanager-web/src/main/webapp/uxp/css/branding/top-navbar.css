@@ -1,0 +1,125 @@
+.mynavbar {
+	min-height: 120px !important;
+	webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.59);
+	-moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.59);
+	box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.30);
+}
+
+/**
+* Inner Nav Bar Height Adjustmet
+**/
+.mynavbar-inner {
+	min-height: 50px !important;
+	max-height: 50px !important;
+}
+
+/**
+* LH LOGO Height and Position on Nav Bar
+**/
+.lhlogo img {
+	height: 80px !important;
+	width: 46px !important;
+	margin-top: 15px;
+	margin-left: 10px;
+}
+/**
+* Overwriting Beyond CSS
+**/
+/* .navbar {
+	height: 120px !important;
+	min-height: 120px !important;
+} */
+
+.navbar .mynavbar-external {
+	border: 0;
+	-webkit-border-radius: 0;
+	-webkit-background-clip: padding-box;
+	-moz-border-radius: 0;
+	-moz-background-clip: padding;
+	border-radius: 0;
+	background-clip: padding-box;
+	margin: 0;
+	padding-left: 0;
+	padding-right: 0;
+	min-height: 70px;
+	position: relative;
+	background: linear-gradient(to bottom, #f6f6f6 0%, #f0f0f0 70%, #e9e9e9 100%);
+	z-index: -1;
+}
+.btn-xlg {
+    line-height: 2.2;
+    padding: 9px 18px;
+    font-size: 14px;
+}
+.btn-darkred, .btn-darkred:focus {
+    background-color: #B20838 !important;
+    border-color: #B20838;
+    color: #fff;
+}
+@media only screen and (max-width: 530px){
+	.navbar .navbar-inner .navbar-header{
+ 		float: left !important;
+	}
+}
+.breadcrumb{
+	padding-top: 5px !important;
+}
+
+@media only screen and (max-width: 768px){
+	.button-showhide
+	{
+		display: block !important;
+	}
+	.dropdown-menu
+	{
+	   width:100%;
+       animation-name: dropdownSlideInDown;
+       animation-duration: .5s;
+       box-shadow: 0 2px 40px rgba(0,0,0,.4);
+       transition: opacity .218;
+	}
+	.collapse-icon
+	{
+		  display: inline-block;
+		  cursor: pointer;
+		  font-size: 20px;
+		  color: #444;
+		  padding: 11px 5px;
+		  line-height: 22px;
+		  position: relative;
+		  -webkit-transition: background-color 0.218s ease;
+		  -moz-transition: background-color 0.218s ease;
+		  -o-transition: background-color 0.218s ease;
+		  transition: background-color 0.218s ease;
+		  -webkit-transition: -webkit-box-shadow 0.218s ease;
+		  -moz-transition: -moz-box-shadow 0.218s ease;
+		  -o-transition: box-shadow 0.218s ease;
+		  transition: box-shadow 0.218s ease;
+		  -webkit-transition: color 0.318s ease;
+		  -moz-transition: color 0.318s ease;
+		  -o-transition: color 0.318s ease;
+		  transition: color 0.318s ease;
+	}
+	.collapse-icon:hover
+	{
+		  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+		  -moz-box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+		  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+	}
+
+	}
+.button-showhide
+	{
+		display: none;
+	}
+@media only screen and (max-width: 425px){	
+    .dropdown-mobiledevice
+    
+    {
+    	top: 30px !important;
+    	left: 0px !important;
+    }
+}
+.navbar .sidebar-collapse .collapse-icon{
+	color: #444;
+}

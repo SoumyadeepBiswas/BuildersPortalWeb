@@ -1,0 +1,489 @@
+<style>
+.property-summary.databox-right[class*="bg-"] {
+	color: inherit;
+}
+
+a.editable-click {
+	border-bottom: none;
+}
+
+.avatar-area>img {
+	max-width: 100%;
+	max-height: 200px;
+}
+
+.fileUpload {
+	width: 80%;
+	position: relative;
+	overflow: hidden;
+	margin: 10px;
+	filter: alpha(opacity = 0.2);
+	position: relative;
+}
+
+.fileUpload input.upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+}
+
+.lh-show-units .fa:after {
+	content: "Show";
+	padding-left: 10px;
+	font-weight: bold;
+	font-size: 25px !important;
+}
+</style>
+<div ui-view="child"></div>
+<section class="padding-top-20"
+	data-ng-show="$toState.name == 'app.secure.properties'||$toState.name == 'app.secure.propertiescustomer'">
+
+	<div data-ng-show="properties.length == 0">
+		<!-- <strong>Sorry you do not have any properties to view.</strong> -->
+		<strong>The account holder has not assigned you any properties, please contact them to gain access.</strong>
+	</div>
+	<div class="row margin-bottom-5 " data-ng-show="properties.length>0">
+		<div class="col-sm-8">
+			<div class="row">
+				<div class="col-sm-10">
+					<span class="input-icon"> <input type="text" class="form-control" id="fontawsome-search"
+						placeholder="Search a Property with Property name or property address" data-ng-model="filterObjProperty.text" ng-change="applyFilter()">
+						<i class="glyphicon glyphicon-search circular blue"></i>
+					</span>
+				</div>
+				<div class="col-sm-2">
+					<a href="" style="font-weight: bold; font-size: 15px;" id="advanced_filter_opener" data-toggle="collapse"
+						data-target="#advanced_filter" ng-click="showhideAdvanced()">Advanced</a><a href="" id="f_close"
+						data-toggle="collapse" data-target="#advanced_filter" ng-click="showhideAdvancedClose()"
+						style="display: none; font-weight: bold; font-size: 15px;">Advanced&nbsp;&nbsp;<i class="fa fa-close"></i></a>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 padding-top-10 ">
+			<div class="pull-right">
+				<a class="btn btn-primary " ui-sref=".map"><i class="fa fa-map-marker"></i>Map View</a> <a class="btn btn-primary "
+					data-toggle="tooltip" data-placement="top" title="Download properties as CSV file." data-download
+					data-download-option="propertyDataDownload" data-ng-model="properties" tooltip><i class="fa fa-download"></i>Download</a>
+			</div>
+		</div>
+	</div>
+	<div id="advanced_filter" class="collapse row"
+		style="background-color: #dfdfdf; margin-left: 0px; margin-right: 0px; padding-bottom: 10px;">
+		<div class="col-xs-12 bordered-bottom bordered-darkorange padding-top-10 padding-bottom-5">
+			<div class="col-sm-3">
+				<label> <input type="checkbox" class="inverted" checked="checked" ng-model="propertyFilter.disconnected">
+					<span class="text">Disconnected Service</span>
+				</label>
+			</div>
+			<div class="col-sm-3">
+				<label> <input type="checkbox" class="inverted" checked="checked" ng-model="propertyFilter.pendingMoves">
+					<span class="text">Pending Move</span>
+				</label>
+			</div>
+			<div class="col-sm-3 col-sm-offset-right-3 pull-left">
+				<label> <input type="checkbox" class="inverted" checked="checked" ng-model="propertyFilter.ownerOccupancy">
+					<span class="text">Owner Occupancy</span>
+				</label>
+			</div>
+		</div>
+		<div class="col-xs-12 bordered-bottom bordered-darkorange padding-top-5 padding-bottom-10">
+			<div class="col-sm-2" ng-show="checkDynamically('Commercial')">
+				<label> <input type="checkbox" ng-model="Commercial"> <span class="text">Commercial</span>
+				</label>
+			</div>
+			<div class="col-sm-2" ng-show="checkDynamically('Multi-Unit')">
+				<label> <input type="checkbox" ng-model="MultiUnit"> <span class="text">Multi-Unit (2-6)</span>
+				</label>
+			</div>
+			<div class="col-sm-2" ng-show="checkDynamically('House')">
+				<label> <input type="checkbox" ng-model="House"> <span class="text">House</span>
+				</label>
+			</div>
+			<div class="col-sm-2" ng-show="checkDynamically('Town House')">
+				<label> <input type="checkbox" ng-model="TownHouse"> <span class="text">Town House</span>
+				</label>
+			</div>
+			<div class="col-sm-2" ng-show="checkDynamically('High Rise')">
+				<label> <input type="checkbox" ng-model="HighRise"> <span class="text">High Rise</span>
+				</label>
+			</div>
+			<div class="col-sm-2" ng-show="checkDynamically('Not Classified')">
+				<label> <input type="checkbox" ng-model="NotClassified"> <span class="text">Not Classified</span>
+				</label>
+			</div>
+		</div>
+		<div class="col-sm-4 pull-right">
+			<button class="btn btn-primary" style="z-index: 12" ng-click="actionApply()">Apply</button>
+			<button class="btn btn-primary" style="z-index: 12" ng-click="actionReset()">Reset</button>
+		</div>
+
+
+		<div class="col-xs-12 margin-bottom-5 " ng-if="propertyFilter.$applied">
+			<div class="col-xs-12 bg-info" ng-if="properties.length <= pageSize">
+				<h4 class=" text-warningpadding-left-10">Viewing {{properties.length}} of {{propertyFilter.size()}} properties.</h4>
+			</div>
+			<div class="col-xs-12 bg-info" ng-if="properties.length > pageSize">
+				<h4 class=" text-warningpadding-left-10">Viewing {{$filterProperties.length}} of {{properties.length}}  properties. 
+				Click <a href="" ng-click="chanePageSize(0)">Show All</a> to view {{properties.length}} properties.</h4>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 margin-bottom-5" ng-if="propertyFilter.$applied ==false && propertyFilter.size() > pageSize">
+			<div class="col-xs-12 bg-info">
+				<h4 class=" text-warningpadding-left-10">Viewing {{$filterProperties.length}} of
+					{{propertyFilter.size()}} properties. Use search feature to view other properties.&nbsp;<a href="" ng-click="chanePageSize(0)">Show All</a></h4>
+			</div>
+		</div>
+	</div>
+	<div class="row no-margin-left no-margin-right margin-top-10" data-ng-show="properties.length>0">
+		<div id="propertyList" class="widget collapsed"
+			data-ng-repeat="property in properties | gpropertyFilter:filterObjProperty | limitTo:pageSize as $filterProperties ">
+			<div class="widget-header text-align-left no-padding">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="col-sm-2 bg-blueberry bordered-blueberry bordered-right-2">
+							<div class="row avatar-area">
+								<img id="blah" class="img-rounded img-responsive" ng-if="property.hasImage"
+									ng-src="{{ApplConfig.apiServerEndpoint}}/Property/{{property.propertyId}}/image?v={{property.version}}"
+									onerror="this.src='img/home-light.jpg'" class="avatar transparent"> <img
+									class="img-rounded img-responsive" ng-if="!property.hasImage" src='img/home-light.jpg'
+									class="avatar transparent">
+								<div style="bottom: 0px; position: absolute; width: 100%">
+									<div onchange="readURL(this)"
+										style="position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)"></div>
+									<div ng-click="selectPropety(property)" ng-show="AccessControl.hasAccess(property,'owner')"
+										class="btn-upload-image" style="width: 100%">
+										<span class="fileUpload btn btn-primary"> Upload Image <input type="file" name="file"
+											onchange="angular.element(this).scope().actionUploadImage(this.files)" class="upload" />
+										</span>
+									</div>
+									<input style="visibility: hidden; position: absolute;" id="imgInp" class="form-control" type="file"
+										name="imgInp">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-10  property-summary">
+							<div class="row">
+								<div class="col-xs-12 padding-top-20">
+									<div class="col-sm-7">
+										<h5 class="no-margin-top">
+											<span data-ng-if="property.noOfUnits==1 && property.propertySummary.unitNumber">{{property.propertySummary.unitNumber}}&nbsp;-&nbsp;</span>
+											{{property.address.streetNumber}}&nbsp;{{property.address.streetName}} <br /> <span class="text-muted">
+												{{property.address.city}}&nbsp;{{property.address.province}}&nbsp;<span class="text-nowrap">
+													{{property.address.postalCode}}</span>
+											</span>
+										</h5>
+										<div>
+											<h6>
+												<label><strong>Property Name:</strong></label> <a href="javascript:void(0);"
+													editable-text="property.propertyName" ng-show="AccessControl.hasAccess(property,'owner')"
+													onaftersave="actionPatchNickname(property)">{{ property.propertyName || 'Add/Edit' }} <i
+													class="fa fa-edit padding-left-10"></i>
+												</a> <span class="blue" ng-hide="AccessControl.hasAccess(property,'owner')">{{property.propertyName}}</span>
+											</h6>
+											<div class="text-danger" id="maxlen-{{property.propertyId}}" style="display: none;">Property name
+												should contain 1 to 60 characters.</div>
+
+											<div class="text-danger" id="alphaNumeric-{{property.propertyId}}" style="display: none;">Property name
+												must be alphanumeric.</div>
+										</div>
+										<h6>
+											<label><strong>Property Classification:</strong></label> <a href="javascript:void(0);"
+												ng-show="AccessControl.hasAccess(property,'owner')" editable-select="property.propertyClassification"
+												e-ng-options="s.value as s.text disable when s.value == 'Not Classified'  for s in PropertyResource.classificationList "
+												onaftersave="actionPatchClassification(property)"> <span
+												data-ng-repeat="classification in PropertyResource.classificationList"> <span
+													ng-if="classification.value ==  property.propertyClassification">{{classification.text}}</span>
+											</span> <i class="fa fa-edit padding-left-10"></i>
+											</a> <span class="blue" ng-hide="AccessControl.hasAccess(property,'owner')"> <span
+												data-ng-repeat="classification in PropertyResource.classificationList"> <span
+													ng-if="classification.value ==  property.propertyClassification">{{classification.text}}</span>
+											</span>
+											</span>&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+												title="Classification is based on your water service. If this is not correct please contact customer service."
+												style="cursor: pointer;" tooltip></i>
+										</h6>
+									</div>
+
+
+									<div class="col-sm-5">
+										<div class="pull-right" ng-show="property.accessProfile != null">
+											<span class="badge alert-danger ">{{property.accessProfile}}</span>
+										</div>
+										<div ng-if="property.noOfUnits > 1" class="radius-bordered">
+											<div class="databox-number number-xxlg sonic-silver">
+												<h3>
+													{{property.noOfUnits}} Units &nbsp;&nbsp;<i class="fa fa-spinner fa-spin fa-fw"
+														ng-if="$isNotResolved(property.allUnits)"></i><a href="" data-ng-show="property.noOfUnits>0"
+														data-ng-click="actionGetUnitDetails(property)" widget-expand class="lh-show-units"></a>
+												</h3>
+											</div>
+										</div>
+										<div ng-if="property.noOfUnits==1" class="radius-bordered">
+											<div class="databox-number number-xxlg sonic-silver">
+												<h6>
+													<a
+														data-ui-sref=".detail({userId:contextParams.userId,customerId:contextParams.customerId,propertyId:property.propertyId})"
+														class="blue" data-ng-click="selectUnit(property,null,$index)"> <i class="fa fa-bar-chart"
+														aria-hidden="true"></i>&nbsp;Consumption Details
+													</a>
+												</h6>
+											</div>
+											<div class="databox-number number-xxlg sonic-silver">
+												<h6>
+													<a ui-sref="app.secure.myaccount" class="blue" target="_mylh"
+														ng-if="property.propertySummary.tenantOccupied != 0"> <i class="fa fa-truck" aria-hidden="true"></i>&nbsp;Owner
+														Move-in
+													</a>
+												</h6>
+											</div>
+										</div>
+										<dl class="dl-horizontal hidden">
+											<dt>Montly Utility Cost :</dt>
+											<dd>$---</dd>
+											<dt>Utility Cost Per Unit</dt>
+											<dd>$---</dd>
+										</dl>
+										<button class="btn btn-primary btn-lg hidden">Share to PM</button>
+									</div>
+									
+									<div class="col-sm-12">
+										<label class="pull-right"> <span class="text-nowrap"> <i
+												class="glyphicon glyphicon-flash" style="color: #C0504D;"></i>ELECTRIC
+												&nbsp;
+										</span> <span class="text-nowrap"><i
+												class="glyphicon glyphicon-tint blue"></i>WATER</span>
+										</label>
+									</div> 
+								</div>
+							</div>
+							<div class="row">
+								<div class="dashboard-box no-margin-bottom">
+									<div class="box-tabs">
+										<div class="box-visits">
+											<div class="row">
+												<div class="col-sm-3 ">
+													<div class="notification" style="height: 100px">
+														<div class="clearfix">
+															<div class="notification-icon"
+																data-ng-switch="property.noOfUnits - property.propertySummary.tenantOccupied">
+																<i data-ng-switch-when="0" class="fa fa-users palegreen bordered-1 bordered-palegreen"></i> <i
+																	data-ng-switch-default class="fa fa-users yellow bordered-1 bordered-yellow"></i>
+															</div>
+															<div class="notification-body">
+																<span class="title">Occupancy</span> <span class="description"><label
+																	data-ng-switch="property.noOfUnits"> <span data-ng-switch-when="1"
+																		data-ng-switch="property.propertySummary.tenantOccupied"> <span data-ng-switch-when="1">
+																				Tenant occupied</span> <span data-ng-switch-default>Owner occupied</span>
+
+																	</span> <span data-ng-switch-default> Tenant: <span>{{property.propertySummary.tenantOccupied}}</span>
+																			Owner: <span>{{property.noOfUnits - property.propertySummary.tenantOccupied}}</span>
+																	</span></label></span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-3 ">
+													<div class="notification" style="height: 100px">
+														<div class="clearfix">
+															<div class="notification-icon" data-ng-switch="(property.noOfUnits - property.propertySummary.connected)">
+																<i data-ng-switch-when="0" class="fa fa-lightbulb-o palegreen bordered-1 bordered-palegreen"></i> <i
+																	data-ng-switch-default class="fa fa-lightbulb-o orange bordered-1 bordered-orange"></i>
+															</div>
+															<div class="notification-body">
+																<span class="title">Service Status</span> 
+																<span class="description">
+																	<label data-ng-switch="(property.noOfUnits - property.propertySummary.connected)"> 
+																		<span data-ng-switch-when="0">All connected</span> 
+																		<span data-ng-switch-default class="text-warning">{{property.noOfUnits-property.propertySummary.connected}}
+																			disconnected</span>
+																	</label>
+																	<span ng-if="property.noOfUnits==1"><br />
+																		<label>
+																			<span dta-ng-if="property.propertySummary.services.electricity[0]"  class="text-nowrap"> 
+																				<i class="glyphicon glyphicon-flash" style="color: #C0504D;"></i>{{property.propertySummary.services.electricity[0]}} &nbsp; 
+																			</span> 
+																			<span data-ng-if="property.propertySummary.services.water[0]" class="text-nowrap">
+																				<i class="glyphicon glyphicon-tint blue"></i>{{property.propertySummary.services.water[0]}}
+																			</span>
+																		</label>
+																	</span>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-3 ">
+													<div class="notification" style="height: 100px">
+														<div class="clearfix">
+															<div class="notification-icon" data-ng-switch="property.propertySummary.csaSigned">
+																<i data-ng-switch-when="0" class="fa fa-info orange bordered-1 bordered-orange"></i> <i
+																	data-ng-switch-default class="fa fa-info palegreen bordered-1 bordered-palegreen"></i>
+															</div>
+															<div class="notification-body">
+																<span class="title"><label> CSA Enrolled <i class="fa fa-question-circle"
+																		data-toggle="tooltip" data-placement="top" title="Continuous Service Agreement"
+																		style="cursor: pointer;" tooltip></i>
+																</label></span> <span class="description" data-ng-switch="property.propertySummary.csaSigned"> <label> <span
+																		data-ng-switch-when="0" class="text-warning">None</span> <span data-ng-switch-default>{{property.propertySummary.csaSigned}}</span>
+																</label>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-3 ">
+													<div class="notification" style="height: 100px">
+														<div class="clearfix">
+															<div class="notification-icon">
+																<i class="fa fa-exchange palegreen bordered-1 bordered-palegreen"></i>
+															</div>
+															<div class="notification-body">
+																<span class="title"><label>Pending Moves</label></span> <span class="description"
+																	data-ng-switch="property.propertySummary.moveinPending> 0 || property.propertySummary.moveoutPending >0">
+																	<label> <span data-ng-switch-when="true"> Move In: <span>{{property.propertySummary.moveinPending}}</span>
+																			Move Out: <span>{{property.propertySummary.moveoutPending}}</span>
+																	</span> <span data-ng-switch-default class="text-muted">No pending moves</span></label>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row margin-top-10 margin-bottom-10 padding-left-10 hidden">
+								<div class="col-sm-7 ">
+									<dl class="dl-horizontal ">
+										<dt>
+											<label> No of Units :</label>
+										</dt>
+										<dd>
+											<label>{{property.noOfUnits}}</label>
+										</dd>
+										<dt>
+											<label>Occupancy :</label>
+										</dt>
+										<dd data-ng-switch="property.noOfUnits">
+											<label> <span data-ng-switch-when="-1" data-ng-switch="property.propertySummary.tenantOccupied">
+													<span data-ng-switch-when="1"> Tenant occupied</span> <span data-ng-switch-default>Owner occupied</span>
+
+											</span> <span data-ng-switch-default> Tenant: <span>{{property.propertySummary.tenantOccupied}}</span> Owner:
+													<span>{{property.noOfUnits - property.propertySummary.tenantOccupied}}</span>
+											</span></label>
+										</dd>
+										<dt>
+											<label>Service Status :</label>
+										</dt>
+										<dd data-ng-switch="(property.noOfUnits - property.propertySummary.connected)">
+											<label> <span data-ng-switch-when="0">All connected</span> <span data-ng-switch-default
+												class="text-warning">{{property.noOfUnits-property.propertySummary.connected}} disconnected</span></label>
+										</dd>
+										<dt>
+											<label> CSA Enrolled <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+												title="Continuous Service Agreement" style="cursor: pointer;" tooltip></i>:
+											</label>
+										</dt>
+										<dd data-ng-switch="property.propertySummary.csaSigned">
+											<label> <span data-ng-switch-when="0" class="text-warning">None</span> <span data-ng-switch-default>{{property.propertySummary.csaSigned}}</span>
+											</label>
+										</dd>
+										<dt>
+											<label>Pending Moves :</label>
+										</dt>
+										<dd data-ng-switch="property.propertySummary.moveinPending> 0 || property.propertySummary.moveoutPending >0">
+											<label> <span data-ng-switch-when="true"> Move In: <span>{{property.propertySummary.moveinPending}}</span>
+													Move Out: <span>{{property.propertySummary.moveoutPending}}</span>
+											</span> <span data-ng-switch-default class="text-muted">No pending moves</span></label>
+										</dd>
+									</dl>
+								</div>
+								<div class="col-sm-5 padding-right-20">
+									<h3>
+										<a href="" data-ng-show="property.noOfUnits>0" data-ng-click="actionGetUnitDetails(property)" widget-expand
+											class="lh-show-units"></a>
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--Widget Header-->
+			<div ng-include="" src="'app/views/partials/myproperties/properties-units.html'"></div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Confirm Upload Image</h4>
+				</div>
+				<div class="modal-body">
+					<form name="uiform" class="form-horizontal" role="form">
+						<div class="row">
+							<div class="col-xs-12">
+								<p>The Upload image size exceeded 512 KB.</p>
+								<br />
+								<div class="form-group">
+									<label class="col-sm-12"> <input type="checkbox" data-ng-model="confirmUploadImage" required="required">
+										<span class="text"><strong> I would like to render the image to the size limit. I'm sure,
+												upload image.</strong></span>
+									</label>
+								</div>
+
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success btn-lg" data-ng-click="changeConfirmFlag()"
+						ng-disabled="uiform.$invalid">Upload Image</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Greater than 10MB-->
+	<div class="modal fade" id="myModal1" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Upload Image</h4>
+				</div>
+				<div class="modal-body">
+					<form name="uiForm" class="form-horizontal" role="form">
+						<div class="row">
+							<div class="col-xs-12">
+								<p>The Uploaded image file exceeded the permissible file size limit of 10MB. Please try again with a smaller
+									image file.</p>
+								<br />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Greater than 10MB-->
+</section>

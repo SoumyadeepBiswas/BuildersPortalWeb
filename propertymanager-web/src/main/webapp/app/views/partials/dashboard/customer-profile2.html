@@ -1,0 +1,36 @@
+<div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="lh-subtitle bordered-bottom bordered-themesecondary">
+				<label><strong>Customer</strong></label><span ng-if="accessibleCustomers.length>1"> &nbsp;|&nbsp;<a
+				ui-sref="app.secure.userroute({state:$state.current.name,userId:contextParams.userId})" >All Customer Dashboard</a></span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{(workingCustomer|legalName) || (accessibleCustomers[0] | legalName)}}</h4>
+		</div>
+		<div class=" col-xs-12 ">
+			<label><strong>Customer Number</strong></label><br> <label>{{workingCustomer.customerId || accessibleCustomers[0].customerId}}</label>
+		</div>
+		<div class=" col-sm-6 ">
+			<label> <strong>Mailing Address</strong></label><br> 
+			<label>{{workingCustomer.mailingAddress.streetNumber || accessibleCustomers[0].mailingAddress.streetNumber}}&nbsp;
+					{{workingCustomer.mailingAddress.streetName || accessibleCustomers[0].mailingAddress.streetName}}<br />
+					{{workingCustomer.mailingAddress.city || accessibleCustomers[0].mailingAddress.city}},&nbsp;
+					{{workingCustomer.mailingAddress.province || accessibleCustomers[0].mailingAddress.province}},&nbsp;
+					{{workingCustomer.mailingAddress.postalCode || accessibleCustomers[0].mailingAddress.postalCode }}
+			</label>
+			<p data-ng-show="workingCustomer.customerEmails.length > 0"><i class="fa fa-envelope"></i>&nbsp;<label data-ng-repeat="email in workingCustomer.customerEmails | limitTo :1 ">{{email.emailAddress}}</label></p>
+			<p data-ng-show="accessibleCustomers[0].customerEmails.length > 0 && workingCustomer == null"><i class="fa fa-envelope"></i>&nbsp;<label data-ng-repeat="email in accessibleCustomers[0].customerEmails | limitTo :1 ">{{email.emailAddress}}</label></p>
+		</div>
+		<div class="col-sm-6">
+			<p>
+				<label><strong>Phone Numbers</strong></label><br> 
+				<label><i class="fa fa-phone"></i>&nbsp;{{(workingCustomer.phoneNumbers|phoneNumber:'RESIDENTIAL' | phonenumber) || (accessibleCustomers[0].phoneNumbers |phoneNumber:'RESIDENTIAL' | phonenumber) }} (Residential)</label><br> 
+				<label><i class="fa fa-phone"></i>&nbsp;{{(workingCustomer.phoneNumbers|phoneNumber:'BUSINESS/WORK' | phonenumber)|| (accessibleCustomers[0].phoneNumbers | phoneNumber:'BUSINESS/WORK' | phonenumber)}} (Business)</label>
+			</p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,112 @@
+<section class="row" ng-controller="ContactUsController">
+	
+	<div class="col-xs-12" id="contactUs">
+		<div class="widget">
+			<div class="widget-header">
+				<h3 class="widget-caption">Customer Support</h3>
+				<!-- <button class="btn btn-primary pull-right margin-right-10" ng-click="showFAQ()">FAQ</button> -->
+			</div>
+			<div class="widget-body ">
+				<div class="row">
+					<div class=" col-md-8">
+						<div class="lh-subtitle bordered-bottom bordered-themesecondary" style="margin-bottom: 15px">
+							<label><strong>Send Us a Message</strong></label>
+						</div>
+						<div>
+							<form name="uiform" class="form-horizontal" role="form">
+							<div class="row">
+								<div class="col-xs-12  margin-top-10">
+									<div class="col-sm-3"><label><strong>Name:</strong></label></div><div class="col-sm-9"><label>{{workingUser|legalName}}</label></div>
+								</div>
+								<div class=" col-xs-12  margin-top-10 " ng-if="workingUser.customerId != null">
+									<div class="col-sm-3"><label><strong>Customer Id:</strong></label></div><div class="col-sm-9"> <label>{{workingUser.customerId}}</label></div>
+								</div>
+								<div class=" col-xs-12 margin-top-10" ng-if="workingUser.customerId == null">
+									<div class="col-sm-3">
+										<label><strong>Customer Id:</strong></label>
+									</div>
+									<div class="col-sm-9" ng-if="accessibleCustomers.length==1"> 
+										<label>{{accessibleCustomers[0].customerId}}</label>
+									</div>
+									<div class="col-sm-9" ng-show="accessibleCustomers.length>1">
+										<select class="form-control" id="selContactUs" ng-init="selectedId.data = accessibleCustomers[0]"
+											ng-options="s.customerId  for s in accessibleCustomers"
+											data-ng-model= "selectedId.data">
+										</select>
+									</div>
+								</div>
+								<div class=" col-sm-12  margin-top-10">
+									<div class="col-sm-3"><label> <strong>Login Email:</strong></label> </div>
+									<div class="col-sm-9">
+									<label>
+									{{workingUser.username}}
+									</label></div>
+								</div>
+								<div class="col-sm-12  margin-top-10">
+									<div class="col-sm-3">
+										<label><strong>Topic:</strong></label>
+									</div>
+									<div class="col-sm-9">
+										<!-- <select id ="select" class="form-control" data-ng-model="customerTopic" required="required">
+											<option>General Inquiry</option>
+										</select>  -->
+										
+										<select id ="select"  class="form-control" name="contactUsTopic" data-ng-model="customerTopic"
+											data-ng-options="topic.value as  topic.text for topic in contactUsTopics" required="required">
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-12  margin-top-10">
+									<div class="col-sm-3">
+										<label><strong>Message:</strong></label>
+									</div>
+									<div class="col-sm-9">
+										<textarea class="form-control" name="custMessage" rows="6" id="customerMessage"
+											placeholder="Let's know your queries (if any)..." data-ng-model="customerMessage"
+											required="required" ng-minlength="5" ng-maxlength="{{maxLength }}"></textarea>
+											<span style="color: #05713E;" ng-hide="!(customerMessage.length >= 5 && customerMessage.length <= 500)">
+												<strong>{{maxLength - customerMessage.length}}</strong> characters remaining</span>
+											<div data-ng-messages="uiform.custMessage.$error" role="alert"
+												class="text-danger" data-ng-show="uiform.custMessage.$touched">
+												<div data-ng-message="required">Please enter a value for this field.</div>
+												<div data-ng-message="maxlength">Please enter message within 500 characters of length.</div>
+												<div data-ng-message="minlength">Please enter message more than 5 characters of length.</div>
+											</div>
+										</div>
+								</div>
+								<div class="col-sm-12  margin-top-10">
+									<div class="col-sm-3">
+									</div>
+									<div class="col-sm-9">
+										<button type="submit" class="btn btn-success pull-left" name="Send" data-ng-click="sendUserMessage()" ng-disabled="uiform.$invalid || !workingUser.name">Send</button>
+									</div>
+								</div>	
+							</div>
+							</form>
+						</div>
+					</div>
+					<div class=" col-md-4" ui-view="callUs"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12" id="FAQ">
+	
+		<div class="widget">
+			<div class="widget-header">
+				<h3 class="widget-caption">Frequently Asked Questions</h3>
+				<!-- <button class="btn btn-primary pull-right margin-right-10" ng-click="back()">Back</button> -->
+			</div>
+			<div class="widget-body ">
+				<editable-form role="form">
+				<div class="row">
+					<div class="col-sm-12">
+						<div ng-include src="'app/views/partials/contactus/FAQ.html'"></div>
+					</div>
+				</div>
+				
+				</editable-form>
+			</div>
+		</div>
+	</div>
+</section>

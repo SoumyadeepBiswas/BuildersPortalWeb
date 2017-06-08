@@ -1,0 +1,72 @@
+<section class="padding-top-10">
+	<div class="row">
+		<div class="col-xs-2">
+			<a class="blue pull-left" ui-sref="app.secure.delegates({userId:contextParams.userId})"><h5>
+					<strong>&lt;&nbsp;Back</strong>
+				</h5></a>
+		</div>
+		<div class="col-xs-10">
+			<div class="col-sm-6"></div>
+			<div class="pull-right">
+				<button class="btn btn-success btn bg-green" style="height: 40px" data-toggle="tooltip" data-placement="top"
+					title="Add a delegate." tooltip ui-sref=".addmember">
+					<i class="fa fa-user-plus"></i>Add Delegate
+				</button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="padding-top-20">
+
+	<div class="widget">
+		<div class="widget-header">
+			<h3 class="widget-caption">User(s)</h3>
+		</div>
+
+		<div class="widget-body backGroundWhite">
+
+			<table id="dt-orgmembers" datatable="ng" dt-options="dtOrgMember.dtOptions" dt-column-defs="dtOrgMember.dtColumnDefs"
+				class="table table-hover cell-border">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Login Email</th>
+						<th>Name</th>
+						<th>Default Role&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+							title="Role that will be used when user is given access to properties." style="cursor: pointer;" tooltip></i></th>
+						<th>Phone</th>
+						<th>Status</th>
+						<th>Last Login</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="member in organization.members">
+						<td>{{$index+1}}</td>
+						<td>{{member.user.username}}</td>
+						<td>{{member.user|legalName}}</td>
+						<td>
+							<a data-ng-if="member.defaultProfile != 'PropertyOwner'" ui-sref=".manage.useraccess({memberId:member.id})">{{showRoles[member.defaultProfile] || showRoles[newDelegateType] }}</a>
+							
+							<i data-ng-show="member.defaultProfile == 'EnergyDelegate' || (newDelegateType == 'EnergyDelegate' && member.defaultProfile == null)" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+									title="Energy delegate can only view consumption." style="cursor: pointer;" tooltip></i> 
+							<i data-ng-show="member.defaultProfile == 'AccountDelegate' || (newDelegateType == 'AccountDelegate' && member.defaultProfile == null)" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+									title="Account delegate can view both consumption & billing information." style="cursor: pointer;" tooltip></i> 		
+							
+							<span data-ng-if="member.defaultProfile == 'PropertyOwner'"><strong>{{showRoles[member.defaultProfile]}}</strong></span>
+						</td>
+						<td>{{member.user.phoneNumber | phonenumber}}</td>
+						<td>{{member.user.status.value}} </td>
+						<td>{{member.user.lastLoginDate| date:'MMM dd, yyyy'}}</td>
+						<td><span class="action-links"> 
+							<a ui-sref=".manage.editmember({memberId:member.id})" data-ng-if="member.defaultProfile != 'PropertyOwner'"><span ng-click="setNewDelegateData(member)">Edit</span></a>
+							<a href="" ng-click="resendEmail(member.userId)" data-ng-if="member.user.isRegistrationPending()" >Send Activation Mail</a> 
+							<a ui-sref=".manage.deactivate({memberId:member.id})" data-ng-if="member.user.status.value == 'Active' && member.defaultProfile != 'PropertyOwner'">Deactivate</a>
+						</span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>

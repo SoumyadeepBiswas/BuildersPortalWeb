@@ -1,0 +1,57 @@
+<style>
+	h1.heading1{
+		font-family: "Times New Roman", Times, serif;
+		font-size: 18;
+		
+	}
+	.heading3{
+		font-family: "Times New Roman", Times, serif;
+		font-size: 13.5;
+	}
+	.questions{
+		font-size: 12;
+		padding-left: 30px;
+		color: blue;
+		cursor: pointer;
+	}
+	.answers{
+		font-size: 10;
+		padding-left: 50px;
+		padding-bottom: 10px;
+	}
+</style>
+	<div style="margin-left: 50px" data-ng-controller="ContactUsController">
+
+		<div>
+			<h3 class="heading3">Continuous Service Agreement</h3>
+		</div>
+
+		<div data-ng-repeat="data in faqObjects.Continuous_Service_Agreement">
+			<div data-ng-click="showHideContinuousServiceAgreement($index)">
+				<p class=questions>{{data.question}}</p>
+			</div>
+			<div class="answers" id="Continuous_Service_Agreement-{{$index}}" style="display: none;">{{data.answer}}</div>
+		</div>
+		
+		<div>
+			<h3 class="heading3">Move In and Move Outs</h3>
+		</div>
+
+		<div data-ng-repeat="data in faqObjects.Move_In_and_Move_Outs">
+			<div data-ng-click="showHideMoveInandMoveOuts($index)">
+				<p class=questions>{{data.question}}</p>
+			</div>
+			<div class="answers" id="Move_In_and_Move_Outs-{{$index}}" style="display: none;">{{data.answer}}</div>
+		</div>
+		
+		<div>
+			<h3 class="heading3">General</h3>
+		</div>
+
+		<div data-ng-repeat="data in faqObjects.General">
+			<div data-ng-click="showHideGeneral($index)">
+				<p class=questions>{{data.question}}</p>
+			</div>
+			<div class="answers" id="General-{{$index}}" style="display: none;">{{data.answer}}</div>
+		</div>
+	</div>

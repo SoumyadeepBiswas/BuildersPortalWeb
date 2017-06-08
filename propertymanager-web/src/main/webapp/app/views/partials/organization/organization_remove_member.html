@@ -1,0 +1,29 @@
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" data-ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">Remove</h4>
+	</div>
+	<div class="modal-body">
+		<form name="formmember" class="form-horizontal" role="form" data-ng-submit="actionRemoveMemeber()">
+			<div class="form-group">
+				<label for="userName" class="col-sm-3 control-label no-padding-right">User:</label>
+				<div class="col-sm-9 padding-5">{{member.user.userName}}</div>
+			</div>
+			<div class="form-group">
+				<label for="firstName" class="col-sm-3 control-label no-padding-right">Name:</label>
+				<div class="col-sm-9 padding-5">{{member.user|legalName}}</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-offset-3 col-sm-9">
+					<p role="alert" class="text-danger" data-ng-show="formmember.$invalid && formmember.$dirty">Please enter all
+						required filed.</p>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-lg" data-ng-click="close()">Close</button>
+		<button type="submit" class="btn btn-primary btn-lg" name="remove" data-ng-click="actionRemove(member.userId)">Remove</button>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" data-ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">Send Registration Email</h4>
+	</div>
+	<div class="modal-body">
+		<form name="uiform" class="form-horizontal" role="form" data-ng-submit="actionDeactivateMemeber()">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="userName" class="col-sm-2 control-label no-padding-right">Login Email:</label>
+						<div class="col-sm-10 padding-5">
+							<strong>{{user.username}}</strong>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-lg" data-ng-click="close()">Close</button>
+		<button type="submit" class="btn btn-success btn-lg" data-ng-click="actionSendRegistrationEmail()"
+			ng-disabled="uiform.$invalid">Submit</button>
+	</div>

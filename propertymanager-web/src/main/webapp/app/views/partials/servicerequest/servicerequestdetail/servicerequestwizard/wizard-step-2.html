@@ -1,0 +1,167 @@
+<div style="overflow: hidden; height: 350px">
+	<div
+		style="background-image: linear-gradient(to right, #d0d0d0 70%, rgba(255, 255, 255, 0) 0%); background-position: bottom; background-size: 7px 1px; background-repeat: repeat-x">
+		<div>
+			<label> Please select a contact to manage the site service
+				relationship</label>
+		</div>
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="widget flat radius-bordered">
+
+				<div class="widget-body">
+					<div id="registration-form">
+						<form role="form">
+							<div class="form-title"
+								style="border-bottom: none !important; font-size: 20px; color: #777">
+								<strong>Site Contact for Service Details</strong>
+							</div>
+							<div class="row">
+								
+								<script type="text/javascript">
+								$("#dropdownMenu2").on("click", "li a", function() {
+						            var platform = $(this).text();
+						            $("#dropdown_title2").html(platform);
+						            $('#printPlatform').html(platform);
+						        }); 
+									
+								</script>
+								
+										<div class="col-xs-12 col-sm-6">
+											<div class="dropdown" id="dropdownMenu2">
+												<button class="btn btn-default col-xs-12 col-sm-6" data-toggle="dropdown" style="width:106%">
+													<span id="dropdown_title2"><i class="pull-left">Select an existing contact from the drop down</i></span> 
+														<i class="fa fa-angle-down pull-right"></i>
+												</button>
+												<ul class="dropdown-menu" style="max-height: 150px; overflow: auto; width: 500px">
+													<li ><a tabindex="-1" href="#">Sr Bob Builder <span class="pull-right">(bob@bob.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Sally Joe <span class="pull-right">(sally@londonhydro.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Contact 3 <span class="pull-right">(contact3@londonhydro.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Contact 4 <span class="pull-right">(contact4@londonhydro.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Contact 5 <span class="pull-right">(contact5@londonhydro.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Contact 6 <span class="pull-right">(contact6@londonhydro.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Contact 7 <span class="pull-right">(contact7@londonhydro.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Contact 8 <span class="pull-right">(contact8@londonhydro.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Contact 9 <span class="pull-right">(contact9@londonhydro.com)</span></a></li>
+													<li ><a tabindex="-1" href="#">Contact 10 <span class="pull-right">(contact10@londonhydro.com)</span></a></li>
+												</ul>
+											</div>
+										</div>
+									
+
+
+
+
+
+
+								<div class="col-xs-12 col-sm-3">
+									<button class="btn btn-blue col-sm-3 col-md-12 pull-left" id="bootbox-options" data-toggle="modal" data-target="#myModal" style="width:210px;  margin-top: 0px; font-size: 14px; border-radius: 5px"><i class="fa fa-user-plus pull-left" style="margin-top: 2px"></i>Add a New Contact to list</button>
+								</div>
+								<div class="modal fade" id="myModal" role="dialog" style="z-index: 1000001">
+									<div class="modal-dialog">
+
+										<!-- Modal content-->
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">New Site Contact</h4>
+											</div>
+											<div class="modal-body">
+												<div class="widget-body">
+													<div id="registration-form">
+														<form role="form">
+
+															<div class="form-group">
+																<span class="input-icon icon-right"> <input
+																	type="text" class="form-control"
+																	id="organisationNameInput"
+																	placeholder="Organization Name">
+
+																</span>
+															</div>
+															<div class="form-group">
+																<span class="input-icon icon-right"> <input
+																	type="text" class="form-control" id="nameInput"
+																	placeholder="First and Last Name">
+
+																</span>
+															</div>
+															<div class="form-group">
+																<span class="input-icon icon-right"> <input
+																	type="text" class="form-control" id="workPhoneInput"
+																	placeholder="Work Phone #">
+
+																</span>
+															</div>
+															<div class="form-group">
+																<span class="input-icon icon-right"> <input
+																	type="text" class="form-control" id="cellPhoneInput"
+																	placeholder="Cell Phone #">
+
+																</span>
+															</div>
+															<div class="form-group">
+																<span class="input-icon icon-right"> <input
+																	type="text" class="form-control" id="emailInput"
+																	placeholder="Email Address">
+
+																</span>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger"
+													data-dismiss="modal">Cancel</button>
+												<button type="button" class="btn btn-blue"
+													data-dismiss="modal">Save Contact</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								
+								<!-- Modal For Delegate Service  -->
+								
+								<div class="modal fade" id="myModalDelegate" role="dialog" style="z-index: 1000001">
+									<div class="modal-dialog">
+
+										<!-- Modal content-->
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Delegate Service Request Confirmation</h4>
+											</div>
+											<div class="modal-body">
+												<div class="widget-body">
+													<div id="Delegate">
+														<form role="form">
+															<p>Are you sure, you want to delegate all site service actions to the selected site contacts?
+	
+														</form>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger"
+													data-dismiss="modal">Cancel</button>
+												<button type="button" class="btn btn-blue"
+													data-dismiss="modal">Confirm</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								
+								
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>

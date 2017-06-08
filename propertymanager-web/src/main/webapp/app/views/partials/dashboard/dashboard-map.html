@@ -1,0 +1,48 @@
+<section class="row">
+	<div class="col-xs-12  padding-10">
+		<div class="widget">
+			<div class="widget-body" style="padding-left: 0px; padding-top: 0px; width: 100%; height: 300px">
+				<div class="col-sm-7" style="padding-left: 0px; padding-top: 0px">
+					<div id="map" style="width: 100%; height: 300px"></div>
+				</div>
+				<div class="col-sm-5" style="background-color: #aaa">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="lh-subtitle bordered-bottom bordered-themesecondary">
+								<label><strong>Properties</strong></label> &nbsp;|&nbsp;<a
+									ui-sref="app.secure.properties({userId:contextParams.userId})">View All</a>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<ol class="dd-list">
+								<li class="dd-item dd2-item " data-id="13" data-ng-repeat="customer in accessibleCustomers| limitTo : 2">
+									<div class="dd-handle dd2-handle ">
+										<span class="badge badge-square badge-danger" title="Service disconnected"><i class="fa fa-power-off"
+											aria-hidden="true"></i></span>
+									</div>
+									<div class="dd2-content">
+										<a
+											ui-sref="app.secure.customerroute({state:$state.current.name,userId:contextParams.userId,customerId:customer.customerId})"
+											class="clear-color">
+											<h6>
+												<span class="text-muted">{{customer.customerId}}</sapn>
+											</h6>
+											<h5>{{customer|legalName}}</h5>
+
+
+										</a>
+									</div>
+								</li>
+							</ol>
+						</div>
+						<div class="col-xs-12">
+							<div class="pull-right">
+								<a ui-sref="app.secure.customer({userId:contextParams.userId})" ng-if="accessibleCustomers.length>0">more...</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

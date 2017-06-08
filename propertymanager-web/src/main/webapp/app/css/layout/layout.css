@@ -1,0 +1,83 @@
+@CHARSET "ISO-8859-1";
+
+.navbar{
+	min-height:48px !important;
+	border-bottom: 7px solid !important; 
+	border-bottom-color: #bf4146 !important
+}
+
+#page-header-id{
+	position: static !important; 
+	background-color: #f3f3f3 !important
+}
+
+.help-centre{
+	color: #b20837; 
+	margin-left: 10px; 
+	margin-right: 10px; 
+	font-size: 15px; 
+	display: block;
+	line-height: 41px;
+}
+
+.sign-out{
+	display: block; 
+	color: #fff; 
+	font-size: 13px; 
+	line-height: 41px; 
+	text-align: center; 
+	background-color: #bf4146; 
+	padding-left: 10px; 
+	padding-right: 10px; 
+	height: 47px
+}
+
+.wizard .steps .active .step{
+    border-color: #bf4146;
+    color: #bf4146;
+}
+
+
+
+
+
+/* .btn-input {
+   display: block;
+}
+
+.btn-input .btn.form-control {
+    text-align: left;
+}
+
+.btn-input .btn.form-control span:first-child {
+   left: 10px;
+   overflow: hidden;
+   position: absolute;
+   right: 25px;
+}
+
+.btn-input .btn.form-control .caret {
+   margin-top: -1px;
+   position: absolute;
+   right: 10px;
+   top: 50%;
+} */
+
+.wizard .steps .active:before{
+	background-color: #d73d32 !important;
+}
+
+
+.themelondonhydro{
+	color: #bf4146;
+}
+
+.before-themeprimary:before {
+    background-color: #bf4146 !important;
+}
+
+
+.breadcrumb>li>a {
+    display: inline-block;
+    color: #bf4146;
+}

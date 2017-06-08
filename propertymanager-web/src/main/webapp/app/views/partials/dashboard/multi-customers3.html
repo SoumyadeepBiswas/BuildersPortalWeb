@@ -1,0 +1,34 @@
+<div class="row" ng-controller="CustomerController">
+	<div class="col-xs-12">
+		<div class="lh-subtitle bordered-bottom bordered-themesecondary">
+			<label><strong>Customers</strong></label>
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<table id="dt-customer" datatable="ng" dt-options="dtCustomerDelegate.dtOptions"
+			dt-column-defs="dtDashboardCustomers.dtColumnDefs" class="table table-hover cell-border table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Customer/Organization Name</th>
+					<th>Mailing Address</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="customer in accessibleCustomers | filter:filterCustomerList">
+					<td>{{customer|legalName}}
+							<span class="badge alert-danger " ng-if="customer.customerId != workingUser.customerId"><strong>Delegated</strong></span><br>
+							<span ng-if="customer.customerEmails.length>0">
+								<label class="text-muted" data-ng-repeat="email in customer.customerEmails | limitTo :1">{{email.emailAddress}}</label>
+							</span>
+					</td>
+					<td>{{customer.mailingAddress.streetNumber}}&nbsp;{{customer.mailingAddress.streetName}}<br /> <span
+						class="text-muted small">
+							{{customer.mailingAddress.city}},&nbsp;{{customer.mailingAddress.province}},&nbsp;{{customer.mailingAddress.postalCode}}</span></td>
+					<td class="action-links"><a
+						ui-sref="app.secure.customerroute({state:$state.current.name,userId:contextParams.userId,customerId:customer.customerId})">View</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

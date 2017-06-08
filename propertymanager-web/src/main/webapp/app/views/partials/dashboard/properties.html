@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div class="lh-subtitle bordered-bottom bordered-themesecondary">
+			<label><strong>Properties</strong></label>
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<ol class="dd-list">
+			<li class="dd-item dd2-item " data-id="13" data-ng-repeat="customer in accessibleCustomers| limitTo : 2">
+				<div class="dd2-content">
+					<a
+						ui-sref="app.secure.customerroute({state:$state.current.name,userId:contextParams.userId,customerId:customer.customerId})"
+						class="clear-color">
+						<h6>
+							<span class="text-muted">{{customer.customerId}}</sapn>
+						</h6>
+						<h5>{{customer|legalName}}</h5>
+
+					</a>
+				</div>
+			</li>
+		</ol>
+	</div>
+	<div class="col-xs-12">
+		<div class="pull-right">
+			<a ui-sref="app.secure.customer({userId:contextParams.userId})" ng-if="accessibleCustomers.length>0">more...</a>
+		</div>
+	</div>
+</div>

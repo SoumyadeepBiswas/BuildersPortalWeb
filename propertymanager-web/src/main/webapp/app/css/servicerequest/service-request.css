@@ -1,0 +1,23 @@
+@CHARSET "ISO-8859-1";
+
+.business-partner-info{
+	width: 104% !important;  
+	margin-left: -2% !important; 
+	
+}
+
+.builders-info{
+	font-size: 40px; 
+	color: #b20837 !important; 
+	border-color: #b20837 !important;
+}
+
+.widget-adjustment{
+	margin-top: 20px !important;
+	 margin-left: -20px !important; 
+	 margin-right: -20px !important;
+}
+
+.table-column-heading{
+	color: #b20837 !important;
+}

@@ -1,0 +1,37 @@
+<div data-ng-controller="NotificationController" ng-cloak>
+	<editable-form name="form" role="form" data-blocking-loading ng-model="notificationSubscription">
+	<div class="form-group">
+		<label for="notificationEmail"><strong>Notification Email</strong></label>
+		<div class="checkbox">
+			<label><input type="checkbox" class="no-padding-bottom"
+				ng-model="notificationSubscription.notificationEmailIsLoginEmail" ng-change="updateSameAsLogin()"><span
+				class="text"> Same as my login email </span></label>
+		</div>
+		<div ng-show="!notificationSubscription.notificationEmailIsLoginEmail">
+			<a href="javascript:void(0);" name="notificationEmail" editable-email="notificationSubscription.notificationEmail"
+				onaftersave="actionSubscriptionChanged()">{{ notificationSubscription.notificationEmail|| 'Click to set Email.'
+				}} <i class="fa fa-edit padding-left-10"></i>
+			</a>
+			<div data-ng-messages="form.userName.$error" role="alert" class="text-danger"
+				data-ng-show="formmember.userName.$touched"></div>
+		</div>
+		{{form}}
+		<div role="alert" class="text-danger" data-ng-show="showmessage">Please enter a valid email.</div>
+		<div ng-show="notificationSubscription.notificationEmailIsLoginEmail">
+			<label><strong> {{notificationSubscription.notificationEmail}}</strong></label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label> <input type="checkbox" ng-change="actionMovesSubsciptionChanged()"
+			ng-model="notificationSubscription.isMoveEnable"> <span class="text">Notify me about moves</span>
+		</label>&nbsp;<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Notify me about moves"
+			style="cursor: pointer;" tooltip></i>
+	</div>
+	<div class="form-group">
+		<label> <input type="checkbox" ng-change="actionDisconnectionSubsciptionChanged()"
+			ng-model="notificationSubscription.isDisconnectionEnable"> <span class="text">Notify me about
+				disconnections</span></label>&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+			title="Notify me about disconnections" style="cursor: pointer;" tooltip></i>
+	</div>
+	</editable-form>
+</div>

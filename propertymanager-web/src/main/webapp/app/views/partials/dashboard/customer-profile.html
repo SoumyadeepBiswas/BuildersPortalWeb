@@ -1,0 +1,28 @@
+<div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{workingCustomer|legalName}}</h4>
+		</div>
+		<div class=" col-xs-12 ">
+			<label><strong>Customer Number</strong></label><br> <label>{{workingCustomer.customerId}}</label>
+		</div>
+		<div class="col-sm-6">
+			<p>
+				<label><strong>Residential Phone</strong></label><br> <label>{{workingCustomer.phoneNumbers|phoneNumber:'RESIDENTIAL'}}</label>
+			</p>
+
+			<p>
+				<label><strong>Email</strong></label><br> <label ng-repeat="email in customerEmails">{{email.emailAddress}}</label>
+			</p>
+			<p>
+				<label> <strong>Mailing Address<br></strong></label><br> <label>{{workingCustomer.mailingAddress.streetNumber}}&nbsp;{{workingCustomer.mailingAddress.streetName}}<br />
+					{{workingCustomer.mailingAddress.city}},&nbsp;{{workingCustomer.mailingAddress.province}},&nbsp;{{workingCustomer.mailingAddress.postalCode}}
+				</label>
+			</p>
+		</div>
+		<div class=" col-sm-6 ">
+			<label> <strong>Business Phone</strong></label><br> <label>
+				{{workingCustomer.phoneNumbers|phoneNumber:'BUSINESS/WOR'}}</label>
+		</div>
+	</div>
+</div>

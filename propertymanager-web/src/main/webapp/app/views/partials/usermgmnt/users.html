@@ -1,0 +1,105 @@
+<style>
+.editable-controls  input[type=checkbox] {
+	opacity: 1;
+	left: 10px;
+	position: relative;
+}
+
+.editable-controls  input[type=checkbox] {
+	margin-left: 0px;
+}
+
+.editable-controls label span {
+	padding-left: 10px;
+}
+</style>
+<section class="padding-top-20">
+
+	<div class="widget">
+		<div class="widget-header">
+			<div class="widget-caption">
+				<h3>User(s)</h3>
+			</div>
+		</div>
+
+		<div class="widget-body backGroundWhite">
+		<form name="searchform">
+			<div class="row">
+				<div class="col-sm-10">
+					<span class="input-icon"> <input type="text" class="form-control" id="fontawsome-search"
+						placeholder="Type Business Partner, Email Address or Property Manager Name" data-ng-model="searchQuery.searchText"> <i
+						class="glyphicon glyphicon-search circular blue"></i>
+					</span>
+
+				</div>
+				<div class="col-sm-2">
+					<button class="btn btn-primary" type = "submit" data-ng-click="populateUserBySearchText()">Search</button>
+				</div>
+			</div>
+			</form>
+			<hr class="wide" style="margin-bottom: 5px;">
+			<div class="row bordered-bottom  bordered-top">
+				<editable-form name="form" role="form">
+				<div class="col-sm-6 checkbox">
+					<label> Roles: </label> <a href="#" id="options" editable-checklist="searchQuery.role"
+						e-ng-options="s.value as s.label for s in roles" onaftersave="populateUserBySearchText()">
+						{{showListAsCsv(searchQuery.role,roles)}}</a>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group checkbox">
+						<label> Status:</label> <a href="#" id="options" editable-checklist="searchQuery.status"
+							e-ng-options="s.value as s.label for s in statuses" onaftersave="populateUserBySearchText()">
+							{{showListAsCsv(searchQuery.status,statuses)}}</a>
+
+					</div>
+				</div>
+				</editable-form>
+			</div>
+			<hr class="wide" style="margin-top: 5px">
+			<table id="dt-users" datatable="ng" dt-options="dtUsers.dtOptions" dt-column-defs="dtUsers.dtColumnDefs"
+				class="table table-hover cell-border">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Login Email</th>
+						<th>Name</th>
+						<th>Role<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+							title="Role that will be used when user is given access the applications." style="cursor: pointer;" tooltip></i></th>
+						<th>Phone</th>
+						<th>Customer Id</th>
+						<th>Status</th>
+						<th>Registered On</th>
+						<th>Last Login</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="user in users">
+						<td>{{$index+1}}</td>
+						<td>{{user.username}}</td>
+						<td>{{user.getFullName()}}</td>
+						<td><span ng-repeat="role in user.authorities"><span ng-if="$index>0">, </span>{{role.authority}}</span></td>
+						<td>{{user.phoneNumber | phonenumber}}</td>
+						<td>{{user.customerId}}</td>
+						<td>{{user.status.value}}</td>
+						<td>{{user.createdDate| date:'MMM dd, yyyy'}}</td>
+						<td>{{user.lastLoginDate| date:'MMM dd, yyyy'}}</td>
+						<td><span class="action-links"> <a ui-sref=".manage.sendmail({muserId:user.id})"
+								ng-if="user.isPending() && user.isUserOnly()">Send Registration Link</a> <a
+								ui-sref=".manage.deactivate({muserId:user.id})" ng-if="!user.isDeactivated()">Close Account</a> 
+								<a ui-sref=".manage.accountEvents({muserId:user.id})">Accounts Events</a> 
+						</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="pull-right">
+						<a href="" data-download data-download-option="userDownloadOptions" data-ng-model="users"><i
+							class=" fa fa-download " style="cursor: pointer;" title="Download" tooltip></i>&nbsp;Download This Data</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

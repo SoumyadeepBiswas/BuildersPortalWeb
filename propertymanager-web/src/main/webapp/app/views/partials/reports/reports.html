@@ -1,0 +1,27 @@
+<section class="row">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-header">
+				<span class="widget-caption">Reports</span>
+			</div>
+			<div class="widget-body ">
+				<p class="font-customize">The following reports are available for download in CSV format.</p>
+				<table class="table table-hover">
+					<tbody class="font-customize">
+						<tr data-ng-repeat="report in ::reports">
+							<td><b>{{report.name}}</b></td>
+							<td>{{report.description}}</td>
+							<td><div class="col-md-8">
+									<a class="btn btn-lgg btn-primary" ng-href="" ng-click="downloadReport(report)" ng-show="report.data ==null"><i
+										class="fa fa-download"> Run </i></a> <a class="btn btn-lgg btn-primary" href="" data-download
+										data-download-option="report.downloadOption" data-ng-model="report.data" ng-show="report.data !=null"><i
+										class="fa fa-download"></i>{{report.data.length}} Records to Download</a>
+								</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+</section>

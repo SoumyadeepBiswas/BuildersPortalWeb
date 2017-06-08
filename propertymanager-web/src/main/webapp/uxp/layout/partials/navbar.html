@@ -1,0 +1,163 @@
+<!-- <div class="csr-folater" ng-if="workingUser.id != principal.user.id">
+	<strong> <a ui-sref="app.secure.csr({userId:contextParams.userId})"> Customer View&nbsp;<i
+			class="fa fa-times" aria-hidden="true"></i></a></strong>
+</div>
+<div>
+	<div class="navbar mynavbar">
+		<div class="navbar-inner mynavbar-inner">
+			<div class="navbar-container">
+				Navbar Barnd
+				<div class="navbar-header pull-left">
+					<span class="navbar-brand lhlogo"> <small> <img src="img/lh-logo-84.png" alt="" />
+					</small>
+					</span>
+				</div>
+				/Navbar Barnd
+				<div class="sidebar-collapse visible-xs visible-sm visible-md">
+					<i class="collapse-icon fa fa-bars"></i>
+				</div>
+				Top Right Menu -
+				<div class="navbar-header pull-right text-white">
+					<div class="navbar-account hidden-xs">
+						<ul class="account-area">
+							<li><a class="login-area dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;{{principal.user.firstName}}&nbsp;{{principal.user.lastName}}</a>
+								<span ng-if="roleText">({{roleText}})&nbsp;</span>
+								<ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+									<li class="username"><a>{{principal.user.firstName}}&nbsp;{{principal.user.lastName}}</a></li>
+									<li class="email"><a>{{principal.user.username}}</a></li>
+									Avatar Area
+									<li>
+										<div class="avatar-area"></div>
+									</li>
+									Avatar Area
+									<li class="edit"><a ui-sref="app.myprofile({userId:contextParams.userId})" class="pull-left">Profile</a> <a
+										href="#" class="pull-right">Setting</a></li>
+									Theme Selector Area
+									<li class="theme-area">
+										<ul class="colorpicker">
+											<li><a class="colorpick-btn" href="" style="background-color: #5DB2FF;" skin-changer
+												rel="assets/css/skins/blue.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #2dc3e8;" skin-changer
+												rel="assets/css/skins/azure.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #03B3B2;" skin-changer
+												rel="assets/css/skins/teal.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #53a93f;" skin-changer
+												rel="assets/css/skins/green.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #FF8F32;" skin-changer
+												rel="assets/css/skins/orange.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #cc324b;" skin-changer
+												rel="assets/css/skins/pink.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #AC193D;" skin-changer
+												rel="assets/css/skins/darkred.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #8C0095;" skin-changer
+												rel="assets/css/skins/purple.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #0072C6;" skin-changer
+												rel="assets/css/skins/darkblue.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #585858;" skin-changer
+												rel="assets/css/skins/gray.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #474544;" skin-changer
+												rel="assets/css/skins/black.min.css"></a></li>
+											<li><a class="colorpick-btn" href="" style="background-color: #001940;" skin-changer
+												rel="assets/css/skins/deepblue.min.css"></a></li>
+										</ul>
+									</li>
+									/Theme Selector Area
+									<li class="dropdown-footer"><a ui-sref="app.logout"> Sign out </a></li>
+								</ul></li>
+							<li><a class="btn btn-danger" ui-sref="app.logout"> Log out </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mynavbar-external">
+			<div class="navbar-header pull-right"></div>
+			<div class="navbar-header pull-right hidden-xs" data-ng-hide="workingUser.isCSR()"
+				ng-if="$toState.data.customerChange">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="col-xs-12" style="padding-right: 0" ng-if="accessibleCustomers.length>0">
+							<div class="bg-highlight-left pull-left">&nbsp;</div>
+							<div class="bg-highlight-right pull-right">
+								<h4 class="padding-left-10 padding-top-10 no-margin row-12">
+									<a href="" data-toggle="collapse" data-target="#customer-selector-top" class="clear-color"> <span
+										ng-if="workingCustomer==null">Select Customer</span> {{workingCustomer|legalName}}&nbsp; <i
+										class="fa fa-ellipsis-v" aria-hidden="true" data-ng-if="accessibleCustomers.length>1"></i>
+									</a>
+								</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="customer-selector-top" class="bg-lightgray collapse"
+			style="position: absolute; right: 0px; z-index: 300; width: 320px;"
+			data-ng-if="accessibleCustomers.length>1 && $toState.data.customerChange">
+			<div class="col-xs-12 ">
+				<form class="form-inline" role="form">
+					<div class="form-group">
+						<div class="input-icon">
+							<input type="text" class="form-control" id="fontawsome-search" placeholder="Type customer id/name"
+								data-ng-model="searchText"> <i class="glyphicon glyphicon-search circular blue"></i>
+						</div>
+					</div>
+					<div class="form-group pull-right">
+						<a ui-sref="app.secure.userroute({state:$state.current.name,userId:contextParams.userId})" data-toggle="collapse"
+							data-target="#customer-selector-top" class="clear-color" ng-if="workingCustomer!=null">All Customers</a> <a
+							ui-sref="app.secure.customer({userId:contextParams.userId})" data-toggle="collapse"
+							data-target="#customer-selector-top" class="clear-color" ng-if="accessibleCustomers.length>5">View All</a>
+					</div>
+				</form>
+			</div>
+			<div class="col-xs-12  no-padding-left no-padding-right">
+				<ul class="nav sidebar-menu no-margin-left no-padding-left" style="list-style: none">
+					<li class=" bordered-top-1" data-ng-repeat="customer in accessibleCustomers| limitTo : 5"><a
+						ui-sref="app.secure.customerroute({state:$state.current.name,userId:contextParams.userId,customerId:customer.customerId})"
+						data-toggle="collapse" data-target="#customer-selector-top" class="clear-color"
+						ng-if="customer.customerId!=workingCustomer.customerId">
+							<h5>{{customer|legalName}}</h5>
+							<h5 class="text-muted">
+								{{customer.customerId}}<span class="badge alert-danger " ng-if="customer.customerId != workingUser.customerId"><strong>Delegated</strong></span>
+							</h5>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+<div class="navbar-inner " style="background: #f3f3f3">
+    <div class="navbar-container">
+        <!-- Navbar Barnd -->
+        <div class="navbar-header pull-left" >
+            <a href="#" class="navbar-brand">
+                <small >
+                    <img src="assets/img/london-hydro.png" style="height: 104%; width:45% " ng-if="!settings.rtl" alt="" />                    
+                </small>
+            </a>
+        </div>
+        <!-- /Navbar Barnd -->
+        <!-- Sidebar Collapse -->
+        <div class="sidebar-collapse"></div>
+        <!-- /Sidebar Collapse -->
+        <!-- Account Area and Settings --->
+        <div class="navbar-header pull-right">
+            <div class="navbar-account">
+                <ul class="account-area">  
+                    <li>
+                            <section>
+                                <h2 style=" margin-top: 0px; margin-right: 20px"><span class="profile"><span class="help-centre"><strong>Help Centre</strong></span></span></h2>
+                            </section>
+                        </a>                       
+                    </li>                 
+                </ul>
+                <div class="sign-out"><a ui-sref="app.logout" style="color: #fff">Sign Out</a></div>
+                
+                <!-- Settings -->
+            </div>
+        </div>
+        <!-- /Account Area and Settings -->
+    </div>
+</div>

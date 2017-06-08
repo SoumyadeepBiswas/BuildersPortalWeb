@@ -1,0 +1,54 @@
+<div data-blocking-loading ng-model="global.transaction">
+	<div class="modal-header">
+		<button type="button" class="close" ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">
+			<strong> {{delegateUser.username}}<span class="text-muted">({{delegateUser.user.accessProfile}})</span></strong>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<div data-ng-if="(nonDelegatedPropertiesForTheUser.length==0)">
+			<h4>All properties have been delegated.</h4>
+		</div>
+		<div data-ng-if="(nonDelegatedPropertiesForTheUser.length!=0)">
+			<h4 class="no-margin-top" style="margin-left: 5px;">
+				Selected <a href=""><strong> {{(nonDelegatedPropertiesForTheUser|filter:{selected:true}).length}}</strong></a> of
+				{{nonDelegatedPropertiesForTheUser.length}} property(s). &nbsp;&nbsp; <a href
+					ng-click="selectAll(nonDelegatedPropertiesForTheUser)">Select All</a>&nbsp;&nbsp;<a href
+					ng-click="unSelectAll(nonDelegatedPropertiesForTheUser)">Clear All</a>
+
+			</h4>
+			<div class="row " style="max-height: 400px; overflow-y: scroll">
+				<div ng-repeat="property in nonDelegatedPropertiesForTheUser" class="col-sm-3 radius-bordered"
+					style="margin-left: 15px;">
+					<div class="checkbox" style="margin-top: 0px; margin-bottom: 0px; left: -10px; top: 40px;">
+						<label> <input type="checkbox" ng-model="property.selected" ng-change="countSelect(property)"> <span
+							class="text">&nbsp;</span>
+						</label>
+					</div>
+					<div class="databox databox-graded margin-left-10 margin-right-10 margin-bottom-5 radius-bordered "
+						style="width: 240px; margin-bottom: 10px">
+						<div class="databox-left no-padding">
+							<img ng-if="property.hasImage" ng-src="{{ApplConfig.apiServerEndpoint}}/Property/{{property.propertyId}}/image"
+											onerror="this.src='img/home-light.jpg'" style="width: 65px; height: 65px;">
+							<img style="width: 65px; height: 65px;" ng-if="!property.hasImage" src='img/home-light.jpg' class="img-rounded img-responsive">
+						</div>
+						<div class="databox-right padding-top-5">
+							<div class="databox-stat yellow radius-bordered"></div>
+							<div class="databox-text darkgray">{{property.propertyName}}</div>
+							<div class="databox-text darkgray">{{property.address.streetNumber}}&nbsp;{{property.address.streetName}}</div>
+							<div class="databox-text darkgray text-muted">{{property.address.city}}({{property.address.province}}),
+								{{property.address.postalCode}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger" ng-click="reload();cancel()">Close</button>
+		<button type="button" class="btn btn-success" name="save"
+			ng-disabled="(nonDelegatedPropertiesForTheUser|filter:{selected:true}).length==0"
+			ng-click="actionAddPropertyAccessToUser();">Assign</button>
+	</div>
+
+</div>

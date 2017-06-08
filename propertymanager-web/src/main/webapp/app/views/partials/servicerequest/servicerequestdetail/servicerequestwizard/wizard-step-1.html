@@ -1,0 +1,214 @@
+<div style="overflow: hidden" data-ng-controller="wizardStep1Controller">
+	<div class="wizard-heading" style="background-image: linear-gradient(to right, #d0d0d0 70%, rgba(255,255,255,0) 0%); background-position: bottom; background-size: 7px 1px; background-repeat: repeat-x;">
+		<div><label> Please Confirm that the following details are correct for this Service Request:</label></div>
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget flat radius-bordered">
+                            
+                            <div class="widget-body">
+                                <div id="registration-form">
+                                    <form role="form">
+                                        <div class="form-title" style="border-bottom: none !important; font-size: 20px; color: #777">
+                                            <strong>Service Details</strong>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail2">Building Permit Number</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="{{permitNumbers}}" class="form-control" id="exampleInputEmail2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName2">Door Point Number</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="{{doorPoint}}" class="form-control" id="exampleInputName2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName2">Lot Number</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="{{lot}}" class="form-control" id="exampleInputName2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-title" style="border-bottom: none !important; font-size: 20px; color: #777" data-ng-disabled="true">
+                                            <strong>Service Address for Site</strong>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail2">Street Number</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="34" class="form-control" id="exampleInputEmail2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName2">Street Name</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="Uptown" class="form-control" id="exampleInputName2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName2">Street Suffix</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="(Dr) Drive" class="form-control" id="exampleInputName2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName2">Service City</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="London" class="form-control" id="exampleInputName2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                        	<div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail2">Service Province</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="Ontario" class="form-control" id="exampleInputEmail2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail2">Service Postal Code</label>
+                                                    <span class="input-icon icon-right">
+                                                        <input type="text" value="N4R 6T7" class="form-control" id="exampleInputEmail2" style="border-radius: 5px !important; background-color: #e0e0e0; border-color: #ccc;font-size: 14px; color: #444" data-ng-disabled="true">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-title" style="border-bottom: none !important; font-size: 20px; color: #777">
+                                            <strong>Service Electric Meter details</strong>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                    <div class="form-group">
+                                           				 <div class="checkbox">
+                                              				  <label>
+                                                    			<input type="checkbox" data-ng-model="hasStandardMeterLocation"  style="border-radius: 5px !important">
+                                                    			<span class="text">This service has a standard meter location.</span>
+                                                    			
+                                                			  </label>
+                                                			  <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer;" tooltip="" data-original-title="What is Service Meter"></i>
+                                           				 </div>
+                                     			   </div>
+                                     			    <span class="input-icon icon-right" data-ng-hide="hasStandardMeterLocation">
+                                                        <textarea class="form-control" rows="6" style="border-radius: 5px !important"></textarea>
+                                                    </span>
+                                                    
+                                                </div>
+
+                                            </div>
+
+							<div class="modal fade" id="myModalReportAddressWizard"
+								role="dialog" style="z-index: 1000001">
+								<div class="modal-dialog">
+
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Report an Address Problem</h4>
+										</div>
+										<div class="modal-body">
+											<div class="widget-body">
+												<div id="Delegate">
+													<form role="form">
+
+														<div class="row">
+															<div class="col-xs-12 col-md-3">
+																<label><strong>Name:</strong></label>
+															</div>
+															<div class="col-xs-12 col-md-9">
+																<label>Soumyadeep Biswas</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-xs-12 col-md-3">
+																<label><strong>Customer Id:</strong></label>
+															</div>
+															<div class="col-xs-12 col-md-9">
+																<label>112344</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-xs-12 col-md-3">
+																<label><strong>Login Email:</strong></label>
+															</div>
+															<div class="col-xs-12 col-md-9">
+																<label>biswass@londonhydro.com</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-xs-12 col-md-3">
+																<label><strong>Topic:</strong></label>
+															</div>
+															<div class="col-xs-12 col-md-9">
+																<select style="width: 100%; border-radius: 4px"
+																	class="col-xs-12 col-md-9">
+																	<option class="col-xs-12 col-md-9">General
+																		Inquiry</option>
+																	<option class="col-xs-12 col-md-9">Move
+																		Inquiry</option>
+																	<option class="col-xs-12 col-md-9">Service
+																		Destination</option>
+																	<option class="col-xs-12 col-md-9">Continuous
+																		Service Agreement</option>
+																	<option class="col-xs-12 col-md-9">Property
+																		Delegation</option>
+																</select>
+															</div>
+														</div>
+														<br>
+														<div class="row">
+															<div class="col-xs-12 col-md-3">
+																<label><strong>Message:</strong></label>
+															</div>
+															<div class="col-xs-12 col-md-9">
+																<textarea class="form-control" name="custMessage"
+																	rows="6" id="customerMessage"
+																	placeholder="Let's know your queries (if any)..."
+																	style="width: 100%; border-radius: 4px"></textarea>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Cancel</button>
+											<button type="button" class="btn btn-blue"
+												data-dismiss="modal">Send</button>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+						</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+	
+	</div>
+	
+	
+</div>

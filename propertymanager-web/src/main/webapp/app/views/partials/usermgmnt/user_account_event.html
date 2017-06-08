@@ -1,0 +1,15 @@
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" data-ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">Account Events</h4>
+	</div>
+	<div class="modal-body">
+		Please click the download button to download the list of account events in CSV format.
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-lg" data-ng-click="cancel()">Cancel</button>
+		<button type="submit" class="btn btn-primary btn-lg" name="AccountEvents" data-download 
+		data-download-option="AcccountEventDownloadOption" data-ng-model="accountEventData"
+			data-ng-click="cancel()"><i
+										class="fa fa-download"></i>Download</button>
+	</div>

@@ -1,0 +1,141 @@
+<!-- <div class="menu" >
+	<span style="position:absolute;z-index:999;top:8px;right:11px;" class="hidden-xs hidden-sm hidden-md" ><strong>Property Management Portal</strong></span>
+</div>
+<ul class="nav sidebar-menu">
+	<li ui-sref-active="active" data-ng-if="workingUser.isCSR()"><a
+		ui-sref="app.secure.csr({userId:contextParams.userId})"> <i class="menu-icon glyphicon glyphicon-home"></i> <span
+			class="menu-text"> Home </span>
+	</a></li>
+	<li ui-sref-active="active" data-ng-if="!workingUser.isCSR() && workingCustomer==null"><a
+		ui-sref="app.secure.dashboard({userId:contextParams.userId})"> <i class="menu-icon fa fa-dashboard"></i> <span
+			class="menu-text"> Dashboard</span>
+	</a></li>
+	<li ui-sref-active="active" data-ng-if="!workingUser.isCSR() && workingCustomer!=null"><a
+		ui-sref="app.secure.dashboardcustomer({userId:contextParams.userId,customerId:workingCustomer.customerId})"> <i
+			class="menu-icon fa fa-dashboard"></i> <span class="menu-text"> Dashboard</span>
+	</a></li>
+
+
+	<li ui-sref-active="active"
+		data-ng-if="(workingUser.isPropertyOwner() || workingUser.isPropertyManager() || workingUser.isPropertyDelegate()) && workingCustomer==null"><a
+		ui-sref-if="contextParams.customerId" ui-sref="app.secure.properties({userId:contextParams.userId})"> <i
+			class="menu-icon glyphicon glyphicon-tasks"></i> <span class="menu-text">My Properties</span>
+	</a></li>
+	<li ui-sref-active="active"
+		data-ng-if="(workingUser.isPropertyOwner() || workingUser.isPropertyManager() || workingUser.isPropertyDelegate()) && workingCustomer !=null"><a
+		ui-sref-if="contextParams.customerId"
+		ui-sref="app.secure.propertiescustomer({userId:contextParams.userId,customerId:contextParams.customerId})"> <i
+			class="menu-icon glyphicon glyphicon-tasks"></i> <span class="menu-text">My Properties</span>
+	</a></li>
+	<li ui-sref-active="active" data-ng-if="workingUser.isPropertyOwner()"><a
+		ui-sref="app.secure.delegates({userId:contextParams.userId})"> <i class="menu-icon fa fa-th"></i> <span
+			class="menu-text">Manage Delegates</span>
+	</a></li>
+	<li data-ng-if="workingUser.isCSR()"><a ui-sref="app.secure.reports({userId:contextParams.userId})"> <i
+			class="menu-icon fa fa-pie-chart"></i> <span class="menu-text"> Reports </span>
+	</a></li>
+	<li data-ng-if="workingUser.isCSR()"><a ui-sref="app.secure.usermgmnt({userId:contextParams.userId})"> <i
+			class="menu-icon fa fa-user-plus"></i> <span class="menu-text"> Manage Access </span>
+	</a></li>
+	<li ui-sref-active="active"><a ui-sref="app.secure.myprofile({userId:contextParams.userId})"> <i
+			class="menu-icon fa fa-user"></i> <span class="menu-text">My Profile</span>
+	</a></li>
+	<li ui-sref-active="active" data-ng-hide="workingUser.isCSR()"><a
+		ui-sref="app.secure.contactus({userId:contextParams.userId})"> <i class="menu-icon fa fa-phone"></i> <span
+			class="menu-text">Customer Support</span>
+	</a></li>
+	<li style="background-color: maroon;" data-ng-if="workingUser.isOwner() || workingUser.isDelegate()"><a ui-sref="app.secure.myaccount"> <i
+			class="menu-icon fa fa-th"></i> <span class="menu-text">MyLondonHydro&nbsp;<i class="fa fa-external-link"
+				aria-hidden="true"></i></span>
+	</a></li>
+	<li class="visible-xs"><a ui-sref="app.logout"> <i class="menu-icon fa fa-power-off"></i> <span class="menu-text">Sign
+				out</span>
+	</a></li>
+</ul>
+
+
+ -->
+ 
+     <!-- Page Sidebar Header-->
+<div class="sidebar-header-wrapper">
+    <input type="text" class="searchinput" placeholder="quick search"/>
+    <i class="searchicon fa fa-search" style="color: #bf4146"></i>
+    <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
+</div>
+<!-- /Page Sidebar Header -->
+<!-- Sidebar Menu -->
+<ul class="nav sidebar-menu">   <!-- data-ng-controller="sidebarController" -->
+   
+
+    <!--Service Requests-->
+    <li ui-sref-active="active">
+        <a ui-sref="app.secure.serviceRequest">
+            <i class="menu-icon glyphicon glyphicon-tasks"></i>
+            <span class="menu-text"> Service Requests </span>
+        </a>
+    </li>
+    <!--Site Contacts-->
+    <li ui-sref-active="active">
+        <a ui-sref="app.secure.accountView">
+            <i class="menu-icon fa fa-group"></i>
+            <span class="menu-text"> Site Contacts </span>
+        </a>
+    </li>
+    
+   
+    
+   
+    
+    <!-- MyProfile -->
+    
+    <!-- <li ui-sref-active="active">
+    	<a ui-sref="app.myprofile">
+    	 <i class="menu-icon fa fa-user"></i> 
+    	 <span class="menu-text">My Profile</span>
+	</a></li> -->
+	<li ui-sref-active="active"><a
+		ui-sref="app.secure.myprofile({userId:contextParams.userId})"> <i
+			class="menu-icon fa fa-user"></i> <span class="menu-text">My
+				Profile</span>
+	</a></li>
+
+	<!-- MYLH -->
+	<li data-ng-click="checkPrint()">
+        <a href="https://qa.londonhydro.com/site/myaccount" target="_blank">
+            <i class="menu-icon fa fa-th"></i>
+            <span class="menu-text"> MyLondonHydro&nbsp; </span>
+        </a>
+    </li>
+    
+    <!--UI Elements-->
+    <li >
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon fa fa-desktop"></i>
+            <span class="menu-text"> Quick Links </span>
+
+            <i class="menu-expand"></i>
+        </a>
+
+        <ul class="submenu">
+            <li ui-sref-active="active">
+                <a ui-sref="#">
+                    <span class="menu-text">City Website</span>
+                </a>
+            </li>
+            <li >
+                <a href="#" class="menu-dropdown">
+                    <span class="menu-text">
+                        Relevant Link 2
+                    </span>                   
+                </a>             
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="#">
+                    <span class="menu-text">Relevant Link 3</span>
+                </a>
+            </li>          
+        </ul>
+    </li>
+</ul>
+<!-- /Sidebar Menu -->
+ 

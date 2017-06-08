@@ -1,0 +1,102 @@
+<div data-ng-cloak>
+
+	<div class="modal-header">
+		<button type="button" class="close" data-ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">Create Property Management Account</h4>
+	</div>
+	<div class="modal-body row">
+		<form class="form-inline" name="searchform">
+			<div class="col-xs-12">
+				<div class="input-group col-xs-12">
+					<input type=text class="form-control" placeholder="Type business partner number" id="customer" required="required"
+						ng-minlength="3" ng-maxlength="20" data-ng-model="newuser.customerId" name="customerId" numbers-only required> <span
+						class="input-group-btn">
+						<button type="submit" class="btn btn-success" name="add" data-ng-click="findCustomerById()"
+							ng-disabled="searchform.$invalid">Search</button>
+					</span>
+				</div>
+			</div>
+		</form>
+
+		<div class=" col-xs-12" data-ng-show="customer">
+			<hr class="wide" />
+			<div class=" col-sm-6">
+				<div class="col-xs-12">
+					<span class="font-190">{{customer|legalName}}</span>
+				</div>
+				<div class=" col-xs-12 ">
+					<strong>Customer Number:&nbsp;</strong>{{customer.customerId}}
+				</div>
+				<div class="col-xs-12">
+					<p>
+						<strong>Mailing Address:<br></strong>{{customer.mailingAddress.streetNumber}}&nbsp;{{customer.mailingAddress.streetName}}<br />
+						{{customer.mailingAddress.city}},&nbsp;{{customer.mailingAddress.province}},&nbsp;{{customer.mailingAddress.postalCode}}
+					</p>
+					<p>
+					<ul style="list-style: none; padding-left: 0px;">
+						<li ng-repeat="email in customer.customerEmails"><label><i class="fa fa-envelope"></i>&nbsp;{{email.emailAddress}}<span
+								ng-if="email.standard">(Primary)</span></label></li>
+					</ul>
+					</p>
+				</div>
+			</div>
+			<div class=" col-sm-6">
+				<div class=" col-xs-12" style="margin-top: 30px;">
+					<button type="button" class="btn btn-primary">
+						<span class="font-140">Properties <span class="badge"><strong>
+									{{unitAndTenantCnt.propertyCnt}}</strong></span></span>
+					</button>
+				</div>
+				<div class=" col-xs-12 " style="margin-top: 15px;">
+					<button type="button" class="btn btn-primary">
+						<span class="font-140">Tenant Occupied Unit(s) <span class="badge"><strong>{{unitAndTenantCnt.tenantCount}}</strong></span></span>
+					</button>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<p data-ng-show="!customer.hasPMPAccess() && customer.hasPrimaryEmail() && unitAndTenantCnt.propertyCnt > 0 && !customer.hasMyLHAccess()">
+					Want to create web-account with <strong>{{customer.primaryEmail.emailAddress}}</strong>. An invitation email will
+					be sent to this email address.
+				</p>
+				
+				<p data-ng-show="!customer.hasPMPAccess() && customer.hasPrimaryEmail() && unitAndTenantCnt.propertyCnt > 0 && customer.hasMyLHAccess()">
+					Do you want to provide Property Management Portal access to <strong>{{customer.user.username}}</strong>? A confirmation email will
+					be sent to this email address.
+				</p>
+				
+				
+				<p ng-if="customer.hasPMPAccess()" class="text-warning">
+					<strong>This customer is already registered for the Property Management portal. <span ng-if="customer.user.status.value == 'Deactivate'"> But the account is Deactivated / Closed.</span></strong>
+				</p>
+				
+				<p data-ng-hide="customer.hasPMPAccess() || customer.hasPrimaryEmail()" class="text-warning">
+					<strong>This customer does not have a primary email address which is required to add Property Management portal access.</strong>
+				</p>
+				
+				<p ng-if="!customer.hasPMPAccess() && customer.hasPrimaryEmail() && unitAndTenantCnt.propertyCnt < 1" class="text-warning">
+					<strong>Required conditions are not satisfied to create a Web Account.</strong>
+				</p>
+			</div>
+			<form name="form" role="form" data-ng-show="!customer.hasPMPAccess()  && customer.hasPrimaryEmail() && unitAndTenantCnt.propertyCnt > 0">
+				<div class="form-group col-xs-6">
+					<label> <input type="checkbox" checked="checked" disabled="disabled"> <span class="text">Property
+							Management Portal</span>
+					</label>
+				</div>
+				<div class="form-group col-xs-6" ng-hide="customer.hasMyLHAccess()">
+					<label> <input type="checkbox" data-ng-model="isLHAccountChecked"> <span class="text">MyLondonHydro
+							Portal</span>
+					</label>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-lg" data-ng-click="cancel()">Close</button>
+		<button type="button" class="btn btn-success btn-lg" name="add" data-ng-click="registerUser()"
+			ng-disabled="customer.hasPMPAccess() || !customer.hasPrimaryEmail() || unitAndTenantCnt.propertyCnt < 1">
+				<span ng-show="!customer.hasMyLHAccess()">Create Web Account</span>
+				<span ng-show="customer.hasMyLHAccess()">Provide Property Management Portal Access</span>
+			</button>
+	</div>
+</div>

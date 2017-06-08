@@ -1,0 +1,24 @@
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">
+			<strong> Confirm Access revoke</strong>
+		</h4>
+	</div>
+	<div class="modal-body">
+		Please confirm access revoke
+		<div class="alert alert-success fade in" data-ng-if="status == 202">
+			<button class="close" data-dismiss="alert">x</button>
+			<i class="fa-fw fa fa-check"></i> <strong>Success</strong> The access has been revoked.
+		</div>
+		<div class="alert alert-danger fade in" data-ng-if="status != 202 && status !=-1">
+			<button class="close" data-dismiss="alert">×</button>
+			<i class="fa-fw fa fa-times"></i> <strong>Error!</strong> Access revoke has failed.
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger" ng-click="reload();cancel()">Close</button>
+		<button type="button" class="btn btn-primary" name="ok" ng-click="removeSingleDelegate();">Ok</button>
+	</div>
+</div>

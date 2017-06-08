@@ -1,0 +1,53 @@
+<ul class="legends-horizontal">
+	<li style="text-align: center;"><div class="property-type property-type-highrise">
+			<label>High Rise</label>
+		</div>
+		<div class="badge  badge-square" ng-class="getPropertyCount('High Rise')>0?'badge-azure':'badge-default'"
+			style="margin-left: 10px; min-width: 36px">
+			<a href="" uib-popover-template="'app/views/partials/dashboard/properties.html'" popover-placement="bottom"
+				data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="focus"><strong>
+					{{getPropertyCountLabel('High Rise')}}</strong></a>
+		</div></li>
+	<li style="text-align: center;"><div class="property-type property-type-multiunit">
+			<label>Multi-Unit (2-6)</label>
+		</div>
+		<div class="badge  badge-square" ng-class="getPropertyCount('Multi-Unit')>0?'badge-azure':'badge-default'"
+			style="margin-left:; min-width: 36px">
+			<a href="" uib-popover-template="'app/views/partials/dashboard/properties.html'" popover-placement="bottom"
+				data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="focus"><strong>{{getPropertyCountLabel('Multi-Unit')}}</strong></a>
+		</div></li>
+	<li style="text-align: center;"><div class="property-type property-type-townhouse">
+			<label>Town House</label>
+		</div>
+		<div class="badge  badge-square" ng-class="getPropertyCount('Town House')>0?'badge-azure':'badge-default'"
+			style="margin-left:; min-width: 36px">
+			<a href="" uib-popover-template="'app/views/partials/dashboard/properties.html'" popover-placement="bottom"
+				data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="focus"> <strong>{{getPropertyCountLabel('Town
+					House')}}</strong></a>
+		</div></li>
+	<li style="text-align: center;"><div class="property-type property-type-commercial">
+			<label>Commercial</label>
+		</div>
+		<div class="badge  badge-square" ng-class="getPropertyCount('Commercial')>0?'badge-azure':'badge-default'"
+			style="margin-left:; min-width: 36px">
+			<a href="" uib-popover-template="'app/views/partials/dashboard/properties.html'" popover-placement="bottom"
+				data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="focus"> <strong>{{getPropertyCountLabel('Commercial')}}</strong></a>
+		</div></li>
+	<li style="text-align: center;"><div class="property-type property-type-house">
+			<label>House</label>
+		</div>
+		<div class="badge  badge-square" ng-class="getPropertyCount('House')>0?'badge-azure':'badge-default'"
+			style="margin-left:; min-width: 36px">
+			<a href="" uib-popover-template="'app/views/partials/dashboard/properties.html'" popover-placement="bottom"
+				data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="focus"> <strong>{{getPropertyCountLabel('House')}}</strong></a>
+		</div></li>
+	<li style="text-align: center;"><div class="property-type property-type-notclassified">
+			<label>Not Classified</label>
+		</div>
+		<div class="badge  badge-square" ng-class="getPropertyCount('Not Classified')>0?'badge-azure':'badge-default'"
+			style="margin-left:; min-width: 36px">
+			<a href="" uib-popover-template="'app/views/partials/dashboard/properties.html'" popover-placement="bottom"
+				data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="focus"> <strong>{{getPropertyCountLabel('Not
+					Classified')}}</strong></a>
+		</div></li>
+</ul>

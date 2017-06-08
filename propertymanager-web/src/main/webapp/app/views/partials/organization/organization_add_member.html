@@ -1,0 +1,126 @@
+<style>
+.form-control-Role {
+    outline: 0;
+    border-color: #ECECEC;
+    border-style: solid;
+    border-width: 1px;
+    width: 90%;
+    background-color: #ffffff;
+    padding: 6px;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+</style>
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" data-ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">Add Delegate User</h4>
+	</div>
+	<form name="formmember" class="form-horizontal" role="form">
+		<div class="modal-body">
+			<div class="form-group">
+				<label for="userName" class="col-sm-3 control-label no-padding-right">Email:</label>
+				<div class="col-sm-9">
+					<input type="email" class="form-control " placeholder="name@mail.com" name="userName" id="userName"
+						data-ng-model="memberform.username" required="required">
+					<div data-ng-messages="formmember.userName.$error" role="alert" class="text-danger"
+						data-ng-show="formmember.userName.$touched">
+						<div data-ng-message="required">Please enter a value for this field.</div>
+						<div data-ng-message="email">This field must be a valid email address.</div>
+						<div data-ng-message="maxlength">This field can be at most 15 characters long.</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="retypeUserName" class="col-sm-3 control-label no-padding-right">Retype Email:</label>
+				<div class="col-sm-9">
+					<input type="email" class="form-control " placeholder="name@mail.com" id="retypeUserName" name="retypeUserName"
+						required="required">
+					<div data-ng-messages="formmember.retypeUserName.$error" role="alert" class="text-danger"
+						data-ng-show="formmember.retypeUserName.$touched">
+						<div data-ng-message="required">Please enter a value for this field.</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="firstName" class="col-sm-3 control-label no-padding-right">Name:</label>
+				<div class="col-sm-9">
+
+					<div class="row no-margin-right">
+						<div class="col-md-6">
+							<input type="text" class="form-control" placeholder="First Name" id="firstName" name="firstName"
+								data-ng-model="memberform.firstName" required="required" ng-maxlength = "50" ng-pattern="/^([a-z,A-Z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç,Á,É,Í,Ó,Ú,Â,Ê,Ô,Ã,Õ,Ç,ü,ñ,Ü,Ñ,' ',-]+)$/">
+							<div data-ng-messages="formmember.firstName.$error" role="alert" class="text-danger"
+								data-ng-show="formmember.firstName.$touched">
+								<div data-ng-message="required">Please enter a value for this field.</div>
+								<div data-ng-message="maxlength">Please enter name within 50 character of length .</div>
+								<div data-ng-message="pattern">Name must not contain numbers and special characters.</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<input type="text" class="form-control" placeholder="Last Name" id="lastName" name="lastName"
+								data-ng-model="memberform.lastName" required="required" ng-maxlength = "50" ng-pattern="/^([a-z,A-Z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç,Á,É,Í,Ó,Ú,Â,Ê,Ô,Ã,Õ,Ç,ü,ñ,Ü,Ñ,' ',-]+)$/">
+							<div data-ng-messages="formmember.lastName.$error" role="alert" class="text-danger"
+								data-ng-show="formmember.lastName.$touched">
+								<div data-ng-message="required">Please enter a value for this field.</div>
+								<div data-ng-message="maxlength">Please enter name within 50 character of length .</div>
+								<div data-ng-message="pattern">Name must not contain numbers and special characters.</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="phoneNumber" class="col-sm-3 control-label no-padding-right">Phone:</label>
+				<div class="col-sm-9">
+					<phonenumber-directive required="required"
+						placeholder="'(999) 999-9999'" model='memberform.phoneNumber'
+						patternPhone="^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$"></phonenumber-directive>
+					<div data-ng-messages="formmember.phoneNumber.$error" role="alert"
+						class="text-danger" data-ng-show="formmember.phoneNumber.$touched">
+						<div data-ng-message="required">Please enter a value for this field.</div>
+						<div data-ng-message="pattern">Please enter a valid phone number.</div>
+					</div>
+					<div role="alert" class="text-danger"
+						ng-show="formmember.phoneNumber.$touched && ((memberform.phoneNumber).length < 10)">
+						Please enter a valid phone number.</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="defaultProfile" class="col-sm-3 control-label no-padding-right">Default Role:</label>
+				<div class="col-sm-9">
+					<select class="form-control-Role" name="defaultProfile" data-ng-model="memberform.defaultProfile"
+						data-ng-options="role.value as  role.text for role in OrganizationResource.lovRoles" required="required">
+					</select>
+					<i data-ng-show="memberform.defaultProfile == 'EnergyDelegate'" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+						title="Energy delegate can only view consumption." style="cursor: pointer;" tooltip></i> 
+					<i data-ng-show="memberform.defaultProfile == 'AccountDelegate'" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+				  	    title="Account delegate can view both consumption & billing information." style="cursor: pointer;" tooltip></i>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-offset-3 col-sm-9">
+					<p role="alert" class="text-danger" data-ng-show="formmember.$invalid && formmember.$dirty">Please enter all
+						required filed.</p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-offset-0 col-sm-12">
+					<p class="text-info">An email will be sent to the delegate for activation and/or notification.</p>
+				</div>
+			</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-lg" data-ng-click="close()">Cancel</button>
+		<button type="submit" class="btn btn-success btn-lg" name="add" data-ng-click="actionAddUser()" ng-disabled="formmember.$invalid ||((memberform.phoneNumber).length < 10)">Submit</button>
+
+	</div>
+</form>
+</div>

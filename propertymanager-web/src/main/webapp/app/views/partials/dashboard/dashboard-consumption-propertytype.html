@@ -1,0 +1,60 @@
+<div class="widget">
+	<div class="widget-header">
+		<h3 class="widget-caption">Consumption For All Properties</h3>
+		<div class="pull-right" style="padding-right: 5px" ng-show="workingCustomer.accessProfile != null">
+			<span class="badge alert-danger ">{{workingCustomer.accessProfile}}</span>
+		</div>
+	</div>
+	<div class="widget-body">
+		<div class="row padding-bottom-10">
+			<div class="col-xs-12" style="height: 30px">
+				<div class="pull-left" ng-if="viewOption.drillLevels.length>0">
+					Drill: &nbsp;
+					<ul class="lx-breadcrumb breadcrumb">
+						<li><span class="badge"> <a href="" ng-click="actionDrillTo(0,level)"><strong>All</strong></a></span></li>
+						<li ng-repeat="level in viewOption.drillLevels track by $index"><span class="badge" ng-if="$last==false">
+								<a href="" ng-click="actionDrillTo($index+1,level)" style="text-decoration: underline;"><strong>{{level}}</strong></a>
+						</span><span ng-if="$last==true"><strong>{{level =='Multi-Unit' ? 'Multi-Unit (2-6)': level}}</strong></span></li>
+					</ul>
+				</div>
+				
+				<div class="pull-right">
+					<div class="form-inline">
+						<div class="radio">
+							<label> <input type="radio" class="colored-blue" name="radio-Usage" ng-click="actionRedrawGraph()"
+								ng-model="payableUsageOption" value="Owner"></input> <span class="text">Owner Payable Usage</span>
+							</label>
+						</div>
+						<div class="radio">
+							<label> <input type="radio" class="colored-blue" name="radio-Usage" ng-model="payableUsageOption"
+								ng-click="actionRedrawGraph()" value="Total" ng-checked="payableUsageOption == 'Total'"></input> <span
+								class="text">Total Usage</span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+				<div class="lh-subtitle bordered-bottom bordered-themesecondary" style="margin-bottom: 15px" data-loading
+					ng-model="eusageData">
+					<label><strong>Electricity</strong></label>
+				</div>
+				<div id="container" style="min-height: 160px"></div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+				<div class="lh-subtitle bordered-bottom bordered-themesecondary" style="margin-bottom: 15px" data-loading
+					ng-model="wusageData">
+					<label><strong>Water</strong></label>
+				</div>
+				<div id="container_water" style="min-height: 160px"></div>
+			</div>
+		</div>
+		<p>
+			Click on a bar to display consumption. Cost and usage are approximate values.
+		</p>
+	</div>
+
+</div>

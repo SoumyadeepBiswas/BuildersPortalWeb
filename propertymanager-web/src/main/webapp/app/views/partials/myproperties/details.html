@@ -1,0 +1,417 @@
+<style>
+.chart-card>div {
+	width: 100%;
+}
+
+.property-summary.databox-right[class*="bg-"] {
+	color: inherit;
+}
+
+.avatar-area>img {
+	max-width: 100%;
+	max-height: 100px;
+}
+</style>
+
+<div class="row">
+	<div class="col-xs-12">
+		<a class="blue pull-left" ui-sref="^"><h5>
+				<strong>&lt;&nbsp;Back</strong>
+			</h5></a>
+	</div>
+</div>
+
+<section>
+	<div class="widget-header text-align-left no-padding">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="col-sm-2 bg-blueberry bordered-blueberry bordered-right-2">
+					<div class="avatar-area">
+						<img id="blah" class="img-rounded img-responsive" ng-if="property.hasImage"
+							ng-src="{{ApplConfig.apiServerEndpoint}}/Property/{{property.propertyId}}/image?v={{property.version}}"
+							onerror="this.src='img/home-light.jpg'" class="avatar transparent"> <img class="img-rounded img-responsive"
+							ng-if="!property.hasImage" src='img/home-light.jpg' class="avatar transparent">
+					</div>
+				</div>
+				<div class="col-sm-10  property-summary">
+					<div class="row">
+						<div class="col-xs-12 padding-top-20">
+							<div id="printAddress" class="col-sm-6">
+								<h5 class="no-margin-top">
+									<span class="text-muted"> {{property.address.streetNumber}}&nbsp;{{property.address.streetName}} <br />
+										<span class="text-muted">
+											{{property.address.city}}&nbsp;{{property.address.province}}&nbsp;{{property.address.postalCode}}</span> <span
+										ng-if="unit.premiseAddress.streetUnit !=null"><br />{{unit.premiseAddress.streetUnit}} <a href=""
+											data-toggle="collapse" data-target="#unit-selection-box"> <i class="fa fa-table" aria-hidden="true"></i></a></span>
+										<span data-ng-if="property.noOfUnits==1 && property.propertySummary.unitNumber"><br />{{property.propertySummary.unitNumber}}</span>
+								</h5>
+							</div>
+							<div id="unit-selection-box" class="col-xs-12 collapse bg-lightgray padding-top-5 padding-bottom-20">
+								<div class="row">
+									<div class="col-xs-12">
+										<label>Select Unit</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12" ng-if="property.commonUnits.length>0">
+										<div data-ng-repeat="unit in ::property.commonUnits| orderBy:'premiseAddress.streetUnit'"
+											class="col-sm-1 padding-left-5 padding-right-5" style="height: 40px">
+											<div class="flowbox radius-bordered databox-shadowed  bg-palegreen margin-bottom-5">
+												<h4 class="text-center">
+													<a class="dark font-50 white"
+														data-ui-sref="app.secure.properties.detail({userId:contextParams.userId,customerId:contextParams.customerId,propertyId:property.propertyId})"
+														ui-sref-opts="{reload: true, notify: true}" class="blue" data-ng-click="selectUnit(property,unit,$index)">{{unit.premiseAddress.streetUnit}}</a>
+												</h4>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12" ng-if="property.units.length>0">
+										<div data-ng-repeat="unit in ::property.units| orderBy:'premiseAddress.streetUnit'"
+											class="col-sm-1 padding-left-5 padding-right-5" style="height: 40px">
+											<div class="flowbox radius-bordered databox-shadowed  bg-palegreen margin-bottom-5">
+												<h4 class="text-center">
+													<a class="dark font-50 white"
+														data-ui-sref="app.secure.properties.detail({userId:contextParams.userId,customerId:contextParams.customerId,propertyId:property.propertyId})"
+														ui-sref-opts="{reload: true, notify: true}" class="blue" data-ng-click="selectUnit(property,unit,$index)">{{unit.premiseAddress.streetUnit}}</a>
+												</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="pull-right" ng-show="property.accessProfile != null">
+									<span class="badge alert-danger ">{{property.accessProfile}}</span>
+								</div>
+								<div class="col-xs-12">
+									<div class="col-xs-6">
+										<div ng-if="unit.electricityAverageMonthlyCost >0 && AccessControl.hasAccess(property,'cost')"
+											class="radius-bordered">
+											<div class="databox-number number-xxlg darkorange text-center ">
+												<i class="circle circle-6x fa  darkorange bordered-4 bordered-darkorange"><strong>${{unit.electricityAverageMonthlyCost|number:0}}</strong></i>
+												<label>Average Monthly Electricity Cost<i class="fa fa-question-circle" data-toggle="tooltip"
+													data-placement="top" title="Approximate cost based on past 12 month usage."
+													style="cursor: pointer; padding-left: 2px" tooltip></i></label>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-6">
+										<div ng-if="unit.waterAverageMonthlyCost >0 && AccessControl.hasAccess(property,'cost')"
+											class="radius-bordered">
+											<div class="databox-number number-xxlg blueberry  text-center">
+												<i class="circle circle-6x fa  blueberry bordered-4 bordered-blueberry"><strong>
+														${{unit.waterAverageMonthlyCost|number:0}}</strong></i> <label>Average Monthly Water Cost<i
+													class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+													title="Approximate cost based on past 12 month usage." style="cursor: pointer; padding-left: 2px" tooltip></i>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="row bordered-top-1 bordered-blueberry padding-top-10">
+						<div class="col-sm-4">
+							<dl class="dl-horizontal ">
+								<dt>
+									<label>Occupancy :</label>
+								</dt>
+								<dd data-ng-switch="unit.tenantsOccupied">
+									<label> <span data-ng-switch-when="1"> Tenant occupied</span> <span data-ng-switch-default>Owner
+											occupied</span></label>
+								</dd>
+								<dt>
+									<label>Service Status :</label>
+								</dt>
+								<dd data-ng-switch="unit.connectionStatus">
+									<label> <span data-ng-switch-when="0">Disconnected</span> <span data-ng-switch-default>Connected</span></label>
+								</dd>
+							</dl>
+						</div>
+						<div class="col-sm-4">
+							<dl class="dl-horizontal">
+								<dt>
+									<label> CSA Enrolled<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+										title="Continuous Service Agreement" style="cursor: pointer; padding-left: 2px" tooltip></i>:
+									</label>
+								</dt>
+								<dd data-ng-switch="unit.csaSigned">
+									<label> <span data-ng-switch-when="0">No</span> <span data-ng-switch-default>Yes</span></label>
+								</dd>
+								<dt>
+									<label>Service(s) :</label>
+								</dt>
+								<dd>
+									<label> <span data-ng-if="unit.services.electricity[0]" class="text-nowrap"> <i
+											class="glyphicon glyphicon-flash" style="color: #C0504D;"></i>{{unit.services.electricity[0]}} &nbsp; <br />
+									</span> <span data-ng-if="unit.services.water[0]" class="text-nowrap"><i class="glyphicon glyphicon-tint blue"></i>{{unit.services.water[0]}}</span></label>
+								</dd>
+								<dt></dt>
+							</dl>
+						</div>
+						<div class="col-sm-4">
+							<dl class="dl-horizontal">
+
+								<dt>
+									<label>Pending Moves :</label>
+								</dt>
+								<dd data-ng-switch="property.propertySummary.moveinPending> 0 || property.propertySummary.moveoutPending >0">
+									<label> <span data-ng-switch-when="true"> Move In: <span style="padding-left: 12px">{{property.propertySummary.moveinPending}}</span>
+											Move Out: <span style="padding-left: 2px">{{property.propertySummary.moveoutPending}}</span>
+									</span> <span data-ng-switch-default>No pending moves</span></label>
+								</dd>
+							</dl>
+						</div>
+
+						<div class="col-sm-12">
+							<label class="pull-right"> <span class="text-nowrap"> <i
+									class="glyphicon glyphicon-flash" style="color: #C0504D;"></i>ELECTRIC
+									&nbsp;
+							</span> <span class="text-nowrap"><i
+									class="glyphicon glyphicon-tint blue"></i>WATER</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="margin-top-20 hidden">
+	<div class="widget-header">
+		<h3 class="widget-caption">Move History (in last 2 years)</h3>
+	</div>
+	<div class="widget-body backGroundWhite">
+		<div class="table-scrollable">
+			<table class="table table-bordered table-hover">
+				<thead style="border-bottom: 3px solid #00b0f4">
+					<tr>
+						<th>Name</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+<section class="margin-top-20">
+	<div class="row">
+		<div class="col-xs-12" data-ng-show="unit.services.electricity.length>0">
+			<div class="widget">
+				<div class="widget-header" style="background-color: #BA3C3D; color: #fff; font-size: 15px">
+					<h3 class="widget-caption">Monthly Electricity Consumption</h3>
+					<div class="widget-buttons pull-right">
+						<a href="" ng-click="sendEmail(property,'electricityUsageData')"><i class="fa fa-envelope" aria-hidden="true"
+							style="color: white; cursor: pointer;" title="Email" tooltip></i></a> <a href=""><i class=" fa fa-download "
+							style="color: white; cursor: pointer;" ng-click="addressDownload(property,unit);" title="Download" data-download
+							data-download-option="energyDownloadOption" data-ng-model="energyUsage.usageSummary" tooltip></i></a> <a href=""
+							ng-click="printDiv('printElectricityUsage')"><i class="fa fa-print" style="color: white; cursor: pointer;"
+							title="Print" tooltip></i></a>
+					</div>
+				</div>
+				<div class="widget-body" data-loading ng-model="energyUsage">
+					<div class="row" style="position: absolute; top: 50%; padding-right: 25px; width: 100%; z-index: 100"
+						ng-if="energyUsage.$resolved && energyUsage.usageSummary.length==0">
+						<div class="col-xs-12 bg-info">
+							<h4 class=" text-warningpadding-left-10">Sorry, consumption data is not available yet.</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div id="printElectricityUsage" leftbar-toggler="true" class="col-xs-12 use-sidebar sidebar-at-left">
+							<div id="electricityUsageData" role="sidebar"  class="col-xs-12">
+								<div class="well no-padding">
+									<table class="table table-bordered  table-hover table-responsive">
+										<thead style="border-bottom: 3px solid #ba3c3d">
+											<tr>
+												<th>Period</th>
+												<th>Usage<br />(kWh)
+												</th>
+												<th ng-if="AccessControl.hasAccess(property,'cost')">Total <br />Approx. Cost<i
+													class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Usage cost only."
+													style="cursor: pointer; padding-left: 2px" tooltip></i></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="data in energyUsage.usageSummary ">
+												<td>{{data.billPeriodFrom | date:'MMM dd':'UTC-5'}} - {{data.billPeriodTo | date:'MMM dd, yyyy':'UTC-5'}}</td>
+												<td class="text-right">{{data.usageAmount}}</td>
+												<td class="text-right" ng-if="AccessControl.hasAccess(property,'cost')">{{data.chargeAmount|currency:"$":0}}</td>
+											</tr>
+										</tbody>
+										<tfoot ng-if="energyUsage.usageSummary.length>0">
+											<tr>
+												<td class="text-right"><strong>Total</strong></td>
+												<td class="text-right"><strong>{{sumElectricityConsumption}}</strong></td>
+												<td class="text-right" ng-if="AccessControl.hasAccess(property,'cost')"><strong>{{sumElectricityCost
+														|currency:"$":0}}</strong></td>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+							<div role="content" class="col-xs-12">
+								<div class="well no-padding chart-card" style="width: 100%">
+									<highchart config="energyUsageGraph"></highchart>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="pull-right">
+								<span class="action-links"> <a href="" ng-click="sendEmail(property,'electricityUsageData')">E-Mail
+										this Data</a> <a href="" ng-click="addressDownload(property,unit);" data-download
+									data-download-option="energyDownloadOption" data-ng-model="energyUsage.usageSummary">Download</a> <a href=""
+									ng-click="printDiv('printElectricityUsage')">Print</a>
+								</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12" data-ng-show="unit.services.water.length>0">
+			<div class="widget">
+				<div class="widget-header" style="background-color: #00B0F4; color: #fff; font-size: 15px">
+					<h3 class="widget-caption">Monthly Water Usage</h3>
+					<div class="widget-buttons pull-right">
+						<a href="" ng-click="sendEmail(property,'waterUsageData')"><i class="fa fa-envelope" aria-hidden="true"
+							style="color: white; cursor: pointer;" title="Email" tooltip></i></a> <a href=""><i class="fa fa-download"
+							style="color: white; cursor: pointer;" ng-click="addressDownload(property,unit);" title="Download" data-download
+							data-download-option="waterDownloadOption" data-ng-model="waterData.usageSummary" tooltip></i></a> <a href=""
+							ng-click="printDiv('printWaterUsage')"><i class="fa fa-print" style="color: white; cursor: pointer;"
+							title="Print" tooltip></i></a>
+
+					</div>
+				</div>
+				<div class="widget-body" data-loading ng-model="waterData">
+					<div class="row" style="position: absolute; top: 50%; padding-right: 25px; width: 100%; z-index: 100"
+						ng-if="waterData.$resolved && waterData.usageSummary.length==0">
+						<div class="col-xs-12 bg-info">
+							<h4 class=" text-warningpadding-left-10">Sorry, usage data is not available yet.</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div id="printWaterUsage" leftbar-toggler="true" class="col-xs-12 use-sidebar sidebar-at-left">
+							<div id="waterUsageData" role="sidebar" class="col-xs-12">
+								<div class="well no-padding">
+									<table class="table table-bordered  table-hover">
+										<thead style="border-bottom: 3px solid #00b0f4">
+											<tr>
+												<th>Period</th>
+												<th>Usage<br />(m<sup>3</sup>)
+												</th>
+												<th ng-if="AccessControl.hasAccess(property,'cost')">Total <br />Approx. Cost <i
+													class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Usage cost only."
+													style="cursor: pointer; padding-left: 2px" tooltip></i></th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="data in waterData.usageSummary ">
+												<td>{{data.billPeriodFrom | date:'MMM dd' :'UTC-5'}} - {{data.billPeriodTo | date:'MMM dd, yyyy' :'UTC-5'}}</td>
+												<td class="text-right">{{data.usageAmount/1000}}</td>
+												<td class="text-right" ng-if="AccessControl.hasAccess(property,'cost')">{{data.chargeAmount|currency:"$":0}}</td>
+											</tr>
+										</tbody>
+										<tfoot ng-if="waterData.usageSummary.length>0">
+											<tr>
+												<td class="text-right"><strong>Total</strong></td>
+												<td class="text-right"><strong>{{sumWaterConsumption }}</strong></td>
+												<td class="text-right" ng-if="AccessControl.hasAccess(property,'cost')"><strong>{{sumWaterCost|currency:"$":0}}</strong>
+												</td>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+							<div role="content" class="col-xs-12">
+								<div class="well no-padding chart-card">
+									<highchart config="waterUsageGraph"></highchart>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="pull-right">
+								<span class="action-links"> <a href="" ng-click="sendEmail(property,'waterUsageData')">E-Mail this
+										Data</a> <a href="" ng-click="addressDownload(property,unit);" data-download
+									data-download-option="waterDownloadOption" data-ng-model="waterData.usageSummary">Download</a> <a href=""
+									ng-click="printDiv('printWaterUsage')">Print</a>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Confirm Upload Image</h4>
+				</div>
+				<div class="modal-body">
+					<form name="uiform" class="form-horizontal" role="form">
+						<div class="row">
+							<div class="col-xs-12">
+								<p>The Upload image size exceeded 512 KB.</p>
+								<br />
+								<div class="form-group">
+									<label class="col-sm-12"> <input type="checkbox" data-ng-model="confirmUploadImage" required="required">
+										<span class="text"><strong> I would like to render the image to the size limit. I'm sure,
+												upload image.</strong></span>
+									</label>
+								</div>
+
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success btn-lg" data-ng-click="changeConfirmFlag()"
+						ng-disabled="uiform.$invalid">Upload Image</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Greater than 10MB-->
+	<div class="modal fade" id="myModal1" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Upload Image</h4>
+				</div>
+				<div class="modal-body">
+					<form name="uiForm" class="form-horizontal" role="form">
+						<div class="row">
+							<div class="col-xs-12">
+								<p>The Uploaded image file exceeded the permissible file size limit of 10MB. Please try again with a smaller
+									image file.</p>
+								<br />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Greater than 10MB-->
+</section>

@@ -1,0 +1,167 @@
+<div class="widget">
+	<div class="widget-header">
+		<h3 class="widget-caption toast-title">Property List</h3>
+	</div>
+	<div class="widget-body backGroundWhite">
+		<div class="row margin-bottom-5  no-margin-right">
+			<div class="col-sm-8">
+				<div class="row">
+					<div class="col-sm-7">
+						<span class="input-icon"> <input type="text" class="form-control" id="fontawsome-search"
+							placeholder="Type to search property" data-ng-model="filterObjProperty.text"> <i
+							class="glyphicon glyphicon-search circular blue"></i>
+						</span>
+					</div>
+					<div class="col-sm-5" ng-if="">
+						<a href ng-click="filterObjProperty.selected=true" ng-if="filterObjProperty.selected!=true">Show Selected</a>&nbsp;&nbsp;
+						<a href ng-click="filterObjProperty.selected=null" ng-if="filterObjProperty.selected==true">Remove Filter</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<table class="table table-striped table-bordered table-condensed">
+			<thead class="flip-content">
+				<th class="text-center">#</th>
+				<th class="text-center">
+					<div class="checkbox" style="margin-top: 0px; margin-bottom: 0px;">
+						<label> <input type="checkbox" class="colored-blue checkall" id="selectAll" ng-model="selectAllFlag"
+							ng-change="selectAll(propertyAccess.properties,selectAllFlag)"></input> <span class="text"></span>
+						</label>
+					</div>
+				</th>
+				<th>Property Name</th>
+				<th>Address</th>
+				<th style="width: 50%">Delegates</th>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="property in propertyAccess.properties  | gpropertyFilter :filterObjProperty ">
+					<td class="text-align-center">{{$index+1}}</td>
+					<td class="text-align-center">
+						<div class="checkbox">
+							<label> <input type="checkbox" class="colored-blue checkall" ng-model="property.selected"></input> <span
+								class="text"></span>
+							</label>
+						</div>
+					</td>
+					<td>
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="avatar-area">
+									<img ng-if="property.hasImage" ng-src="{{ApplConfig.apiServerEndpoint}}/Property/{{property.propertyId}}/image"
+										onerror="this.src='img/home-light.jpg'" style="width: 45px; height: 45px;"><img style="width: 45px; height: 45px;"
+							ng-if="!property.hasImage" src='img/home-light.jpg' class="img-rounded img-responsive">
+								</div>
+							</div>
+							<div class="col-xs-8" ng-click="setDelegateFilter(property.propertyId)">
+								<a class="blue"
+									ui-sref="app.secure.propertiescustomer({userId:contextParams.userId,customerId:contextParams.customerId})">{{property.propertyName}}
+								</a>
+							</div>
+						</div>
+					</td>
+					<td>{{property.address.streetNumber}}&nbsp;{{property.address.streetName}}<br /> <span class="text-muted">
+							{{property.address.city}}({{property.address.province}}), {{property.address.postalCode}}</span>
+					</td>
+					<td>
+						<div class="pull-right-md-up">
+							<button id="inline-add-delegate-form-opener-{{$index}}" class="btn btn-success pull-right"
+								data-ng-click="uifOpenInlineForm($index)" title="Add delegate to this property" ng-if="false">
+								<i class="fa fa-5x fa-user-plus"></i>
+							</button>
+							<button id="inline-add-delegate-form-opener2-{{$index}}" data-ng-show="organization.members.length > 0"
+								class="btn btn-success  pull-right" data-ng-click="uifOpenInlineForm2($index)"
+								title="Add delegate to this property">
+								<i class="fa fa-5x fa-user-plus"></i>
+							</button>
+							<div class="row" id="inline-add-delegate-form-{{$index}}" style="display: none">
+								<div class="col-xs-12">
+									<form class="form-inline" role="form">
+										<div class="input-group col-xs-12">
+											<span class="input-group-addon no-border " style="width: 20px"><i class="fa fa-user darkorange"></i></span>
+											<angucomplete id="ex3" placeholder="Type email to add delegate" pause="100" selectedobject="_selectedUser"
+												url="/User?userName=" searchfields="username" titlefield="username" minlength="3"
+												inputclass="form-control form-control-small" matchclass="highlight" autocomplete="off" />
+											<button type="submit" class="btn btn-primary" ng-disabled="_selectedUser==null"
+												ng-click="actionAddPropertyAccessToUser(property,_selectedUser.originalObject);">
+												<i class="fa fa-check"></i>
+											</button>
+											<button type="button" class="btn btn-primary" ng-click="uifCloseInlineForm($index)">
+												<i class="fa fa-close"></i>
+											</button>
+										</div>
+
+									</form>
+								</div>
+							</div>
+
+							<div class="row" id="inline-add-delegate-form2-{{$index}}" style="display: none;">
+								<div class="col-xs-12" style="background-color: #666; z-index: 999;">
+									<div>
+										<p style="color: #fff">
+											<strong>Select user from the list</strong>
+										</p>
+										<div class="col-sm-12" style="padding-left: 0px; padding-right: 0px; margin-right: 10px" ng-if="organization.members.length>5">
+											<span class="input-icon"> <input type="text" class="form-control" id="fontawsome-search1"
+												placeholder="Search a delegate" data-ng-model="filterObjDelegate.text"> <i
+												class="glyphicon glyphicon-search circular blue"></i>
+											</span>
+										</div>
+
+										<div class="col-sm-12" style="padding-left: 0px; padding-right: 0px; max-height: 300px; overflow: auto;">
+											<table class="table table-striped table-bordered table-condensed">
+												<tbody>
+													<tr data-ng-repeat="member in organization.members | filter : filterDelegateList">
+														<td data-ng-if="member.defaultProfile != 'PropertyOwner'">
+															<div class="radio">
+																<label> <input type="radio" class="colored-blue" name="radio-single" ng-value="member"
+																	ng-click="check(member,property)"></input> <span class="text"></span>
+																</label>
+															</div>
+														</td>
+														<td data-ng-if="member.defaultProfile != 'PropertyOwner'">{{member.user.username}} (<span class="text-info text-muted">{{member.defaultProfile}}</span>)
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="pull-right" style="padding-top: 5px; padding-bottom: 2px">
+											<button type="button" class="btn btn-danger" ng-click="uifCloseInlineForm2($index)">
+												<span style="color: #fff;">Close</span>
+											</button>
+											<button type="submit" class="btn btn-success" ng-disabled="flag == false"
+												ng-click="actionAddPropertyAccessToUser2($index,property,holder.user);">
+												<span style="color: #fff;">Assign</span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div> <span data-ng-show="property.userAccessDetails==null" class="text-muted">Not delegated</span>
+						<ul class="" style="list-style: none;" ng-init="limit= 2">
+							<li data-ng-repeat="user in property.userAccessDetails| limitTo:limit as filterPropertyUser"><i
+								class="fa fa-user padding-right-10"></i><a href="" href=""
+								data-ng-class="pageuiOption.viewByUser ?'btn btn-primary active':''" data-ng-model="pageuiOption.viewByUser"
+								uib-btn-radio=true> {{user.userName}} (<span class="text-info text-muted">{{user.accessProfile}}</span><span
+									ng-if="user.status != 'Active'" class="text-info text-muted">,{{user.status}}</span>)
+							</a> <a href="javascript:void(0);" class="btn btn-default  btn-circle btn-xs margin-left-10"
+								popover-append-to-body="true" uib-popover-template="'app/views/partials/delegate/singlerevoke.html'"
+								popover-placement="top" data-titleclass="bordered-1" popover-title="Are you sure?" popover-trigger="click"
+								ng-click="setPopover($event)"><i class="fa fa-remove"></i></a></li>
+							<li class="separator"></li>
+							<li data-ng-show="property.userAccessDetails.length>2"><a href=""
+								ng-click="limit = property.userAccessDetails.length"><p
+										ng-show="!(limit ==  property.userAccessDetails.length)">Show more
+										({{property.userAccessDetails.length-filterPropertyUser.length}} other(s))</p> </a></li>
+							<li class="separator"></li>
+							<li class="separator"></li>
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,45 @@
+<style>
+.databox .highcharts-title {
+	font-size: 24px !important;
+}
+</style>
+<p ng-if="workingCustomer ==null" class="hidden">
+	Test Text:: You are viewing information for all customers...... You may switch to specific customer context by clicking
+	<strong>"Select Customer"</strong>......
+</p>
+<section class="row">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-header">
+				<h3 class="widget-caption">Profile</h3>
+			</div>
+			<div class="widget-body ">
+				<div class="row">
+					<div class=" col-md-8">
+						<div class="row">
+							<div class="col-xs-12" ng-include
+								src="'app/views/partials/dashboard/customer-profile2.html'"
+								ng-if="accessibleCustomers.length == 1 ||  workingCustomer!=null"></div>
+							<div class="col-xs-12" ng-include
+								src="'app/views/partials/dashboard/multi-customers3.html'"
+								ng-if="accessibleCustomers.length > 1 && workingCustomer==null"></div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class=" " ui-view="notification_preference" ng-if="workingUser !=null"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="row">
+	<div class="col-xs-12" ui-view="property_summary" />
+</section>
+<section class="row" ng-if="workingCustomer != null">
+	<div class="col-xs-12" ui-view="aggregated_consumption"></div>
+</section>
+
+<section class="row">
+	<div class="col-xs-12" ui-view="map"></div>
+</section>

@@ -1,0 +1,43 @@
+<div class="bg-darkcarbon col-xs-12"
+	style="position: fixed; top: 4px; left: 4px; z-index: 1000; width: 100%; max-height: 360px;"
+	data-ng-show="(propertyAccess.properties|filter:{selected:true}).length>0">
+	<div class="well well-lg bg-darkcarbon no-padding no-margin-bottom">
+		<h4 class="block no-margin-bottom">{{filteredlist.length}} property(s) selected</h4>
+		<div class="row" style="max-height: 180px; overflow-y: scroll;">
+			<div ng-repeat="property in propertyAccess.properties|filter:{selected:true} as filteredlist" class="col-sm-3">
+				<div class="databox databox-graded" style="width: 240px; margin-bottom: 10px; height : 80px">
+					<div class="databox-left no-padding">
+						<div class="avatar-area">
+							<img class="img-rounded img-responsive" ng-if="property.hasImage" ng-src="{{ApplConfig.apiServerEndpoint}}/Property/{{property.propertyId}}/image"
+								onerror="this.src='img/home-light.jpg'" style="max-height: 65px;"><img class="img-rounded img-responsive"
+							ng-if="!property.hasImage" src='img/home-light.jpg'>
+						</div>
+					</div>
+					<div class="databox-right padding-top-5">
+						<div class="databox-stat yellow radius-bordered">
+							<a href="javascript:void(0);" class="btn btn-default btn-circle btn-xs margin-left-10"
+								ng-click="property.selected=false"><i class="fa fa-remove"></i></a>
+						</div>
+						<div class="databox-text darkgray">{{property.propertyName}}</div>
+						<div class="databox-text darkgray" style="margin-right: 4%">{{property.address.streetNumber}}&nbsp;{{property.address.streetName}}</div>
+						<div class="databox-text darkgray">{{property.address.city}}({{property.address.province}}),{{property.address.postalCode}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<label for="sel1">Select Delegate User:</label> <select class="form-control" id="sel1"
+					ng-options="s.user.username + ' (' + s.defaultProfile +')' for s in organization.members | gfilterMemberIsDelegateEquivalent "
+					ng-model="holder">
+				</select>
+			</div>
+			<div class="col-sm-4 padding-top-10 pull-right">
+				<div class="col-xs-4" id="container"></div>
+				<button type="button" class="btn btn-danger" ng-click="deSelectAllProperties(filteredlist)">Close</button>
+				<button type="submit" class="btn btn-success" id="delegate" ng-disabled="holder==null"
+					ng-click="actionAddPropertyAccessToUser(filteredlist,holder.user);">Delegate Properties</button>
+			</div>
+		</div>
+	</div>
+</div>

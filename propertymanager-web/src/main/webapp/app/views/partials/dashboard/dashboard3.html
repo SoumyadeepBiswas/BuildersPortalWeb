@@ -1,0 +1,59 @@
+<style>
+.databox .highcharts-title {
+	font-size: 24px !important;
+}
+</style>
+<p ng-if="workingCustomer ==null">
+	Test Text:: You are viewing information for all customers...... You may switch to specific customer context by clicking
+	<strong>"Select Customer"</strong>......
+</p>
+<section class="row">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-header">
+				<h3 class="widget-caption">Profile</h3>
+			</div>
+			<div class="widget-body ">
+				<div class="row">
+					<div class=" col-md-5">
+						<div class="row">
+							<div class="col-xs-12" ng-include src="'app/views/partials/dashboard/customer-profile2.html'"
+								ng-if="workingCustomer!=null"></div>
+							<div class="col-xs-12" ng-include src="'app/views/partials/dashboard/multi-customers2.html'"
+								ng-if="workingCustomer==null"></div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class=" " ng-include src="'app/views/partials/dashboard/notification-preference2.html'"></div>
+							</div>
+						</div>
+					</div>
+					<div class=" col-md-7">
+						<div class="row">
+							<div class="col-xs-12" style="padding-bottom: 20px">
+								<div class="lh-subtitle bordered-bottom bordered-themesecondary">
+									<label><strong>Property Summary</strong></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  header-buttons">
+							<div ng-include src="'app/views/partials/dashboard/dashboard-property-legend.html'"></div>
+						</div>
+						<div class="col-xs-12">
+							<div id="donut-chart-property" class="hidden"></div>
+							<div class="col-sm-6" ng-include src="'app/views/partials/dashboard/dashboard-disconnection2.html'"></div>
+							<div class="col-sm-6" ng-include src="'app/views/partials/dashboard/dashboard-move2.html'"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div ng-controller="ConsumptionController">
+	<div class=" " ng-include src="'app/views/partials/dashboard/dashboard-consumption-property.html'"></div>
+	<div class=" " ng-include src="'app/views/partials/dashboard/dashboard-map.html'"></div>
+</div>
+<div id="container" class="hidden"></div>
+<div id="container_water" class="hidden"></div>
+<script src="app/views/partials/dashboard/dashboard2-chart.js"></script>

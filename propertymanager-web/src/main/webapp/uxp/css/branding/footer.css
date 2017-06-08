@@ -1,0 +1,161 @@
+
+
+.corporate-footer {
+	font-size: 12px;
+	line-height: 14px;
+	background: #3b3e44 url(../../images/bg-footer.png);
+	overflow: hidden;
+	position: relative;
+	z-index: 2;
+	color: #fff;
+	padding: 30px 16px 10px 21px;
+}
+
+.corporate-footer .slogan {
+	text-align: center;
+	font-size: 17px;
+	line-height: 21px;
+	font-size: 17px;
+}
+
+.corporate-footer .copyright {
+	margin-top: 18px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.corporate-footer .holder {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.corporate-footer .holder:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.logo-box {
+	float: left;
+	width: 199px;
+	margin: 0 0 -9999px -9999px;
+	padding: 38px 0 9999px 9999px;
+	color: #fff;
+	font-size: 17px;
+	line-height: 23px;
+	text-align: center;
+	background: #373a40 url(../../images/bg-logo-box.png) repeat-y 100% 0;
+}
+
+.logo2 {
+	display: block;
+	margin: 0 auto 23px;
+	background: url(../../images/lh-logo2-104.png) no-repeat;
+	background-size: 52px 93px;
+	width: 52px;
+	height: 93px;
+	overflow: hidden;
+	text-indent: -9999px;
+}
+
+.logo2 a {
+	display: block;
+	height: 100%;
+}
+
+.corporate-footer .text-section {
+	overflow: hidden;
+	font-size: 15px;
+	line-height: 17px;
+	color: #fdfdfd;
+	padding: 38px 0 119px;
+	background: url(../../images/bg-text-section.png);
+}
+
+.corporate-footer .text-box {
+	float: left;
+	width: 265px;
+	margin: 0 35px 0 20px;
+}
+
+.corporate-footer .text-box address {
+	font-style: normal;
+	display: block;
+	margin: 0;
+}
+
+.corporate-footer .text-box dl {
+	margin: 34px 0 0;
+}
+
+.corporate-footer .text-box dt {
+	float: left;
+	clear: left;
+	margin: 0 3px 0 0;
+}
+
+.corporate-footer .text-box dd {
+	margin: 0 0 12px;
+}
+
+.corporate-footer .box {
+	float: left;
+	width: 191px;
+	margin: 0 10px 0 0;
+}
+
+.corporate-footer .box-row {
+	float: left;
+}
+
+.corporate-footer .box.last {
+	float: none;
+	width: auto;
+}
+
+.corporate-footer .title {
+	display: block;
+	margin: 0 0 7px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 15px;
+	line-height: 17px;
+	position: static;
+	text-align: left;
+	cursor: pointer;
+}
+
+.corporate-footer ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.corporate-footer a {
+	color: #fdfdfd;
+}
+
+.corporate-footer ul li {
+	padding: 0 0 8px;
+	line-height: 18px;
+	font-size: 12px;
+}
+
+.corporate-footer [data-toggle='collapse']:before {
+	position: absolute;
+	left: 0;
+	top: 1px;
+	background: url(../../images/arrow4.png) no-repeat;
+	content: "";
+	width: 8px;
+	height: 10px;
+}
+
+
+
+@media only screen and (max-width: 544px) {
+	.footer-links {
+		display: none;
+	}
+}
+

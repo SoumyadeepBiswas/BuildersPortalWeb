@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app" ng-controller="AppCtrl">
+
+
+<head>
+<meta charset="utf-8" />
+<title page-title>LondonHydro</title>
+<script type="text/javascript">
+	var System= {
+		THEME : "classic",
+		developmentMode:false,
+		isModal:false
+	}
+</script>
+<meta name="description" content="blank page" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+<!--Basic Styles-->
+<!-- <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+
+<link ng-if="settings.rtl"
+	ng-href="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/assets/css/bootstrap-rtl.min.css"
+	rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+	integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous"> -->
+	
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link ng-if="settings.rtl" ng-href="assets/css/bootstrap-rtl.min.css" rel="stylesheet" />
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="assets/css/weather-icons.min.css" rel="stylesheet" />
+        <link href="assets/css/footer.css" rel="stylesheet" />
+
+
+
+<!--Fonts-->
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300"
+	rel="stylesheet" type="text/css">
+
+<!--Beyond styles-->
+<!-- <link href="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/assets/css/beyond.min.css" rel="stylesheet" />
+<link href="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/assets/css/skins/darkred.css" rel="stylesheet" />
+<link href="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/assets/css/demo.min.css" rel="stylesheet" />
+<link href="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/assets/css/typicons.min.css" rel="stylesheet" />
+<link href="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/assets/css/animate.min.css" rel="stylesheet" /> -->
+<link ng-if="!settings.rtl" href="assets/css/beyond.min.css" rel="stylesheet" />
+        <link ng-if="settings.rtl" href="assets/css/beyond-rtl.min.css" rel="stylesheet" />
+        <link href="assets/css/demo.min.css" rel="stylesheet" />
+        <link href="assets/css/typicons.min.css" rel="stylesheet" />
+        <link href="assets/css/animate.min.css" rel="stylesheet" />
+
+<link ng-href="{{settings.skin}}" rel="stylesheet" type="text/css" />
+
+
+
+
+<!-- Application Styles  -->
+<link href="uxp/css/branding/top-navbar.css" rel="stylesheet" />
+<link href="uxp/css/branding/lx-sidebar.css" rel="stylesheet" />
+
+<link href="uxp/css/core/beyond-plus.css" rel="stylesheet" />
+<link href="uxp/css/core/typography.css"  rel="stylesheet" />
+<link href="app/css/servicerequest/serviceRequestDetails.css" rel="stylesheet"/>
+<link href="uxp/css/core/bootstrap-override.css" rel="stylesheet" />
+<link href="uxp/css/core/beyondadmin-override.css" rel="stylesheet" />
+
+
+<link href="app/css/delegate/delegate.css" rel="stylesheet" />
+<link href="app/css/servicerequest/service-request.css" rel="stylesheet"/>
+<link href="app/css/layout/layout.css" rel="stylesheet" />
+
+<!-- Application Styles  -->
+
+
+
+<!-- core Scripts -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+<!-- <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+ <script src="lib/jquery/bootstrap.js"></script>
+<!-- core Scripts -->
+
+<!-- Angular -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-route.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-cookies.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-resource.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-touch.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-messages.min.js"></script>
+<script src="lib/jquery/slimscroll/jquery.slimscroll.js"></script>
+<!-- Angular -->
+
+
+<!-- others: angular module -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.4.0/ui-bootstrap-tpls.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/oclazyload/1.0.9/ocLazyLoad.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/checklist-model/0.11.0/checklist-model.min.js"></script>
+<!-- others: angular module -->
+
+<!-- others: non angular module -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+<script src="lib/jquery/fuelux/wizard/wizard-custom.min.js"></script>
+<!-- others: non angular module -->
+
+
+
+
+<!-- beyond admin - part1 -->
+<script src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/lib/utilities.js"></script>
+<script
+	src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/lib/angular/angular-ui-utils/angular-ui-utils.js"></script>
+<script
+	src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/lib/angular/angular-breadcrumb/angular-breadcrumb.js"></script>
+<!-- beyond admin - part1 -->
+
+<!--  application js -->
+<script src="app/js/environment.js"></script>
+<script src="uxp/js/app.js"></script>
+
+<script src="app/backend/contactus_stub.js"></script>
+<script src="app/backend/reports_stub.js"></script>
+<script src="app/backend/customer_stub.js"></script>
+<script src="app/backend/dashboard_stub.js"></script>
+<script src="app/backend/delegate_stub.js"></script>
+<script src="app/backend/electricityusage_stub.js"></script>
+<script src="app/backend/iam_stub.js"></script>
+<script src="app/backend/myprofile_stub.js"></script>
+<script src="app/backend/notification_stub.js"></script>
+<script src="app/backend/organization_stub.js"></script>
+<script src="app/backend/properties_stub.js"></script>
+<script src="app/backend/reports_stub.js"></script>
+<script src="app/backend/useraccount_stub.js"></script>
+<script src="app/backend/waterusage_stub.js"></script>
+<script src="app/shared/customer.js"></script>
+<script src="uxp/js/config.js"></script>
+<script src="uxp/modules/jquery-ext.js"></script>
+<script src="uxp/modules/angular-directives.js"></script>
+<script src="uxp/modules/session.js"></script>
+<script src="uxp/core/transaction.js"></script>
+<!-- <script src="lib/angular/angular-ocLazyLoad/ocLazyLoad.js"></script> -->
+<script src="uxp/modules/http-wrapper.js"></script>
+<script src="uxp/js/config.lazyload.js"></script>
+
+<script src="uxp/js/config-router.js"></script>
+<script src="uxp/modules/login/config-router.js"></script>
+<script src="uxp/modules/login/login-controller.js"></script>
+<script src="app/js/dashboard/config-router.js"></script>
+<script src="app/js/dashboard/config-router-ext.js"></script>
+<script src="app/js/dashboard/dashboard.controller.js"></script>
+<script src="app/js/dashboard/dashboard.consumption.js"></script>
+<script src="app/js/dashboard/dashboard.highchart.donut.js"></script>
+<script src="app/js/notification/notification.js"></script>
+<script src="app/js/myproperties/config-router.js"></script>
+<script src="app/js/myproperties/properties.controller.js"></script>
+<script src="app/js/myproperties/properties.widget.js"></script>
+<script src="app/js/myproperties/map.controller.js"></script>
+<script src="app/js/myproperties/energygraph.js"></script>
+<script src="app/js/myproperties/watergraph.js"></script>
+<script src="app/js/delegate/config-router.js"></script>
+<script src="app/js/delegate/delegate.controller.js"></script>
+<script src="app/js/organization/config-router.js"></script>
+<script src="app/js/organization/organization.js"></script>
+<script src="app/js/myprofile/config-router.js"></script>
+<script src="app/js/myprofile/myprofile.controller.js"></script>
+<script src="app/js/report/config-router.js"></script>
+<script src="app/js/report/report.js"></script>
+<script src="app/js/usermgmnt/config-router.js"></script>
+<script src="app/js/usermgmnt/usermgmnt.js"></script>
+<script src="app/js/csr/config-router.js"></script>
+<script src="app/js/csr/csr.js"></script>
+<script src="app/js/contactus/config-router.js"></script>
+<script src="app/js/contactus/contactus.js"></script>
+<script src="app/js/linkaccount/config-router.js"></script>
+<script src="app/js/linkaccount/linkaccount.js"></script>
+<script src="app/js/pmp-filters.js"></script>
+<script src="uxp/js/beyond.js"></script>
+<script src="uxp/js/utils/utils.js"></script>
+<script src="app/js/servicerequest/permitNumberController.js"></script>
+
+<!-- <script src="lib/jquery/fuelux/wizard/wizard-custom.js"></script> -->
+
+<script src="app/js/servicerequest/servicerequestwizard/wizard-controller.js"></script>
+<script src="app/js/servicerequest/servicerequestwizard/wizardStep1Controller.js"></script>
+
+
+<!--  application js -->
+
+<!-- <script>
+var toggle =function(){
+	$(".submenu").toggle();
+}
+</script> -->
+
+<!-- beyond admin - part2 with app module dependency-->
+<script src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/app/directives/loading.js"></script>
+<script src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/app/directives/skin.js"></script>
+<!-- <script src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/app/directives/sidebar.js"></script> -->
+<script src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/app/directives/header.js"></script>
+<script src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/app/directives/navbar.js"></script>
+
+<!-- beyond admin - part2 with app module dependency-->
+
+
+<script src="uxp/js/sidebar.js"></script>
+<!-- <script src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/app/directives/navbar.js"></script> -->
+<script src="//storage.googleapis.com/londonhydro-static/BeyondAdmin/1.6.0/app/directives/widget.js"></script>
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/bs/jqc-1.12.4/dt-1.10.15/kt-2.2.1/r-2.1.1/datatables.min.css"/>
+ 
+<script type="text/javascript" src="//cdn.datatables.net/v/bs/jqc-1.12.4/dt-1.10.15/kt-2.2.1/r-2.1.1/datatables.min.js"></script>
+</head>
+<body>
+	<div id="appInitLoader" class="loader-bg" data-ng-if="ApplConfig.appInitialize !=true">
+		<div class="loader-img" style="display: block;"></div>
+	</div>
+	<div ui-view autoscroll="false"></div>
+</body>
+</html>

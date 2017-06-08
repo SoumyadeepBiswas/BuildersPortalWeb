@@ -1,0 +1,90 @@
+<style>
+#map-legend{
+	background: #fff;
+	padding: 0px 10px 10px 10px;
+	margin: 10px;
+	box-shadow: 2px 2px 3px grey;
+}
+
+#map-legend > h6{
+	text-color: gray;
+	border-bottom: medium solid #ed4e2a;
+	text-align: center;
+}
+
+#map-legend .tooltip-inner {
+	max-width: 200px;
+	width: 200px;
+}
+
+#map-table td{
+vertical-align: middle;
+}
+/*disable horizontal scrollbar on google maps info window*/
+.gm-style-iw div { 
+ overflow:hidden !important; 
+}
+
+</style>
+
+<div>
+	<div ng-show="source=='properties'" class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-offset-10 col-lg-2 col-offset-md-10 col-md-2 col-sm-12 col-xs-12">
+				<a ui-sref="^" class="btn btn-primary margin-5 pull-right"> <i class="glyphicon glyphicon-th-list"></i>Back
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<section class="row">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-header">
+				<h3 class="widget-caption">Map View</h3>
+			</div>
+			<div class="widget-body ">
+				<div class="row">
+					<div class=" col-md-8">
+						<div id="map-legend"><h6>Legend</h6></div>
+						<div id="map" style="height: 600px;"></div>
+					</div>
+					<div class="col-md-4">
+						<table id="map-table" class="table table-hover">
+						   <thead class="bordered-darkorange">
+						      <tr>
+						         <th>
+						            Classification
+						         </th>
+						         <th>
+						            Address
+						         </th>
+						         <th>
+						            Units
+						         </th>
+						         <th>
+						            Disconnects
+						         </th>
+						          <th>
+						            Moves
+						         </th>
+						      </tr>
+						   </thead>
+						   <tbody>
+						 		<tr ng-repeat="property in selectedProperties">
+						 			<td><img ng-src="{{markers[property.propertyClassification]}}">{{property.propertyClassification}}</td>
+						 			<td>{{property.address.streetNumber + ' ' + property.address.streetName}}</td>
+						 			<td>{{property.noOfUnits}}</td>
+						 			<td>{{property.noOfUnits - property.propertySummary.connected}}
+						 			<td>{{property.propertySummary.moveinPending + property.propertySummary.moveoutPending}}</td>
+						      	</tr>
+						   </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+	
+</div>

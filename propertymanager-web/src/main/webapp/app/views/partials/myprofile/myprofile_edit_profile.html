@@ -1,0 +1,71 @@
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" data-ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">Edit Profile</h4>
+	</div>
+	<form name="uiform" class="form-horizontal" role="form"> 
+		<div class="modal-body">
+		<div class="form-group">
+			<label for="userName" class="col-sm-3 control-label no-padding-right">Login Email:</label>
+			<div class="col-sm-9 padding-5">{{workingUser.username}}</div>
+		</div>
+		<div class="form-group">
+			<label for="firstName" class="col-sm-3 control-label no-padding-right">Name:</label>
+			<div class="col-sm-9">
+
+				<div class="row no-margin-right">
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="First Name" id="firstName" name="firstName"
+							data-ng-model="userform.firstName" required="required" ng-maxlength = "50" ng-pattern="/^([a-z,A-Z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç,Á,É,Í,Ó,Ú,Â,Ê,Ô,Ã,Õ,Ç,ü,ñ,Ü,Ñ,' ',-]+)$/">
+						<div data-ng-messages="uiform.firstName.$error" role="alert" class="text-danger"
+							data-ng-show="uiform.firstName.$touched">
+							<div data-ng-message="required">Please enter a value for this field.</div>
+							<div data-ng-message="maxlength">Please enter name within 50 character of length .</div>
+							<div data-ng-message="pattern">Name must not contain numbers and special characters.</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Last Name" id="lastName" name="lastName"
+							data-ng-model="userform.lastName" required="required" ng-maxlength = "50" ng-pattern="/^([a-z,A-Z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç,Á,É,Í,Ó,Ú,Â,Ê,Ô,Ã,Õ,Ç,ü,ñ,Ü,Ñ,' ',-]+)$/">
+						<div data-ng-messages="uiform.lastName.$error" role="alert" class="text-danger"
+							data-ng-show="uiform.lastName.$touched">
+							<div data-ng-message="required">Please enter a value for this field.</div>
+							<div data-ng-message="maxlength">Please enter name within 50 character of length .</div>
+							<div data-ng-message="pattern">Name must not contain numbers and special characters.</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="phoneNumber" class="col-sm-3 control-label no-padding-right">Phone Number:</label>
+				<div class="col-sm-9">
+					<phonenumber-directive required="required"
+						placeholder="'(999) 999-9999'" model='userform.phoneNumber'
+						patternPhone="^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$"></phonenumber-directive>
+					<div data-ng-messages="uiform.phoneNumber.$error" role="alert"
+						class="text-danger" data-ng-show="uiform.phoneNumber.$touched">
+						<div data-ng-message="required">Please enter a value for this field.</div>
+						<div data-ng-message="pattern">Please enter a valid phone number.</div>
+					</div>
+					<div role="alert" class="text-danger"
+						ng-show="uiform.phoneNumber.$touched && ((userform.phoneNumber).length < 10)">Please
+						enter a valid phone number.</div>
+				</div>
+			</div>
+		
+
+		<div class="row">
+			<div class="col-sm-offset-3 col-sm-9">
+				<p role="alert" class="text-danger" data-ng-show="uiform.$invalid && uiform.$dirty">Please enter all
+					required fields.</p>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-lg" data-ng-click="close()">Cancel</button>
+		<button type="submit" class="btn btn-success btn-lg" name="add" data-ng-click="actionUpdateUser()" ng-disabled="uiform.$invalid || ((userform.phoneNumber).length < 10)">Update</button>
+	</div>
+</form>
+</div>

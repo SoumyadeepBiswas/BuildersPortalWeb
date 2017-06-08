@@ -1,0 +1,8 @@
+<div data-ng-repeat="userProfile in userProperty.userAccessDetails track by $index">
+<p ng-if="userProfile.userName != user.username"><strong>{{userProfile.userName}}</strong></p>
+</div>
+<style>
+.popover {
+	max-width: none;
+}
+</style>

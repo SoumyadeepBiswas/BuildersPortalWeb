@@ -1,0 +1,66 @@
+<div>
+	<div class="modal-header">
+		<button type="button" class="close" data-ng-click="cancel()">&times;</button>
+		<h4 class="modal-title">Close Account</h4>
+	</div>
+	<div class="modal-body">
+		<form name="uiform" class="form-horizontal" role="form" data-ng-submit="actionDeactivateMemeber()">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="userName" class="col-sm-2 control-label no-padding-right">Login Email:</label>
+						<div class="col-sm-10 padding-5">
+							<strong>{{user.username}}</strong>
+						</div>
+					</div>
+
+					<br />
+					<p>
+						We are sorry that you are leaving us. Please note that closing your online account does not cancel your service(s)
+						with London Hydro. Please provide us with the reason you are leaving Property Management Portal (PMP) so we can
+						better serve our customers in the future. Feel free to contact our customer service centre at <b>(519) 661-5503</b> any time between
+						8:30 a.m. to 4:00 p.m. Monday through Friday, or email us at <a href="mailto:BillingSupport@londonhydro.com">BillingSupport@londonhydro.com</a>
+						if you have any questions about closing your PMP account.
+					</p>
+					<br />
+
+
+
+					<div class="form-group">
+						<label class="col-sm-12">Reason for closing online account:&nbsp;</label>
+						<div class="col-xs-12">
+							<textarea class="form-control" rows="6" name="remark" id="reasonForClosing"
+								placeholder="Tell us why you are closing your account with us..." data-ng-model="userform.remark"
+								required="required" ng-minlength="5" ng-maxlength="{{maxLengthRemark}}"></textarea>
+								<span style="color: #05713E;"
+									ng-hide="!(userform.remark.length >= 5 && userform.remark.length <= 500)">
+									<strong>{{maxLengthRemark - userform.remark.length}}</strong>
+									characters remaining
+									</span>
+								<div data-ng-messages="uiform.remark.$error" role="alert"
+									class="text-danger" data-ng-show="uiform.remark.$touched">
+									<div data-ng-message="required">Please enter a value for this field.</div>
+									<div data-ng-message="maxlength">Please enter message within 500 characters of length.</div>
+									<div data-ng-message="minlength">Please enter message more than 5 characters of length.</div>
+								</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-12"> <input type="checkbox" data-ng-model="confirmAccountClosing" required="required">
+							<span class="text"><strong>I'm sure, close my online account.</strong></span>
+						</label>
+					</div>
+
+					<div class="col-sm-12">
+						<p role="alert" class="text-danger" data-ng-show="uiform.$invalid && uiform.$dirty">Please enter all
+							required filed.</p>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger btn-lg" data-ng-click="close()">Cancel</button>
+		<button type="submit" class="btn btn-success btn-lg" name="Deactivate" data-ng-click="actionCloseAccount()"
+			ng-disabled="uiform.$invalid">Close Online Account</button>
+	</div>

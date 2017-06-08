@@ -1,0 +1,41 @@
+<div class="widget">
+	<div class="widget-header">
+		<h3 class="widget-caption">
+			Property Summary <span ng-if="workingCustomer==null">(All Customers)</span>
+		</h3>
+	</div>
+	<div class="widget-body ">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" ng-include src="'app/views/partials/dashboard/dashboard-properties.html'"></div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" ng-include src="'app/views/partials/dashboard/dashboard-disconnection.html'"></div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" ng-include src="'app/views/partials/dashboard/dashboard-move.html'"></div>
+		</div>
+
+		<div class="row" style="bottom: -15px; position: relative;">
+			<div class="col-xs-12  header-buttons">
+				<div class="pull-right">
+					<ul class="legends-horizontal">
+						<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[0].ngColor"></span><img
+							alt="House" ng-src="{{PropertyResource.classificationList[0].legend}}" data-toggle="tooltip" data-placement="top" title="House" tooltip> <span class="hidden-xs">House</span></li>
+						<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[1].ngColor"></span><img
+							alt="Town
+								House" ng-src="{{PropertyResource.classificationList[1].legend}}" data-toggle="tooltip" data-placement="top" title="Town House" tooltip> <span
+							class="hidden-xs">Town House</span></li>
+						<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[2].ngColor"></span><img
+							alt="Multi-Unit (2-6)" ng-src="{{PropertyResource.classificationList[2].legend}}" data-toggle="tooltip" data-placement="top" title="Multi-Unit (2-6)" tooltip> <span class="hidden-xs">Multi-Unit
+								(2-6)</span></li>
+						<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[3].ngColor"></span><img
+							alt="High Rise" ng-src="{{PropertyResource.classificationList[3].legend}}" data-toggle="tooltip" data-placement="top" title="High Rise" tooltip><span class="hidden-xs">High
+								Rise</span></li>
+						<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[4].ngColor"></span><img
+							alt="Commercial" ng-src="{{PropertyResource.classificationList[4].legend}}" data-toggle="tooltip" data-placement="top" title="Commercial" tooltip> <span class="hidden-xs">Commercial</span></li>
+
+						<li><span class="badge  badge-empty" ng-style="PropertyResource.classificationList[5].ngColor"></span><img
+							alt="Commercial" ng-src="{{PropertyResource.classificationList[5].legend}}" data-toggle="tooltip" data-placement="top" title="Not Classified" tooltip> <span
+							class="hidden-xs">Not Classified</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

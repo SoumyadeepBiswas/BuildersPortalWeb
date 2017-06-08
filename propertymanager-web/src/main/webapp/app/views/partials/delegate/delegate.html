@@ -1,0 +1,88 @@
+<div>
+	<div class="pull-left affix hidden" style="width: 300px; height: 400px; bottom: 0px; right: 0px; z-index: 100">
+		<div class="widget">
+			<div class="widget-header">
+				<h4 class="widget-caption toast-title">Property List</h4>
+				<div class="widget-buttons">
+					<a href="" widget-dispose=""><i class="fa fa-times"></i></a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div id="propertyList" class="row" ng-repeat="property in properties">
+					<div class="databox databox-graded margin-bottom-5">
+						<div class="databox-left no-padding">
+							<img ng-if="property.hasImage" ng-src="{{ApplConfig.apiServerEndpoint}}/Property/{{property.propertyId}}/image"
+								onerror="this.src='img/home-light.jpg'" style="width: 65px; height: 65px;">
+							<img style="width: 65px; height: 65px;" ng-if="!property.hasImage" src='img/home-light.jpg' class="img-rounded img-responsive">
+						</div>
+						<div class="databox-right padding-top-20">
+							<div class="databox-stat yellow radius-bordered">
+								<h3>
+									<i class="stat-icon fa fa-plus-square fa-5x"></i>
+								</h3>
+							</div>
+							<div class="databox-text darkgray ">{{property.address.streetNumber}}&nbsp;{{property.address.streetName}}
+							</div>
+							<div class="databox-text darkgray text-muted">
+								{{property.address.city}}&nbsp;{{property.address.province}}&nbsp;<span class="text-nowrap">
+									{{property.address.postalCode}} 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-sm-6">
+				</div>
+				<div class="pull-right">
+					<button class="btn btn-success btn bg-green" style="height: 40px" data-toggle="tooltip" data-placement="top"
+						title="Add a delegate." tooltip ui-sref=".adduser">
+						<i class="fa fa-user-plus"></i>Add Delegate
+					</button>
+					<button class="btn btn-success btn bg-green" style="height: 40px" data-toggle="tooltip" data-placement="top"
+						title="This will allow property owner to update the role of the given delegates" tooltip ui-sref="app.secure.organization({userId:contextParams.userId})">
+						<i class="fa fa-users"></i>User Control
+					</button>
+				</div>
+			</div>
+			<div class="row margin-top-10 margin-bottom-10" >
+				<div class="pull-right">
+					<a href=""
+						data-ng-class="!pageuiOption.viewByUser ?'active font-110':''" data-ng-model="pageuiOption.viewByUser"
+							uib-btn-radio=false>Delegate by properties</a>
+						<span class="ghost">|</span>
+						<a href="" data-ng-class="pageuiOption.viewByUser ?'active':''" data-ng-model="pageuiOption.viewByUser"
+							uib-btn-radio=true> Delegate by user </a>
+				</div>
+			</div>
+			<section class="row">
+				<div data-ng-show="!pageuiOption.viewByUser">
+					<div class="flip-scroll padding-top">
+						<div ng-include src="'app/views/partials/delegate/delegate-view-property.html'"></div>
+						<div ng-include src="'app/views/partials/delegate/delegate-property-adduser.html'"></div>
+					</div>
+				</div>
+				<div ng-include src="'app/views/partials/delegate/delegate-view-user.html'"></div>
+
+			</section>
+		</div>
+	</div>
+</section>
+<script>
+    $(document).ready(function(){    	
+    	$(".check").click(function(){
+             if($(".checkall:checked").length<=0) {
+                 $(".checkall").prop('checked', true);
+             } else {
+                 $(".checkall").removeAttr("checked");
+             }
+
+          });
+    });
+</script>

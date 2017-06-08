@@ -1,0 +1,225 @@
+<div data-ng-controller="permitNumberController"> 
+<div class="profile-container">
+		<div class="profile-header row" style="margin-top: 32px !important;">
+			<div class="col-md-12 col-sm-12 col-xs-12 profile-stats bg-white business-partner-info" >
+				<div class="row" id="serviceRequestInfo" >
+					<div
+						class="col-lg-5 col-md-5 col-sm-12 col-xs-12 stats-col  fixed_bx_hight fixed_padding_top">
+						<div class="toast-title font-size20 toast-message builders-info" >ABC Builder</div>
+						<div class="padding-top-5 toast-message">biswass@londonhydro.com</div>
+						<br>
+						<div>Customer Number</div>
+						<div class="toast-title">112344</div>
+					</div>
+					<div
+						class="col-lg-3 col-md-3 col-sm-12 col-xs-12 stats-col  fixed_bx_hight fixed_padding_top"
+						data-ng-show="!loginUserIsCSR">
+						<div class="toast-title font-size50 builders-info" >5</div>
+						<br>
+						<div class="padding-top-5">COMPLETED REQUESTS</div>
+						<div style="font-style: italic;">(Last 30 Days)</div>
+					</div>
+					<div
+						class="{{loginUserIsCSR ?'col-md-3 col-lg-3':'col-lg-2 col-md-2'}} col-sm-12 col-xs-12 stats-col  fixed_bx_hight fixed_padding_top">
+						<div class="toast-title font-size50 builders-info" >1</div>
+						<br>
+						<div class="padding-top-5">TO-DO-REQUESTS</div>
+						<div style="font-style: italic;">(Current)</div>
+					</div>
+					<div
+						class="{{loginUserIsCSR ?'col-md-3 col-lg-3':'col-lg-2 col-md-2'}} col-sm-12 col-xs-12 stats-col fixed_bx_hight fixed_padding_top">
+						<div class="toast-title font-size50 builders-info" >4</div>
+						<br>
+						<div class="padding-top-5">IN PROGRESS REQUESTS</div>
+						<div style="font-style: italic;">(Current)</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--  page body content ends -->
+	 
+	 
+	 
+	<!-- Service request summary table and header  --> 
+	 
+	 <div
+		class="col-lg-12 col-sm-12 col-xs-12 min-height-200 {{loginUserIsCSR?'padding-top-10':''}}"
+		id="accountDiv">
+		<div class="widget widget-adjustment">
+			<div class="widget-header">
+				<span class="widget-caption" style="font-size: 13px;">Service Request Summary</span>
+				<div class="widget-buttons">
+					<!-- <a href="" widget-maximize="" class="themeprimary"><i
+						class="fa fa-expand"></i></a> <a href="" widget-collapse=""
+						class="themeprimary"><i class="fa fa-minus"></i></a> -->
+				</div>
+			</div>
+
+			<div class="widget-body backGroundWhite">
+				<div class="section table-scrollable" data-blocking-loading >
+					<div class=" col-sm-12" style="padding: 15px;">
+						<div class="col-md-3 col-sm-12">
+							<span class="input-icon"> <input type="text"
+								class="form-control bg-white" id="definput" ng-minlength="3"
+								 placeholder="Search Permits"
+								style="width: 100%;" /><i
+								class="glyphicon glyphicon-search circular themeprimary" style="color: #b20837 !important"></i>
+							</span>
+						</div>
+						<div class="col-md-2 col-sm-12 paginationDropdown pull-right">
+							<select id="e1" tabindex="-1"
+								class="select2-hidden-accessible bg-white pull-right" >
+								
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option> 
+							</select>
+						</div>
+					</div>
+
+					<div class="flip-scroll padding-top">
+						<table
+							class="table table-bordered table-striped table-condensed table-hover table-responsive">
+							<caption class="hide">Data Table</caption>
+							<thead >
+								<th><a> Permit Number <i id="nickName-icon"
+										class="fa fa-unsorted themelondonhydro table-column-heading" ></i></a></th>
+								<th><a> Service Address <i
+										id="meterNumber-icon" class="fa fa-sort-up themelondonhydro table-column-heading" ></i></a></th>
+								<th><a> Door Point Number <i
+										id="shortAddress-icon" class="fa fa-unsorted themelondonhydro table-column-heading" ></i></a></th>
+								<th><a> Lot Number <i id="accountId-icon"
+										class="fa fa-unsorted themelondonhydro table-column-heading" ></i></a></th>
+								<th><a> Meter Location <i id="id-icon"
+										class="fa fa-unsorted themelondonhydro table-column-heading" ></i></a></th>
+								<th><a> Site Readiness Date <i id="status-icon"
+										class="fa fa-unsorted themelondonhydro table-column-heading" ></i></a></th>
+								<th><a> Status <i
+										id="supplierName-icon" class="fa fa-unsorted themelondonhydro table-column-heading" ></i></a></th>
+							</thead>
+							<tbody >
+								<tr class="abn-tree">
+								
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1111',34,12)" > XRTT1111 </a></td>
+									<td >123 FAKE ST</td>
+									<td >34</td>
+									<td>12</td>
+									<td>&nbsp;</td>
+									<td>
+										<div>
+											<a href="#" editable-bsdate="user.dob"
+												e-is-open="opened.$data" e-ng-click="open($event,'$data')"
+												e-datepicker-popup="dd-MMMM-yyyy">{{ (user.dob |
+												date:"dd/MM/yyyy") || 'empty' }}</a>
+										</div>
+									</td>
+									<td data-ng-click="landingPage(); setPermitDetail('XRTT1111',34,12)" id="XRTT1111woc"><span class="label label-orange">Customer Action Required</span></td>
+									
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1112',56,15)" autoscroll="false"> XRTT1112 </a></td>
+									<td >123 FAKE AVE</td>
+									<td >56</td>
+									<td>15</td>
+									<td>Standard/ Non-Standard</td>
+									<td>01/02/2017</td>
+									<td data-ng-click="landingPage(); setPermitDetail('XRTT1112',56,15)" id="XRTT1112done"><span class="label label-success">Done</span></td>
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1113',67,100)" autoscroll="false"> XRTT1113 </a></td>
+									<td >34 UPTOWN DR</td>
+									<td >67</td>
+									<td>100</td>
+									<td>Standard/ Non-Standard</td>
+									<td>01/02/2017</td>
+									<td data-ng-click="landingPage1113(); setPermitDetail('XRTT1113',67,100)" id="XRTT1113Todo"><span class="label label-success">Done</span></td>
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1114',78,2)" autoscroll="false"> XRTT1114 </a></td>
+									<td >567 MADEUP AVE</td>
+									<td >78</td>
+									<td>2</td>
+									<td>Standard/ Non-Standard</td>
+									<td>01/02/2017</td>
+									<td data-ng-click="landingPage(); setPermitDetail('XRTT1114',78,2)" id="XRTT1114done"><span class="label label-success">Done</span></td>
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1115',33,6789)" autoscroll="false"> XRTT1115 </a></td>
+									<td >213456 TWP RD 44</td>
+									<td >33</td>
+									<td>6789</td>
+									<td>&nbsp;</td>
+									<td>Add Site Readiness Date</td>
+									<td data-ng-click="landingPage(); setPermitDetail('XRTT1115',33,6789)" id="XRTT1115woc"><span class="label label-orange">Customer Action Required</span></td>
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1116',123,12)" autoscroll="false"> XRTT1116 </a></td>
+									<td >231213 TUPPERWARE DR</td>
+									<td >123</td>
+									<td>12</td>
+									<td>&nbsp;</td>
+									<td>Add Site Readiness Date</td>
+									<td data-ng-click="landingPage1113(); setPermitDetail('XRTT1116',123,12)" id="XRTT1116Todo"><span class="label label-orange">Customer Action Required</span></td>
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1117',1,1)" autoscroll="false"> XRTT1117 </a></td>
+									<td >123 GREEN SPARROW AVE</td>
+									<td >1</td>
+									<td>1</td>
+									<td>Standard/ Non-Standard</td>
+									<td>12/31/2017</td>
+									<td data-ng-click="landingPage(); setPermitDetail('XRTT1117',1,1)"><span class="label label-warning">Queued for Work</span></td>
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1118',2,2)" autoscroll="false"> XRTT1118 </a></td>
+									<td >123 GREEN SPARROW AVE</td>
+									<td >2</td>
+									<td>2</td>
+									<td>Standard/ Non-Standard</td>
+									<td>01/02/2017</td>
+									<td data-ng-click="landingPage(); setPermitDetail('XRTT1118',2,2)" id="XRTT1118done"><span class="label label-success">Done</span></td>
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1119',3,3)" autoscroll="false"> XRTT1119 </a></td>
+									<td >123 FAKE ST</td>
+									<td >3</td>
+									<td>3</td>
+									<td>Standard/ Non-Standard</td>
+									<td>12/31/2017</td>
+									<td data-ng-click="landingPage(); setPermitDetail('XRTT1119',3,3)" id="XRTT1119wou"><span class="label label-warning">Queued for Work</span></td>
+								</tr>
+								<tr class="abn-tree">
+									<td ><a data-ng-click="pageToBeLanded(); setPermitDetail('XRTT1120',4,4)" autoscroll="false"> XRTT1120 </a></td>
+									<td >123 FAKE ST</td>
+									<td >4</td>
+									<td>4</td>
+									<td>Standard/ Non-Standard</td>
+									<td>01/02/2017</td>
+									<td data-ng-click="landingPage(); setPermitDetail('XRTT1120',4,4)" id="XRTT1120Todo"><span class="label label-success">Cancelled</span></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+					<div id="pagination" class="col-xs-12 padding-10"
+						style=" border-top: 1px solid #bdbdbd;">
+						<div class="col-md-5 col-sm-5 col-xs-12" style="margin-top: 5px">
+							<strong>Showing 1 to 10 of 10 entries</strong>
+						</div>
+						<div class="btn-group col-md-7 col-sm-7 col-xs-12">
+							<div class="pull-right">
+								<button class="btn btn-default"
+									>1</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	

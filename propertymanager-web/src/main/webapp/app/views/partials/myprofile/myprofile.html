@@ -1,0 +1,190 @@
+<style>
+.notification {
+	height: 100% !important
+}
+
+.password-strength-meter {
+	min-width: 280px;
+	padding-left: 0;
+}
+
+.password-strength-meter div {
+	padding-left: 0;
+}
+
+.password-strength-meter h4 {
+	margin: 0 0 5px 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+.password-rule ul {
+	list-style: none;
+	padding-left: 0px;
+}
+
+.password-rule .default {
+	line-height: 24px;
+	color: #565f5f;
+}
+
+.password-rule .invalid {
+	background: url(img/invalid.png) no-repeat 0 6px;
+	padding-left: 22px;
+	line-height: 24px;
+	color: #ec3f41;
+}
+
+.password-rule .valid {
+	background: url(img/valid.png) no-repeat 0 6px;
+	padding-left: 22px;
+	line-height: 24px;
+	color: #3a7d34;
+}
+
+.password-strength-meter .strength-meter {
+	text-align: right;
+	float: right;
+	padding-bottom: 8px;
+}
+
+.password-strength-meter .strength-meter .strength-bar {
+	float: right;
+	height: 7px;
+	margin-top: 3px;
+	width: 100%;
+}
+
+.password-strength-meter .strength-meter .strength-label {
+	float: right;
+	clear: both;
+	height: 14px;
+	margin-top: 0px;
+	font-size: 10px;
+	font-weight: bold;
+}
+</style>
+
+<section class="row">
+	<div class="col-xs-12" style="margin-top: 2%">
+		<div class="widget">
+			<div class="widget-header">
+				<h3 class="widget-caption">Profile</h3>
+			</div>
+			<div class="widget-body ">
+				<editable-form role="form">
+				<div class="row">
+					<div class=" col-md-8" ng-if="primaryCustomer==null">
+						<div class="lh-subtitle bordered-bottom bordered-themesecondary" style="margin-bottom: 15px">
+							<label><strong>User Profile</strong></label>
+						</div>
+						<div>
+							<div class="row">
+								<div class=" col-xs-12 ">
+									<label>User Name:</label>&nbsp;<label><strong>{{workingUser.firstName}}&nbsp;{{workingUser.lastName}}</strong></label><label ng-show="workingUser.firstName == null && workingUser.lastName == null">Not Set</label>
+								</div>
+								<div class=" col-xs-12 ">
+									<label>Login Email: </label>&nbsp;<label><strong>{{workingUser.username}}</strong></label>
+								</div>
+								<div class=" col-xs-4 " ng-if="!workingUser.isPropertyOwner()">
+									<label>Phone: </label>&nbsp;<label><strong>{{workingUser.phoneNumber | phonenumber}}</strong></label> <label ng-show="workingUser.phoneNumber == null">Not Set</label>&nbsp;&nbsp;
+								</div>
+								<div class =" col-xs-8 pull-left" ng-if="!workingUser.isPropertyOwner()">
+									<button type="button" class="btn btn-primary" style="margin-right: 100px !important;"
+										ui-sref=".editProfile">Edit Profile</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class=" col-md-8" ng-if="primaryCustomer!=null">
+						<div class="lh-subtitle bordered-bottom bordered-themesecondary" style="margin-bottom: 15px">
+							<label><strong>Customer Profile</strong></label>
+						</div>
+						<div>
+							<div class="row">
+								<div class="col-xs-12">
+									<h4>{{primaryCustomer|legalName}}</h4>
+								</div>
+								<div class=" col-xs-12 ">
+									<label><strong>Customer Number</strong></label><br> <label>{{primaryCustomer.customerId}}</label>
+								</div>
+								<div class=" col-sm-6 ">
+									<label> <strong>Mailing Address</strong></label><br> <label>{{primaryCustomer.mailingAddress.streetNumber}}&nbsp;{{primaryCustomer.mailingAddress.streetName}}<br />
+										{{primaryCustomer.mailingAddress.city}},&nbsp;{{primaryCustomer.mailingAddress.province}},&nbsp;{{primaryCustomer.mailingAddress.postalCode}}
+									</label>
+									<p data-ng-show="primaryCustomer.customerEmails.length > 0">
+										<i class="fa fa-envelope"></i>&nbsp;<label
+											data-ng-repeat="email in primaryCustomer.customerEmails | limitTo :1">{{email.emailAddress}}</label>
+									</p>
+								</div>
+								<div class="col-sm-6">
+									<p>
+										<label><strong>Phone Numbers</strong></label><br> <label><i class="fa fa-phone"></i>&nbsp;{{primaryCustomer.phoneNumbers|phoneNumber:'RESIDENTIAL'}}
+											(Residential)</label><br> <label><i class="fa fa-phone"></i>&nbsp;{{primaryCustomer.phoneNumbers|phoneNumber:'BUSINESS/WORK'}}
+											(Business)</label>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class=" " ui-view="notification_preference" ng-if="workingUser !=null && !workingUser.isCSR()"></div>
+					</div>
+				</div>
+				<div class="dashboard-box">
+					<div class="box-visits">
+						<div class="row">
+							<div class="col-lg-4 col-sm-4 col-xs-12">
+								<div class="notification">
+									<div class="clearfix">
+
+										<div class="notification-body">
+											<span class="title"><button class="btn btn-success btn-xlg uppercase" ui-sref=".changePassword">
+													<div class="notification-icon">
+														<i class="fa fa-user-secret palegreen bordered-1 bordered-palegreen"></i>
+													</div>
+													Change Password
+												</button></span>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-sm-4 col-xs-12">
+								<div class="notification">
+									<div class="clearfix">
+
+										<div class="notification-body">
+											<span class="title"><button class="btn btn-warning btn-xlg uppercase" ui-sref=".changeEmail">
+													<div class="notification-icon">
+														<i class="fa fa-envelope bordered-1 bordered-orange orange"></i>
+													</div>
+													Change Login Email
+												</button> </span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-sm-4 col-xs-12">
+								<div class="notification">
+									<div class="clearfix">
+
+										<div class="notification-body">
+											<span class="title"><button class="btn btn-danger btn-xlg uppercase" ui-sref=".closeAccount">
+													<div class="notification-icon">
+														<i class="fa fa-pause azure bordered-1 bordered-white"></i>
+													</div>
+													Close Online Account
+												</button></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</editable-form>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,325 @@
+<style>
+a.editable-click {
+	border-bottom: none;
+}
+</style>
+<div ui-view="child"></div>
+<section data-ng-controller="MyPropertiesController" class="padding-top-20 bordered-1"
+	data-ng-show="$toState.name == 'app.delegated-properties'">
+	<div class="row margin-bottom-5 " data-ng-show="properties.length==0">
+		<div class="col-xs-12">
+			<h2 class="text-warning padding-left-10">No property is associated with this customer!</h2>
+		</div>
+	</div>
+	<div class="row margin-bottom-5 " data-ng-show="properties.length>0">
+		<div class="col-sm-7">
+			<span class="input-icon"> <input type="text" class="form-control" id="fontawsome-search"
+				placeholder="Search a Property with address or name" ng-model="search"> <i
+				class="glyphicon glyphicon-search circular blue"></i>
+			</span>
+		</div>
+		<div class="col-sm-5 padding-top-10 ">
+			<div class="pull-right">
+				<a class="btn btn-primary " ui-sref=".map"><i class="fa fa-map-marker"></i>Map View</a> <a class="btn btn-primary "
+					data-toggle="tooltip" data-placement="right" title="Download properties as CSV file."
+					data-ng-click="download(properties,'property',true)" tooltip><i class="fa fa-download"></i>Download</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row no-margin-left no-margin-right margin-top-10" data-ng-show="properties.length>0">
+		<div id="propertyList" class="widget collapsed" data-ng-repeat="property in ::properties | filter:propertyFilter">
+			<div class="widget-header text-align-left no-padding-left">
+				<div class="databox databox-xxlg no-margin-bottom">
+					<div class="databox-left padding-x-0 bg-blueberry databox-text no-padding-top">
+						<div class="avatar-area">
+							<img id="blah" class="img-rounded img-responsive"
+								src="https://geo2.ggpht.com/cbk?panoid=qmStPrmXsZXLDSQqeBcfjQ&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=283.07053&pitch=0"
+								class="avatar transparent">
+							<div onchange="readURL(this)"
+								style="position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)">
+								<strong>Upload Image</strong>
+							</div>
+							<input style="visibility: hidden; position: absolute;" id="imgInp" class="form-control" type="file" name="imgInp">
+						</div>
+					</div>
+
+					<div class="row databox-right bg-lightgray databox-text no-padding-left no-padding-right">
+						<div
+							class="row no-margin-left no-margin-right bordered-bottom-2 bordered-blueberry padding-bottom-20 padding-top-10 padding-left-10">
+							<div class="col-sm-5">
+								<h4 class="no-margin-top">
+									<strong> {{property.address.streetNumber}}&nbsp;{{property.address.streetName}} </strong> <br /> <span
+										class="text-muted"> {{property.address.city}}&nbsp;{{property.address.province}}&nbsp;<span
+										class="text-nowrap"> {{property.address.postalCode}}</span>
+									</span>
+
+								</h4>
+								<div>
+									<h4>
+										<a href="javascript:void(0);" editable-text="property.propertyName" onaftersave="nicknamePatch(property)"
+											class="white">{{ property.propertyName || 'empty' }} <i class="fa fa-edit padding-left-10"></i>
+										</a>
+									</h4>
+								</div>
+								<h4>
+									<a href="javascript:void(0);" editable-select="property.propertyClassification"
+										e-ng-options="s.value as s.text for s in classificationList" onaftersave="classificationPatch(property)"
+										class="white"><strong>{{showStatus(property)}}</strong><i class="fa fa-edit padding-left-10"></i></a> &nbsp;<i
+										class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+										title="Classification is based on your water service. If this is not correct please contct to customer service."
+										style="cursor: pointer;" tooltip></i>
+								</h4>
+							</div>
+
+							<div class="col-sm-7">
+								<dl class="dl-horizontal ">
+									<dt>Montly Utility Cost :</dt>
+									<dd>$---</dd>
+									<dt>Utility Cost Per Unit</dt>
+									<dd>$---</dd>
+								</dl>
+								<button class="btn btn-primary btn-lg">Share to PM</button>
+							</div>
+
+						</div>
+						<div class="row margin-top-10 padding-left-10">
+							<div class="col-sm-7">
+								<dl class="dl-horizontal ">
+									<dt>No of Units :</dt>
+									<dd>{{property.noOfUnits}}</dd>
+									<dt>Occupancy :</dt>
+									<dd data-ng-switch="property.noOfUnits">
+										<span data-ng-switch-when="-1" data-ng-switch="property.propertySummary.tenantOccupied"> <span
+											data-ng-switch-when="1"> Tenant occupied</span> <span data-ng-switch-default>Owner occupied</span>
+
+										</span> <span data-ng-switch-default> Tenant: <span>{{property.propertySummary.tenantOccupied}}</span> Owner:
+											<span>{{property.noOfUnits - property.propertySummary.tenantOccupied}}</span>
+										</span>
+									</dd>
+									<dt>Service Status :</dt>
+									<dd data-ng-switch="(property.noOfUnits - property.propertySummary.connected)">
+
+										<span data-ng-switch-when="0">All connected</span> <span data-ng-switch-default>{{property.noOfUnits-property.propertySummary.connected}}
+											disconnected</span>
+									</dd>
+									<dt>
+										CSA Enrolled <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+											title="Continuous Service Agreement" style="cursor: pointer;" tooltip></i>:
+									</dt>
+									<dd data-ng-switch="property.propertySummary.csaSigned">
+										<span data-ng-switch-when="0">None</span> <span data-ng-switch-default>{{property.propertySummary.csaSigned}}</span>
+									</dd>
+									<dt>Pending Moves :</dt>
+									<dd data-ng-switch="property.propertySummary.moveinPending> 0 || property.propertySummary.moveoutPending >0">
+										<span data-ng-switch-when="true"> Move In: <span>{{property.propertySummary.moveinPending}}</span> Move
+											Out: <span>{{property.propertySummary.moveoutPending}}</span>
+										</span> <span data-ng-switch-default>No pending moves</span>
+									</dd>
+								</dl>
+							</div>
+							<div class="col-sm-5 padding-right-20">
+								<div class="databox databox-lg radius-bordered databox-shadowed  bg-palegreen "
+									data-ng-show="property.noOfUnits>0" data-ng-click="getUnitDetails(property)"
+									onclick="$(this).find('a').trigger('1click');">
+									<h3 class="bigger">
+										<a href="" class="dark font-110 white" widget-expand><strong> Show Units</strong></a>
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--Widget Header-->
+			<div class="widget-body">
+				<div class="widget" data-ng-show="property.commonUnits.length >0">
+					<div class="widget-header">
+						<span class="widget-caption toast-title"><i class="widget-icon fa fa-group"></i><strong>Common
+								Installation</strong></span>
+					</div>
+					<div class="widget-body backGroundWhite">
+						<div class="table-scrollable">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Unit Name</th>
+										<th>Occupancy</th>
+										<th>Service Status</th>
+										<th>Meter</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-ng-repeat="unit in property.commonUnits| orderBy:'premiseAddress.streetUnit':false">
+										<td><a
+											data-ui-sref=".detail({userId:contextParams.userId,customerId:contextParams.customerId,propertyId:property.propertyId})"
+											class="blue" data-ng-click="getRowDetails(property,unit,$index)">{{unit.premiseAddress.streetUnit}}<span
+												data-ng-show="unit.premiseAddress.streetUnit==null">Single Unit</span></a></td>
+										<td><span data-ng-if="unit.tenantsOccupied== 0">Owner</span><span data-ng-if="unit.tenantsOccupied== 1">Tenant</span></td>
+										<td data-ng-switch="unit.connectionStatus"><span data-ng-switch-when="0">Disconnected</span> <span
+											data-ng-switch-default>Connected</span></td>
+										<td><span data-ng-if="unit.services.electricity[0]" class="text-nowrap"> <i
+												class="glyphicon glyphicon-flash" style="color: #C0504D;"></i>{{unit.services.electricity[0]}} &nbsp; <br>
+										</span> <span data-ng-if="unit.services.water[0]" class="text-nowrap"><i class="glyphicon glyphicon-tint blue"></i>{{unit.services.water[0]}}</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+				<div class="widget">
+					<div class="widget-header">
+						<span class="widget-caption toast-title"><i class="widget-icon fa fa-home"></i><strong> Units</strong></span>
+					</div>
+					<div class="widget-body backGroundWhite" data-ng-show="property.units.length ==0">Individual units are not
+						available in our system.</div>
+					<div class="widget-body backGroundWhite" data-ng-show="property.units.length >0">
+
+						<div class="dt-premise-toolbar-h hidden">
+							<button type="button" class="btn btn-primary  ng-valid-parse ng-touched " ng-model="unitFilter.disconnected"
+								btn-checkbox="" btn-checkbox-true="true" btn-checkbox-false="false">Only Disconnected</button>
+							&nbsp;&nbsp;
+							<button type="button" class="btn btn-primary  ng-valid-parse ng-touched " ng-model="unitFilter.owner"
+								btn-checkbox="" btn-checkbox-true="true" btn-checkbox-false="false">Only Vacant</button>
+						</div>
+						<table id="dt-premise-2" datatable="ng" dt-options="dataTablePremise.dtOptions"
+							dt-column-defs="dataTablePremise.dtColumnDefs" class="table table-hover cell-border">
+							<thead>
+								<tr>
+									<th>Unit Name</th>
+									<th>Occupancy</th>
+									<th>Service Status</th>
+									<th>Meter</th>
+									<th>CSA Enrolled <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+										title="Continuous Service Agreement" style="cursor: pointer;" tooltip></i></th>
+									<th><strong>Move-In / Move-Out</strong></th>
+									<th><strong>Action</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="unit in ::property.units">
+									<td><a
+										data-ui-sref=".detail({userId:contextParams.userId,customerId:contextParams.customerId,propertyId:property.propertyId})"
+										class="blue" data-ng-click="getRowDetails(property,unit,$index)">{{unit.premiseAddress.streetUnit}}<span
+											data-ng-show="unit.premiseAddress.streetUnit==null">Single Unit</span></a></td>
+									<td><span data-ng-if="unit.tenantsOccupied== 0"><strong>Owner</strong></span><span
+										data-ng-if="unit.tenantsOccupied== 1">Tenant</span></td>
+									<td data-ng-switch="unit.connectionStatus"><span data-ng-switch-when="0">Disconnected</span> <span
+										data-ng-switch-default>Connected</span></td>
+									<td><span data-ng-if="unit.services.electricity[0]" class="text-nowrap"> <i
+											class="glyphicon glyphicon-flash" style="color: #C0504D;"></i>{{unit.services.electricity[0]}} &nbsp; <br>
+									</span> <span data-ng-if="unit.services.water[0]" class="text-nowrap"><i class="glyphicon glyphicon-tint blue"></i>{{unit.services.water[0]}}</span>
+									</td>
+									<td class="text-center"><span data-ng-if="unit.csaSigned == 0">No</span><span
+										data-ng-if="unit.csaSigned == 1">Yes</span></td>
+									<td><span data-ng-show="isPendingMoveIn(unit)"> {{isPendingMoveIn(unit)}} {{unit.moveinDate|date}}
+									</span><span data-ng-show="isPendingMoveOut(unit)">{{unit.moveoutDate|date}}</span> <span
+										data-ng-show="isPendingMoveIn(unit) ==false && isPendingMoveIn(unit)==false">No Pending Move</span></td>
+									<td><span data-ng-show="unit.tenantsOccupied != 0"><a href="https://www.londonhydro.com"
+											class="blue" target="_mylh">Owner Move-in</a></span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+				<div class="widget hidden">
+					<div class="widget-header">
+						<span class="widget-caption toast-title"><i class="widget-icon fa fa-home"></i><strong> Units</strong></span>
+					</div>
+					<div class="widget-body backGroundWhite" data-ng-show="property.units.length ==0">Individual units are not
+						available in our system.</div>
+					<div class="widget-body backGroundWhite" data-ng-show="property.units.length >0">
+						<div class="row">
+							<div class="col-sm-6">
+								<span class="input-icon"> <input type="text" class="form-control" id="fontawsome-search"
+									placeholder="Search a Unit" data-ng-model="unitFilter.searchText"> <i
+									class="glyphicon glyphicon-search circular blue"></i>
+								</span>
+							</div>
+							<div class="col-sm-4">
+
+								<button type="button" class="btn btn-primary  ng-valid-parse ng-touched " ng-model="unitFilter.disconnected"
+									btn-checkbox="" btn-checkbox-true="true" btn-checkbox-false="false">Only Disconnected</button>
+								&nbsp;&nbsp;
+								<button type="button" class="btn btn-primary  ng-valid-parse ng-touched " ng-model="unitFilter.owner"
+									btn-checkbox="" btn-checkbox-true="true" btn-checkbox-false="false">Only Vacant</button>
+							</div>
+							<div class="form-group col-sm-2 pull-right" data-ng-show="property.units.length>=displayLimit">
+
+								<select class="form-control" id="select{{property.propertyId}}" data-ng-model="displayLimit"
+									data-ng-change="pagination(property);">
+									<option value="10">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="{{property.units.length}}">All</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="table-scrollable">
+							<table id="dt-premise" class="table table-hover">
+								<thead>
+									<tr>
+										<th>Unit Name</th>
+										<th>Occupancy</th>
+										<th>Service Status</th>
+										<th>Meter</th>
+										<th>CSA Enrolled <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+											title="Continuous Service Agreement" style="cursor: pointer;" tooltip></i></th>
+										<th><strong>Move-In / Move-Out</strong></th>
+										<th><strong>Action</strong></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr
+										data-ng-repeat="unit in property.units| orderBy:unitNameComparator|filter:filterUnitList | startFrom: unitcurrentPage * displayLimit  | limitTo:displayLimit ">
+										<td><a
+											data-ui-sref=".detail({userId:contextParams.userId,customerId:contextParams.customerId,propertyId:property.propertyId})"
+											class="blue" data-ng-click="getRowDetails(property,unit,$index)">{{unit.premiseAddress.streetUnit}}</a></td>
+										<td><span data-ng-if="unit.tenantsOccupied== 0"><strong>Owner</strong></span><span
+											data-ng-if="unit.tenantsOccupied== 1">Tenant</span></td>
+										<td data-ng-switch="unit.connectionStatus"><span data-ng-switch-when="0">Disconnected</span> <span
+											data-ng-switch-default>Connected</span></td>
+										<td><span data-ng-if="unit.services.electricity[0]" class="text-nowrap"> <i
+												class="glyphicon glyphicon-flash" style="color: #C0504D;"></i>{{unit.services.electricity[0]}} &nbsp; <br>
+										</span> <span data-ng-if="unit.services.water[0]" class="text-nowrap"><i class="glyphicon glyphicon-tint blue"></i>{{unit.services.water[0]}}</span>
+										</td>
+										<td class="text-center"><span data-ng-if="unit.csaSigned == 0">No</span><span
+											data-ng-if="unit.csaSigned == 1">Yes</span></td>
+										<td><span data-ng-show="isPendingMoveIn(unit)"> {{isPendingMoveIn(unit)}} {{unit.moveinDate|date}}
+										</span><span data-ng-show="isPendingMoveOut(unit)">{{unit.moveoutDate|date}}</span> <span
+											data-ng-show="isPendingMoveIn(unit) ==false && isPendingMoveIn(unit)==false">No Pending Move</span></td>
+										<td><span data-ng-show="unit.tenantsOccupied != 0"><a href="https://www.londonhydro.com"
+												class="blue" target="_mylh">Owner Move-in</a></span></td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div id="pagination{{property.propertyId}}" class="row no-margin-left no-margin-right padding-5"
+								style="border-top: 1px solid #bdbdbd;" ng-show="property.units.length>=displayLimit">
+								<div ng-show="(property.units.length>0)" id="Showing{{property.propertyId}}" class="col-sm-6">
+									<strong>Showing {{unitcurrentPage * displayLimit+1}} to {{((unitcurrentPage * displayLimit |
+										num)+(displayLimit| num)) < property.units.length? ((unitcurrentPage * displayLimit | num)+(displayLimit|
+										num)):property.units.length}} of {{property.units.length}} units.</strong>
+								</div>
+								<div class="btn-group  pull-right" id="buttongroup{{property.propertyId}}">
+									<button id="button{{property.propertyId}}" class="btn btn-default"
+										data-ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index"
+										data-ng-class="{active: i == unitcurrentPage}" data-ng-click="setCurrentPage($index)">{{$index+ 1}}</button>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<!--Widget Body-->
+				</div>
+				<!--Widget-->
+			</div>
+		</div>
+	</div>
+</section>

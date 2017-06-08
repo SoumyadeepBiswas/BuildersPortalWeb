@@ -1,0 +1,25 @@
+<div class="databox-cell  no-padding text-align-center">
+	<div class="databox-top">
+		<div class="databox-row row-12">
+			<div class="databox-text">
+				<h5>
+					<a ui-sref="app.secure.properties({userId:contextParams.userId,pendingMoves:'Y'})" ng-if="workingCustomer==null">
+						Pending Moves</a> <a
+						ui-sref="app.secure.propertiescustomer({userId:contextParams.userId,customerId:contextParams.customerId,pendingMoves:'Y'})"
+						ng-if="workingCustomer!=null"> Pending Moves</a>
+				</h5>
+			</div>
+		</div>
+	</div>
+	<div class="databox-bottom" data-loading ng-model="dashboardData">
+		<div id="donut-chart-moves" class="chart chart-md"></div>
+		<div class="col-xs-12">
+			<div class="pull-right">
+				<a ui-sref="app.secure.properties({userId:contextParams.userId,pendingMoves:'Y'})" ng-if="workingCustomer==null">
+					View Properties</a> <a
+					ui-sref="app.secure.propertiescustomer({userId:contextParams.userId,customerId:contextParams.customerId,pendingMoves:'Y'})"
+					ng-if="workingCustomer!=null"> View Properties</a>
+			</div>
+	</div>
+</div>
+</div>

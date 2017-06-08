@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+	<application>frompom</application>
+	<service>default</service>
+	<version>frompom</version>
+	<threadsafe>true</threadsafe>
+	<use-google-connector-j>true</use-google-connector-j>
+	${appengine.instance.configuration}
+	<!-- If the expiration time is omitted, the production server defaults to 
+		10 minutes. -->
+	<static-files>
+		<include path="home.html" expiration="4m" />
+		<include path="homedev.html" expiration="4m" />
+		<include path="homelocal.html" expiration="4m" />
+		<include path="/**.html" />
+		<include path="/**.js" />
+		<include path="/**.png" expiration="1d" />
+		<include path="/**.jpg" expiration="1d" />
+		<include path="/**.ico" expiration="1d" />
+		<include path="/**.css" />
+		<include path="/**" expiration="3m" />
+		<include path="/robots.txt" />
+	</static-files>
+
+</appengine-web-app>

@@ -1,0 +1,1 @@
+merged/minified js/css files will be generated during maven build process

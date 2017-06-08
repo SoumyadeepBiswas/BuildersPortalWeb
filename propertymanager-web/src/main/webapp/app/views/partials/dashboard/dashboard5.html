@@ -1,0 +1,91 @@
+<style>
+.databox .highcharts-title {
+	font-size: 24px !important;
+}
+</style>
+<p ng-if="workingCustomer ==null">
+	Test Text:: You are viewing information for all customers...... You may switch to specific customer context by clicking
+	<strong>"Select Customer"</strong>......
+</p>
+<section class="row">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-header">
+				<h3 class="widget-caption">Profile</h3>
+			</div>
+			<div class="widget-body ">
+				<div class="row">
+					<div class=" col-md-8">
+						<div class="row">
+							<div class="col-xs-12" ng-include src="'app/views/partials/dashboard/customer-profile2.html'"
+								ng-if="workingCustomer!=null"></div>
+							<div class="col-xs-12" ng-include src="'app/views/partials/dashboard/multi-customers3.html'"
+								ng-if="workingCustomer==null"></div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class=" " ng-include src="'app/views/partials/dashboard/notification-preference2.html'"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="row">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-header">
+				<h3 class="widget-caption">
+					Property Summary <span ng-if="workingCustomer==null">(All Customers)</span>
+				</h3>
+			</div>
+			<div class="widget-body ">
+				<div class="row">
+					<div class="col-sm-4" ng-include src="'app/views/partials/dashboard/dashboard-properties.html'"></div>
+					<div class="col-sm-4" ng-include src="'app/views/partials/dashboard/dashboard-disconnection.html'"></div>
+					<div class="col-sm-4" ng-include src="'app/views/partials/dashboard/dashboard-move.html'"></div>
+				</div>
+
+				<div class="row" style="bottom: -15px; position: relative;">
+					<div class="col-xs-12  header-buttons">
+						<div class="pull-right">
+							<ul class="legends-horizontal">
+								<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[0].ngColor" data-toggle="tooltip" data-placement="top" title="High Rise" tooltip></span> <label>High
+										Rise</label></li>
+								<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[1].ngColor" data-toggle="tooltip" data-placement="top" title="Multi-Unit (2-6)" tooltip></span> <label>Multi
+										Unit</label></li>
+								<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[2].ngColor" data-toggle="tooltip" data-placement="top" title="Town House" tooltip></span> <label>Town
+										House</label></li>
+								<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[3].ngColor" data-toggle="tooltip" data-placement="top" title="Commercial" tooltip></span> <label>Commercial</label></li>
+								<li><span class="badge badge-empty" ng-style="PropertyResource.classificationList[4].ngColor" data-toggle="tooltip" data-placement="top" title="House" tooltip></span> <label>House</label></li>
+								<li><span class="badge  badge-empty" ng-style="PropertyResource.classificationList[5].ngColor" data-toggle="tooltip" data-placement="top" title="Not Classified" tooltip></span> <label>Not
+										Classified</label></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="row" ng-controller="ConsumptionController" ng-if="workingCustomer != null" >
+	<div class="col-xs-12"  ng-view="aggregated_consumption">
+		<div ng-include src="'app/views/partials/dashboard/dashboard-consumption-propertytype.html'"></div>
+	</div>
+</section>
+
+<section class="row" ng-controller="MapCtrl">
+	<div class="col-xs-12">
+		<div ng-include='app/views/partials/dashboard/dashboard-map.html'></div>
+	</div>
+</section>
+
+<section class="row" ng-controller="ConsumptionController" ng-if="workingCustomer != null" >
+	<div class="col-xs-12"  ng-view="aggregated_consumption">
+		<div ng-include src="'app/views/partials/dashboard/dashboard-consumption-propertytype.html'"></div>
+	</div>
+</section>
+
+<div id="container_p" class="hidden"></div>
+<div id="container_water_p" class="hidden"></div>
+<script src="app/views/partials/dashboard/dashboard2-chart.js"></script>

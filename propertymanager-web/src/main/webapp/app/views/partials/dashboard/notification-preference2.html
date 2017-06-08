@@ -1,0 +1,35 @@
+<div ng-cloak data-loading ng-model="notificationSubscription">
+	<div class="lh-subtitle bordered-bottom bordered-themesecondary" style="margin-bottom: 15px">
+		<label><strong>Notifications</strong></label>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<editable-form name="form" role="form">
+			<div class="form-group" style="margin-right: 30px">
+				<label style="margin-top: -12px; padding-right: 70px"> <span class="text">About moves</span>&nbsp;<i
+					class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Notify me about moves"
+					style="cursor: pointer;" tooltip></i></label><label><input type="checkbox" class="checkbox-slider"
+					ng-change="actionMovesSubsciptionChanged()" ng-model="notificationSubscription.isMoveEnable"> <span
+					class="text"></span></label>
+			</div>
+			<div class="form-group">
+				<label style="margin-top: -12px; padding-right: 10px"><span class="text">About disconnections</span>&nbsp; <i
+					class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Notify me about disconnections"
+					style="cursor: pointer;" tooltip></i></label> <label><input type="checkbox" class="checkbox-slider"
+					ng-change="actionDisconnectionSubsciptionChanged()" ng-model="notificationSubscription.isDisconnectionEnable">
+					<span class="text"></span></label>
+			</div>
+			<div class="form-group" ng-if="notificationSubscription.isDisconnectionEnable||notificationSubscription.isMoveEnable">
+				<div>
+					Email to: <a href="javascript:void(0);" name="notificationEmail"
+						editable-email="notificationSubscription.notificationEmail" onaftersave="actionSubscriptionChanged()">{{
+						notificationSubscription.notificationEmail|| 'Click to set Email.' }} <i class="fa fa-edit padding-left-10"></i>
+					</a>
+					<div data-ng-messages="form.userName.$error" role="alert" class="text-danger"
+						data-ng-show="formmember.userName.$touched"></div>
+				</div>
+			</div>
+			</editable-form>
+		</div>
+	</div>
+</div>

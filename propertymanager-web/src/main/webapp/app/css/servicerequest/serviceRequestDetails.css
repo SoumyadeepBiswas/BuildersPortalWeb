@@ -1,0 +1,23 @@
+@CHARSET "ISO-8859-1";
+
+.widget-customised{
+    margin-top: 2%;
+   
+    margin-bottom: 1%;
+}
+
+.heading-color{
+	color: #999;
+}
+
+.widget-body-custom{
+	display: block;
+    margin-top: 1%;
+    margin-bottom: 4%;
+}
+
+.form-details-heading{
+	border-bottom: none !important; 
+	font-size: 15px; 
+	color: #999
+}

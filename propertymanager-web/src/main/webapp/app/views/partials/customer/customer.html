@@ -1,0 +1,57 @@
+<section class="row" data-ng-controller="CustomerController">
+	<div class="col-xs-12">
+		<div class="widget">
+			<div class="widget-header header-large">
+				<span class="widget-caption">Change Customer</span>
+			</div>
+			<div class="widget-body ">
+				<div class="row">
+					<form class="form-inline" name="searchform">
+						<div class="col-sm-10">
+							<span class="input-icon"> <input type="text" class="form-control" id="fontawsome-search"
+								required="required" ng-minlength="5" ng-minlength="20"
+								placeholder="Type customer id /customer or
+								organization name / mailing address to search."
+								data-ng-model="searchText"> <i
+								class="glyphicon glyphicon-search circular blue"></i>
+							</span>
+						</div>
+						<div class="col-sm-2">
+							<button class="btn btn-primary" type="submit" data-ng-click="findCustomersByQuery()"
+								ng-disabled="searchform.$invalid">Search</button>
+						</div>
+					</form>
+				</div>
+
+				<table id="dt-customer" datatable="ng" dt-options="dtCustomerDelegate.dtOptions"
+					dt-column-defs="dtCustomerDelegate.dtColumnDefs" class="table table-hover cell-border">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Customer Id</th>
+							<th>Customer/Organization Name</th>
+							<th>Mailing Address</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="customer in accessibleCustomers | filter:filterCustomerList">
+							<td>{{$index+1}}</td>
+							<td><a ui-sref="app.secure.dashboardcustomer({userId:contextParams.userId,customerId:customer.customerId})">{{customer.customerId}}</a></td>
+							<td>{{customer|legalName}}</td>
+							<td>{{customer.mailingAddress.streetNumber}}&nbsp;{{customer.mailingAddress.streetName}}<br /> <span
+								class="text-muted small">
+									{{customer.mailingAddress.city}},&nbsp;{{customer.mailingAddress.province}},&nbsp;{{customer.mailingAddress.postalCode}}</span></td>
+							<td class="action-links"><a
+								ui-sref="app.secure.dashboardcustomer({userId:contextParams.userId,customerId:customer.customerId})">Dashboard</a><a
+								ui-sref="app.secure.propertiescustomer({userId:contextParams.userId,customerId:customer.customerId})">Manage
+									Properties</a></td>
+						</tr>
+					</tbody>
+				</table>
+
+
+			</div>
+		</div>
+	</div>
+</section>
